@@ -1,57 +1,48 @@
-// src/index.ts
-import fastify from "fastify";
-import cors from "@fastify/cors";
-import jwt from "@fastify/jwt";
-import fastifySocket from "fastify-socket.io";
+import Fastify from "fastify";
 import dotenv from "dotenv";
+import { fastifyCors } from "@fastify/cors";
+import AjvErrors from "ajv-errors";
+import Routes from "./routes/Routes";
+//import PluginSequelize from './plugins/PluginSequelize';
+import { AuthJWT } from "./plugins/AuthJWT";
+import { AuthToken } from "./plugins/AuthToken";
+import { AuthRole } from "./plugins/AuthRole";
 
 dotenv.config();
 
-const PORT = Number(process.env.PORT || 3000);
-
-const app = fastify({
+const app = Fastify({
   logger: true,
+  ajv: {
+    customOptions: {
+      coerceTypes: true,
+      useDefaults: true,
+      allErrors: true,
+    },
+    plugins: [AjvErrors],
+  },
 });
 
-// plugins
-app.register(cors, { origin: true });
-app.register(jwt, { secret: process.env.JWT_SECRET || "dev-secret" });
-app.register(fastifySocket, {}); // opções do socket.io aqui se quiser
+const PORT = Number(process.env.PORT) || 3000;
+const HOST = process.env.HOST || "0.0.0.0";
 
-// // decorates / helpers
-// app.register(authPlugin);
-
-// // registrar rotas de módulos
-// app.register(userRoutes, { prefix: "/users" });
-
-// rota raiz
-app.get("/", async (request, reply) => {
-  return { message: "Servidor rodando com Fastify, JWT e Socket.IO!" };
+app.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  preflight: true,
 });
 
-// configurar socket.io (após ready)
-app.addHook("onReady", async () => {
-  // @ts-ignore - fastify-socket.io adiciona `io` ao fastify
-  const io = (app as any).io;
-  if (!io) return;
-  io.on("connection", (socket: any) => {
-    app.log.info(`Socket conectado: ${socket.id}`);
-
-    socket.on("hello", (payload: any) => {
-      app.log.info("hello recebido", payload);
-      socket.emit("hello:ack", { ok: true, received: payload });
-    });
-
-    socket.on("disconnect", () => {
-      app.log.info(`Socket desconectado: ${socket.id}`);
-    });
-  });
-});
-
-// iniciar
 const start = async () => {
   try {
-    await app.listen({ port: PORT, host: "0.0.0.0" });
+    //plugins para o fastify
+    //app.register(PluginSequelize);
+    await AuthJWT.getInstance(app).initialize();
+    AuthToken(app);
+    AuthRole(app);
+    app.register(Routes);
+
+    await app.listen({ port: PORT, host: HOST });
     console.log(`Servidor rodando em http://localhost:${PORT}`);
   } catch (err) {
     app.log.error(err);
@@ -61,5 +52,4 @@ const start = async () => {
 
 start();
 
-// export para testes
 export default app;
