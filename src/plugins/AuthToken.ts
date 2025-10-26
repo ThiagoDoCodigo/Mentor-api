@@ -8,13 +8,16 @@ declare module "fastify" {
   }
 
   interface FastifyInstance {
-    verifyAuth: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+    verifyAuthToken: (
+      request: FastifyRequest,
+      reply: FastifyReply
+    ) => Promise<void>;
   }
 }
 
 export function AuthToken(app: FastifyInstance) {
   app.decorate(
-    "verifyAuth",
+    "verifyAuthToken",
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
         // Pega token do header Authorization

@@ -1,12 +1,27 @@
-import {
-  UniqueConstraintError,
-  ValidationError,
-  DatabaseError,
-  EagerLoadingError,
-} from "sequelize";
+import { ValidationError, DatabaseError, EagerLoadingError } from "sequelize";
 import { CustomError } from "../../../erros/CustomError";
 
-export function handleSequelizeError(err: unknown): never {
+export function handleSequelizeUserError(err: any): never {
+  if (
+    err.original?.code === "23505" &&
+    err.original?.constraint === "users_email_user_key"
+  ) {
+    throw new CustomError(
+      "Este email já está sendo utilizado por outro usuário!",
+      409
+    );
+  }
+
+  if (
+    err.original?.code === "23505" &&
+    err.original?.constraint === "users_cpf_user_key"
+  ) {
+    throw new CustomError(
+      "Este cpf já está sendo utilizado por outro usuário!",
+      409
+    );
+  }
+
   if (err instanceof ValidationError) {
     const messages = err.errors.map((e) => e.message).join("; ");
     throw new CustomError(messages, 400, "ValidationError");

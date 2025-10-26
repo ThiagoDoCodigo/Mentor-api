@@ -2,12 +2,12 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../../data/database";
 
 export class User extends Model {
-  public id_user!: number;
+  public id_user!: string;
   public name_user!: string;
   public email_user!: string;
   public cpf_user!: string;
   public password_user!: string;
-  public role_user!: string;
+  public role_user!: "admin" | "teacher" | "student";
   public createdAt!: Date;
   public updatedAt!: Date;
 }

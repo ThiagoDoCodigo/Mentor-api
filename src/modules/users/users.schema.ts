@@ -58,6 +58,7 @@ export const createUserSchema: FastifySchema = {
         },
       },
     },
+    additionalProperties: false,
     errorMessage: {
       required: {
         name_user: "O nome é obrigatorio",
@@ -66,6 +67,8 @@ export const createUserSchema: FastifySchema = {
         password_user: "A senha é obrigatorio",
         role_user: "O role é obrigatorio",
       },
+      additionalProperties:
+        "Atributos extras ou fora do padrão não são permitidos",
     },
   },
 };
@@ -79,6 +82,7 @@ export const patchUserSchema: FastifySchema = {
         type: "string",
         minLength: 3,
         maxLength: 250,
+        nullable: true,
         errorMessage: {
           type: "O nome deve ser uma string",
           minLength: "O nome deve ter pelo menos 3 caracteres",
@@ -89,6 +93,7 @@ export const patchUserSchema: FastifySchema = {
         type: "string",
         format: "email",
         minLength: 6,
+        nullable: true,
         errorMessage: {
           type: "O email deve ser uma string",
           format: "O email deve ser um email valido",
@@ -99,6 +104,7 @@ export const patchUserSchema: FastifySchema = {
         type: "string",
         minLength: 11,
         maxLength: 11,
+        nullable: true,
         errorMessage: {
           type: "O CPF deve ser uma string",
           minLength: "O CPF deve ter 11 caracteres",
@@ -108,6 +114,7 @@ export const patchUserSchema: FastifySchema = {
       password_user: {
         type: "string",
         minLength: 6,
+        nullable: true,
         errorMessage: {
           type: "A senha deve ser uma string",
           minLength: "A senha deve ter pelo menos 6 caracteres",
@@ -116,20 +123,18 @@ export const patchUserSchema: FastifySchema = {
       role_user: {
         type: "string",
         enum: ["admin", "teacher", "student"],
+        nullable: true,
         errorMessage: {
           type: "O role deve ser uma string",
           enum: "O role deve ser admin, teacher ou student",
         },
       },
     },
+    additionalProperties: false,
     errorMessage: {
-      required: {
-        name_user: "O nome é obrigatorio",
-        email_user: "O email é obrigatorio",
-        cpf_user: "O CPF é obrigatorio",
-        password_user: "A senha é obrigatorio",
-        role_user: "O role é obrigatorio",
-      },
+      minProperties: "Você precisa informar pelo menos um campo para atualizar",
+      additionalProperties:
+        "Atributos extras ou fora do padrão não são permitidos",
     },
   },
 };

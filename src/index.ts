@@ -7,6 +7,7 @@ import Routes from "./routes/Routes";
 import { AuthJWT } from "./plugins/AuthJWT";
 import { AuthToken } from "./plugins/AuthToken";
 import { AuthRole } from "./plugins/AuthRole";
+import { AuthOwner } from "./plugins/AuthOwner";
 
 dotenv.config();
 
@@ -17,9 +18,21 @@ const app = Fastify({
       coerceTypes: true,
       useDefaults: true,
       allErrors: true,
+      removeAdditional: false,
+      strict: true,
     },
     plugins: [AjvErrors],
   },
+});
+
+app.setErrorHandler((err, request, reply) => {
+  if (err.validation) {
+    const message = err.validation[0].message;
+    return reply
+      .status(400)
+      .send({ statusCode: 400, error: "Bad Request", message });
+  }
+  return reply.send(err);
 });
 
 const PORT = Number(process.env.PORT) || 3000;
@@ -37,9 +50,10 @@ const start = async () => {
   try {
     //plugins para o fastify
     //app.register(PluginSequelize);
-    await AuthJWT.getInstance(app).initialize();
+    await AuthJWT.getInstance().initialize(app);
     AuthToken(app);
     AuthRole(app);
+    AuthOwner(app);
     app.register(Routes);
 
     await app.listen({ port: PORT, host: HOST });

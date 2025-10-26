@@ -9,21 +9,22 @@ const JWT_LIMIT_ACESS = process.env.JWT_LIMIT_ACESS!;
 
 export class AuthJWT {
   private static instance: AuthJWT;
-  private fastify: FastifyInstance;
+  private fastify: FastifyInstance | null = null;
 
-  private constructor(fastify: FastifyInstance) {
-    this.fastify = fastify;
-  }
+  private constructor() {}
 
-  public static getInstance(fastify: FastifyInstance): AuthJWT {
+  public static getInstance(): AuthJWT {
     if (!AuthJWT.instance) {
-      AuthJWT.instance = new AuthJWT(fastify);
+      AuthJWT.instance = new AuthJWT();
     }
     return AuthJWT.instance;
   }
 
-  public async initialize(): Promise<void> {
-    this.fastify.register(jwt, {
+  public async initialize(fastify: FastifyInstance): Promise<void> {
+    if (this.fastify) return;
+    this.fastify = fastify;
+
+    await this.fastify.register(jwt, {
       secret: JWT_PASSWORD,
       sign: {
         expiresIn: JWT_LIMIT_ACESS,
@@ -32,10 +33,12 @@ export class AuthJWT {
   }
 
   public async sign(payload: object): Promise<string> {
+    if (!this.fastify) throw new Error("AuthJWT não inicializado!");
     return this.fastify.jwt.sign(payload);
   }
 
   public async verify(token: string): Promise<object | null | string> {
+    if (!this.fastify) throw new Error("AuthJWT não inicializado!");
     try {
       return this.fastify.jwt.verify(token);
     } catch {
@@ -44,6 +47,7 @@ export class AuthJWT {
   }
 
   public async decode(token: string): Promise<object | null> {
+    if (!this.fastify) throw new Error("AuthJWT não inicializado!");
     try {
       return this.fastify.jwt.decode(token);
     } catch {
