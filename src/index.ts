@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { fastifyCors } from "@fastify/cors";
 import AjvErrors from "ajv-errors";
 import Routes from "./routes/Routes";
-//import PluginSequelize from './plugins/PluginSequelize';
+import sequelizeFK from "./plugins/sequelizeFK";
 import { AuthJWT } from "./plugins/AuthJWT";
 import { AuthToken } from "./plugins/AuthToken";
 import { AuthRole } from "./plugins/AuthRole";
@@ -49,7 +49,7 @@ app.register(fastifyCors, {
 const start = async () => {
   try {
     //plugins para o fastify
-    //app.register(PluginSequelize);
+    app.register(sequelizeFK);
     await AuthJWT.getInstance().initialize(app);
     AuthToken(app);
     AuthRole(app);

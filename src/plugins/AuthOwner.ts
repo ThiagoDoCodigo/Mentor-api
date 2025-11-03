@@ -35,11 +35,10 @@ export function AuthOwner(app: FastifyInstance) {
         }
 
         if (user.id_user !== idToCheck) {
-          return reply
-            .code(403)
-            .send({
-              error: "Acesso negado: você só pode alterar seu próprio recurso",
-            });
+          return reply.code(403).send({
+            error:
+              "Acesso negado: você só pode visualizar e alterar seu próprio recurso",
+          });
         }
       };
     }
