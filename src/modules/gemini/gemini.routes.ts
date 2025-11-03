@@ -3,7 +3,7 @@ import {
   LessonPlanRequestGemini,
   ExercisesRequestGemini,
 } from "./gemini.interface";
-import lessonPlanController from "./gemini.container";
+import geminiController from "./gemini.container";
 import { createLessonPlanSchema, createExercisesSchema } from "./gemini.schema";
 
 export default async function geminiRoutes(fastify: FastifyInstance) {
@@ -13,13 +13,13 @@ export default async function geminiRoutes(fastify: FastifyInstance) {
     instance.post<{ Body: LessonPlanRequestGemini }>(
       "/create-lesson-plan",
       { schema: createLessonPlanSchema },
-      lessonPlanController.createLessonPlan.bind(lessonPlanController)
+      geminiController.createLessonPlan.bind(geminiController)
     );
 
     instance.post<{ Body: ExercisesRequestGemini }>(
       "/create-exercises",
       { schema: createExercisesSchema },
-      lessonPlanController.createExercises.bind(lessonPlanController)
+      geminiController.createExercises.bind(geminiController)
     );
   });
 }
