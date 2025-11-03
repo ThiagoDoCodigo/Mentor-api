@@ -306,14 +306,13 @@ export class GeminiService {
     ### Estrutura esperada (retorne **somente JSON válido**, sem markdown, sem comentários, sem texto fora do JSON):
 
     {
-      "subjectExercises": "string",
-      "descriptionExercises": "string",
-      "gradeLevelExercises": "string",
-      "complexityLevelExercises": "string",
-      "durationMinutesExercises": number,
-      "objectivesExercises": [{"titleObjectiveExercises": "string", "contentObjectiveExercises": "string"}],
-      "themesExercises": [{"titleThemeExercises": "string", "contentThemeExercises": "string"}],
-      "quantityExercises": number,
+      "subject_exercises": "string",
+      "description_exercises": "string",
+      "grade_level_exercises": "string",
+      "complexity_level_exercises": "string",
+      "duration_minutes_exercises": number,
+      "objectives_exercises": [{"titleObjectiveExercises": "string", "contentObjectiveExercises": "string"}],
+      "themes_exercises": [{"titleThemeExercises": "string", "contentThemeExercises": "string"}],
       "exercises": [
         {
           "type_exercise": "multipla-escolha" | "discursiva" | "verdadeiro-falso",
@@ -340,35 +339,38 @@ export class GeminiService {
 
     ---
 
-    ### Instruções detalhadas de elaboração:
+    ### Diretrizes detalhadas para elaboração:
 
     1. **Exercícios baseados no request**:
-      - Para cada item do array \`exercises\` enviado no request, gere **um exercício correspondente**.
+      - Para cada item do array \`exercises\` enviado, gere **um exercício correspondente**.
       - Use exatamente o \`type_exercise\` e \`bloom_level\` fornecidos.
       - Não crie exercícios extras fora do array enviado.
 
-    2. **Múltipla escolha**:
-      - Gere **no mínimo 5 opções** (A, B, C, D e E), indicando a correta.
-      - Explique detalhadamente a resposta correta.
+    2. **Questões de múltipla escolha (nível superior)**:
+      - Crie **texto-base contextualizado** (máx. 50 palavras) com definição concisa e subtemas relevantes.
+      - Delimite claramente o **comando da questão**, usando: "Considerando [contexto], assinale a opção correta."
+      - Gere **cinco alternativas A-E**, com apenas uma correta.
+      - Cada alternativa deve seguir formato: "[Termo técnico] é/representa [definição/função/características]".
+      - Distratores devem ser plausíveis, coerentes e adaptados ao nível Bloom.
 
-    3. **Verdadeiro/Falso**:
-      - Gere o enunciado e indique a alternativa correta (V ou F), com justificativa.
+    3. **Questões Verdadeiro/Falso**:
+      - Inclua enunciado, opção correta (V/F) e justificativa detalhada.
+      - Coloque no mínimo 5 opções totais.
 
-    4. **Discursivo**:
-      - Crie perguntas abertas com possibilidade de resposta detalhada.
-      - Inclua explicação do que se espera na resposta ideal.
+    4. **Questões Discursivas**:
+      - Formule perguntas abertas com expectativa clara de resposta.
+      - Explique o que se espera na resposta ideal.
 
-    5. **Tono e estilo**:
-      - Use tom **explicativo, descritivo e pedagógico**.
-      - Evite imperativos; explique conceitos, situações e razões das respostas.
-      - Mantenha coerência com os objetivos e temas enviados.
+    5. **Adequação ao domínio cognitivo**:
+      - **Lembrar:** recordação de fatos, termos, classificações.
+      - **Compreender:** interpretação e exemplificação.
+      - **Aplicar:** execução ou implementação de procedimentos.
+      - **Analisar:** diferenciação e organização de elementos.
+      - **Avaliar:** verificação crítica com base em critérios.
+      - **Criar:** geração ou planejamento de soluções.
 
-    6. **Preenchimento completo**:
-      - Certifique-se de preencher todos os campos do JSON.
-      - Use exatamente os temas e objetivos fornecidos.
+    6. **Formato final**: - **O JSON deve começar com “{” e terminar com “}”**, sem qualquer texto adicional, markdown ou explicações.
 
-    7. **Formato final**:
-      - **O JSON deve começar com “{” e terminar com “}”**, sem qualquer texto adicional, markdown ou explicações.
     ---
 
     Gere agora o JSON final completo e válido, respeitando cada exercício do request.

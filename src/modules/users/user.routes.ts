@@ -1,4 +1,4 @@
-import { UserPatch, UserRequest, UserResponse } from "./user.interface";
+import { UserPatch, UserRequest } from "./user.interface";
 import userController from "./user.container";
 import { FastifyInstance } from "fastify";
 import { createUserSchema, patchUserSchema } from "./users.schema";

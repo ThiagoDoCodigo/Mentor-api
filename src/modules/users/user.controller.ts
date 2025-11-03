@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { CustomError } from "../../erros/CustomError";
 import { UserService } from "./user.service";
-import { UserPatch, UserRequest, UserResponse } from "./user.interface";
+import { UserPatch, UserRequest } from "./user.interface";
 
 export class UserController {
   private userService: UserService;
