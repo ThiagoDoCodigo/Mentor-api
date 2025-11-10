@@ -2,45 +2,45 @@
 
 //Request:
 export interface objectivesGemini {
-  titleObjectiveLessonPlan: string;
-  contentObjectiveLessonPlan: string;
+  titleObjetivesLessonPlan: string;
+  contentObjetivesLessonPlan: string;
 }
 
 export interface teaching_methodologiesGemini {
-  titleTeachingMethodologyLessonPlan: string;
-  contentTeachingMethodologyLessonPlan: string;
+  titleMethodologyLessonPlan: string;
+  contentMethodologyLessonPlan: string;
 }
 
 export interface themesGemini {
-  titleThemeLessonPlan: string;
-  contentThemeLessonPlan: string;
+  titleThemesLessonPlan: string;
+  contentThemesLessonPlan: string;
 }
 
 export interface LessonPlanRequestGemini {
-  subject_lesson_plan: string;
-  description_lesson_plan: string;
-  grade_level_lesson_plan: string;
-  complexity_level_lesson_plan: string;
-  duration_minutes_lesson_plan: number;
+  subjectLessonPlan: string;
+  descriptionLessonPlan: string;
+  gradeLevelLessonPlan: string;
+  complexityLevelLessonPlan: string;
+  durationMinutesLessonPlan: number;
   objectives: objectivesGemini[];
-  teaching_methodologies: teaching_methodologiesGemini[];
+  teachingMethodologies: teaching_methodologiesGemini[];
   themes: themesGemini[];
 }
 
 //Response:
 export interface ObjectiveGemini {
-  titleObjectiveLessonPlan: string;
-  contentObjectiveLessonPlan: string;
+  titleObjetivesLessonPlan: string;
+  contentObjetivesLessonPlan: string;
 }
 
 export interface ThemeGemini {
-  titleThemeLessonPlan: string;
-  contentThemeLessonPlan: string;
+  titleThemesLessonPlan: string;
+  contentThemesLessonPlan: string;
 }
 
 export interface TeachingMethodologyGemini {
-  titleTeachingMethodologyLessonPlan: string;
-  contentTeachingMethodologyLessonPlan: string;
+  titleMethodologyLessonPlan: string;
+  contentMethodologyLessonPlan: string;
 }
 
 export interface examplesTopicLessonPlan {
@@ -55,13 +55,13 @@ export interface activitiesTopicLessonPlan {
 }
 
 export interface connectionsTopicLessonPlan {
-  titleConnectionsTopicLessonPlan: string;
-  contentConnectionsTopicLessonPlan: string;
+  titleConnectionsTopics: string;
+  contentConnectionsTopics: string;
 }
 
 export interface TopicGemini {
-  titleTopicLessonPlan: string;
-  contentTopicLessonPlan: string;
+  titleTopicsLessonPlan: string;
+  contentTopicsLessonPlan: string;
   detailed_explanation_topic_lesson_plan: string;
   examplesTopicLessonPlan: examplesTopicLessonPlan[];
   activitiesTopicLessonPlan: activitiesTopicLessonPlan[];
@@ -91,6 +91,22 @@ export interface ClosureGemini {
   nextSteps: string;
 }
 
+export interface CompetenciesGemini {
+  contentCompetenciesLessonPlan: string;
+}
+
+export interface SkillsGemini {
+  contentSkillsLessonPlan: string;
+}
+
+export interface ResourcesGemini {
+  contentResourcesLessonPlan: string;
+}
+
+export interface ReferencesGemini {
+  contentReferencesLessonPlan: string;
+}
+
 export interface LessonPlanResponseGemini {
   subjectLessonPlan: string;
   descriptionLessonPlan: string;
@@ -101,17 +117,17 @@ export interface LessonPlanResponseGemini {
   generalObjective: string;
   specificObjectives: ObjectiveGemini[];
 
-  competencies: string[];
-  skills: string[];
+  competencies: CompetenciesGemini[];
+  skills: SkillsGemini[];
   themes: ThemeGemini[];
   teachingMethodologies: TeachingMethodologyGemini[];
-  resources: string[];
+  resources: ResourcesGemini[];
   topics: TopicGemini[];
 
   evaluation: EvaluationGemini;
   homework: HomeworkGemini;
   inclusiveAdaptation: InclusiveAdaptationGemini;
-  references: string[];
+  references: ReferencesGemini[];
   closure: ClosureGemini;
 }
 

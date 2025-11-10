@@ -1,5 +1,4 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import sequelize from "../../../data/database";
 import { ExerciseItem } from "./exerciseItem.model";
 import { ThemeExercise } from "./themesExercise.model";
 import { ObjectiveExercise } from "./objetivesExercise.model";

@@ -5,23 +5,13 @@ import {
 } from "./gemini.interface";
 import { CustomError } from "../../erros/CustomError";
 import { GeminiService } from "./gemini.service";
+import { sendError } from "../../utils/sendError";
 
 export class GeminiController {
   private geminiService: GeminiService;
 
   constructor(geminiService: GeminiService) {
     this.geminiService = geminiService;
-  }
-
-  private sendError(reply: FastifyReply, err: any) {
-    if (err instanceof CustomError) {
-      return reply
-        .code(err.statusCode)
-        .send({ message: err.message, sucess: false });
-    }
-    return reply
-      .code(500)
-      .send({ message: "Erro interno no servidor.", sucess: false });
   }
 
   public async createLessonPlan(
@@ -35,7 +25,7 @@ export class GeminiController {
       );
       return reply.code(200).send(response);
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   }
 
@@ -50,7 +40,7 @@ export class GeminiController {
       );
       return reply.code(200).send(response);
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   }
 }

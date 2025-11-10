@@ -4,99 +4,99 @@ export const createLessonPlanSchema: FastifySchema = {
   body: {
     type: "object",
     required: [
-      "subject_lesson_plan",
-      "description_lesson_plan",
-      "grade_level_lesson_plan",
-      "complexity_level_lesson_plan",
-      "duration_minutes_lesson_plan",
+      "subjectLessonPlan",
+      "descriptionLessonPlan",
+      "gradeLevelLessonPlan",
+      "complexityLevelLessonPlan",
+      "durationMinutesLessonPlan",
       "objectives",
-      "teaching_methodologies",
+      "teachingMethodologies",
       "themes",
     ],
     properties: {
-      subject_lesson_plan: {
+      subjectLessonPlan: {
         type: "string",
         errorMessage: {
           type: "O assunto deve ser uma string",
         },
       },
-      description_lesson_plan: {
+      descriptionLessonPlan: {
         type: "string",
         errorMessage: {
-          type: "A descricao deve ser uma string",
+          type: "A descrição deve ser uma string",
         },
       },
-      grade_level_lesson_plan: {
+      gradeLevelLessonPlan: {
         type: "string",
         errorMessage: {
-          type: "O nivel de ensino deve ser uma string",
+          type: "O nível de ensino deve ser uma string",
         },
       },
-      complexity_level_lesson_plan: {
+      complexityLevelLessonPlan: {
         type: "string",
         errorMessage: {
           type: "A complexidade do ensino deve ser uma string",
         },
       },
-      duration_minutes_lesson_plan: {
+      durationMinutesLessonPlan: {
         type: "number",
         errorMessage: {
-          type: "A duracao deve ser um numero",
+          type: "A duração deve ser um número",
         },
       },
       objectives: {
         type: "array",
         items: {
           type: "object",
-          required: ["title_objective_lesson_plan"],
+          required: ["titleObjetivesLessonPlan"],
           properties: {
-            title_objective_lesson_plan: {
+            titleObjetivesLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O titulo do objetivo deve ser uma string",
+                type: "O título do objetivo deve ser uma string",
               },
             },
-            content_objective_lesson_plan: {
+            contentObjetivesLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O conteudo do objetivo deve ser uma string",
+                type: "O conteúdo do objetivo deve ser uma string",
               },
             },
           },
           additionalProperties: false,
           errorMessage: {
             required: {
-              title_objective_lesson_plan: "O titulo do objetivo é obrigatorio",
+              titleObjetivesLessonPlan: "O título do objetivo é obrigatório",
             },
             additionalProperties:
               "Atributos extras ou fora do padrão não são permitidos",
           },
         },
       },
-      teaching_methodologies: {
+      teachingMethodologies: {
         type: "array",
         items: {
           type: "object",
-          required: ["title_teaching_methodology_lesson_plan"],
+          required: ["titleMethodologyLessonPlan"],
           properties: {
-            title_teaching_methodology_lesson_plan: {
+            titleMethodologyLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O titulo da metodologia deve ser uma string",
+                type: "O título da metodologia deve ser uma string",
               },
             },
-            content_teaching_methodology_lesson_plan: {
+            contentMethodologyLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O conteudo da metodologia deve ser uma string",
+                type: "O conteúdo da metodologia deve ser uma string",
               },
             },
           },
           additionalProperties: false,
           errorMessage: {
             required: {
-              title_teaching_methodology_lesson_plan:
-                "O titulo da metodologia é obrigatorio",
+              titleMethodologyLessonPlan:
+                "O título da metodologia é obrigatório",
             },
             additionalProperties:
               "Atributos extras ou fora do padrão não são permitidos",
@@ -107,25 +107,25 @@ export const createLessonPlanSchema: FastifySchema = {
         type: "array",
         items: {
           type: "object",
-          required: ["title_theme_lesson_plan"],
+          required: ["titleThemesLessonPlan"],
           properties: {
-            title_theme_lesson_plan: {
+            titleThemesLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O titulo do tema deve ser uma string",
+                type: "O título do tema deve ser uma string",
               },
             },
-            content_theme_lesson_plan: {
+            contentThemesLessonPlan: {
               type: "string",
               errorMessage: {
-                type: "O conteudo do tema deve ser uma string",
+                type: "O conteúdo do tema deve ser uma string",
               },
             },
           },
           additionalProperties: false,
           errorMessage: {
             required: {
-              title_theme_lesson_plan: "O titulo do tema é obrigatorio",
+              titleThemesLessonPlan: "O título do tema é obrigatório",
             },
             additionalProperties:
               "Atributos extras ou fora do padrão não são permitidos",
@@ -136,14 +136,14 @@ export const createLessonPlanSchema: FastifySchema = {
     additionalProperties: false,
     errorMessage: {
       required: {
-        subject_lesson_plan: "O assunto é obrigatorio",
-        description_lesson_plan: "A descricao é obrigatorio",
-        grade_level_lesson_plan: "O nivel de ensino é obrigatorio",
-        complexity_level_lesson_plan: "A complexidade do ensino é obrigatorio",
-        duration_second_lesson_plan: "A duracao é obrigatorio",
-        objectives: "Os objetivos é obrigatorio",
-        teaching_methodologies: "As metodologias de ensino é obrigatorio",
-        themes: "Os temas é obrigatorio",
+        subjectLessonPlan: "O assunto é obrigatório",
+        descriptionLessonPlan: "A descrição é obrigatória",
+        gradeLevelLessonPlan: "O nível de ensino é obrigatório",
+        complexityLevelLessonPlan: "A complexidade do ensino é obrigatória",
+        durationMinutesLessonPlan: "A duração é obrigatória",
+        objectives: "Os objetivos são obrigatórios",
+        teachingMethodologies: "As metodologias de ensino são obrigatórias",
+        themes: "Os temas são obrigatórios",
       },
       additionalProperties:
         "Atributos extras ou fora do padrão não são permitidos",

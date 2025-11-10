@@ -1,7 +1,15 @@
 import { ExercisesRequest } from "./exercise.interface";
 import exerciseController from "./exercise.container";
 import { FastifyInstance } from "fastify";
-import { createExercisesSchema } from "./exercise.schema";
+import {
+  createExercisesSchema,
+  updateExerciseSchema,
+  updateObjectivesExerciseSchema,
+  updateThemesExerciseSchema,
+  updateExercisesItemSchema,
+  updateOptionsMultipleSchema,
+  updateOptionsTrueFalseSchema,
+} from "./exercise.schema";
 
 export default async function exerciseRoutes(fastify: FastifyInstance) {
   fastify.register(async (instance) => {
@@ -33,31 +41,37 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
 
     instance.patch(
       "/update/exercise/:id_exercise",
+      { schema: updateExerciseSchema },
       exerciseController.updateExercise.bind(exerciseController)
     );
 
     instance.patch(
       "/update/exercise-item/:id_exercise_item",
+      { schema: updateExercisesItemSchema },
       exerciseController.updateExerciseItem.bind(exerciseController)
     );
 
     instance.patch(
       "/update/theme/:id_theme_exercises",
+      { schema: updateThemesExerciseSchema },
       exerciseController.updateThemeExercise.bind(exerciseController)
     );
 
     instance.patch(
       "/update/objective/:id_objective_exercises",
+      { schema: updateObjectivesExerciseSchema },
       exerciseController.updateObjectiveExercise.bind(exerciseController)
     );
 
     instance.patch(
       "/update/option-multiple/:id_optionsMultiple",
+      { schema: updateOptionsMultipleSchema },
       exerciseController.updateOptionMultipleExercise.bind(exerciseController)
     );
 
     instance.patch(
       "/update/option-true-or-false/:id_optionsTrueOrFalse",
+      { schema: updateOptionsTrueFalseSchema },
       exerciseController.updateOptionTrueOrFalseExercise.bind(
         exerciseController
       )

@@ -14,122 +14,125 @@ export class ExerciseRepository {
     request: ExercisesRequest,
     id_user: string
   ) => {
-    return await sequelize.transaction(async (transaction) => {
-      // Criar o exercício principal
-      const exercise = await ExerciseModel.create(
-        {
-          id_user: id_user,
-          subjectExercises: request.subject_exercises,
-          descriptionExercises: request.description_exercises,
-          gradeLevelExercises: request.grade_level_exercises,
-          complexityLevelExercises: request.complexity_level_exercises,
-          durationMinutesExercises: request.duration_minutes_exercises,
-        },
-        { transaction }
-      );
-
-      // Criar os itens (questões/exercícios)
-      const items = await Promise.all(
-        request.exercises.map(async (item) => {
-          const exerciseItem = await ExerciseItem.create(
-            {
-              id_exercise: exercise.id_exercise,
-              type_exercise: item.type_exercise,
-              title_exercise: item.title_exercise,
-              content_exercise: item.content_exercise,
-              correct_answer_exercise: item.correct_answer_exercise,
-              explanation_exercise: item.explanation_exercise,
-              bloom_level_exercise: item.bloom_level,
-            },
-            { transaction }
-          );
-
-          // Se for múltipla escolha, cria as opções
-          if (
-            item.type_exercise === "multipla-escolha" &&
-            item.options_exercise_multipla_escolha
-          ) {
-            await Promise.all(
-              item.options_exercise_multipla_escolha.map((opt) =>
-                OptionsMultiple.create(
-                  {
-                    id_exercise_item: exerciseItem.id_exercise_item,
-                    option: opt.option,
-                    content_option: opt.content_option,
-                  },
-                  { transaction }
-                )
-              )
-            );
-          }
-
-          // Se for verdadeiro ou falso, cria as opções
-          if (
-            item.type_exercise === "verdadeiro-falso" &&
-            item.options_exercise_verdadeiro_falso
-          ) {
-            await Promise.all(
-              item.options_exercise_verdadeiro_falso.map((opt) =>
-                OptionsTrueOrFalse.create(
-                  {
-                    id_exercise_item: exerciseItem.id_exercise_item,
-                    option: opt.option,
-                    content_option: opt.content_option,
-                  },
-                  { transaction }
-                )
-              )
-            );
-          }
-        })
-      );
-
-      // Criar os temas do exercício
-      const themes = await Promise.all(
-        request.themes_exercises.map((theme) =>
-          ThemeExercise.create(
-            {
-              id_exercise: exercise.id_exercise,
-              titleThemeExercises: theme.titleThemeExercises,
-              contentThemeExercises: theme.contentThemeExercises,
-            },
-            { transaction }
-          )
-        )
-      );
-
-      // Criar os objetivos do exercício
-      const objectives = await Promise.all(
-        request.objectives_exercises.map((objective) =>
-          ObjectiveExercise.create(
-            {
-              id_exercise: exercise.id_exercise,
-              titleObjectiveExercises: objective.titleObjectiveExercises,
-              contentObjectiveExercises: objective.contentObjectiveExercises,
-            },
-            { transaction }
-          )
-        )
-      );
-
-      const fullExercise = await ExerciseModel.findByPk(exercise.id_exercise, {
-        include: [
+    return await sequelize.transaction(
+      { logging: false },
+      async (transaction) => {
+        const exercise = await ExerciseModel.create(
           {
-            model: ExerciseItem,
-            as: "exerciseItems",
-            include: [
-              { model: OptionsMultiple, as: "optionsMultiples" },
-              { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
-            ],
+            id_user,
+            subjectExercises: request.subject_exercises,
+            descriptionExercises: request.description_exercises,
+            gradeLevelExercises: request.grade_level_exercises,
+            complexityLevelExercises: request.complexity_level_exercises,
+            durationMinutesExercises: request.duration_minutes_exercises,
           },
-          { model: ThemeExercise, as: "themeExercises" },
-          { model: ObjectiveExercise, as: "objectiveExercises" },
-        ],
-        transaction,
-      });
+          { transaction }
+        );
 
-      return fullExercise;
-    });
+        const id_exercise = exercise.id_exercise;
+        const promises: Promise<any>[] = [];
+
+        if (request.exercises?.length) {
+          for (const item of request.exercises) {
+            const exerciseItem = await ExerciseItem.create(
+              {
+                id_exercise,
+                type_exercise: item.type_exercise,
+                title_exercise: item.title_exercise,
+                content_exercise: item.content_exercise,
+                correct_answer_exercise: item.correct_answer_exercise,
+                explanation_exercise: item.explanation_exercise,
+                bloom_level_exercise: item.bloom_level,
+              },
+              { transaction }
+            );
+
+            const id_exercise_item = exerciseItem.id_exercise_item;
+            const subPromises: Promise<any>[] = [];
+
+            if (
+              item.type_exercise === "multipla-escolha" &&
+              item.options_exercise_multipla_escolha?.length
+            ) {
+              subPromises.push(
+                OptionsMultiple.bulkCreate(
+                  item.options_exercise_multipla_escolha.map((opt) => ({
+                    id_exercise_item,
+                    option: opt.option,
+                    content_option: opt.content_option,
+                  })),
+                  { transaction }
+                )
+              );
+            }
+
+            if (
+              item.type_exercise === "verdadeiro-falso" &&
+              item.options_exercise_verdadeiro_falso?.length
+            ) {
+              subPromises.push(
+                OptionsTrueOrFalse.bulkCreate(
+                  item.options_exercise_verdadeiro_falso.map((opt) => ({
+                    id_exercise_item,
+                    option: opt.option,
+                    content_option: opt.content_option,
+                  })),
+                  { transaction }
+                )
+              );
+            }
+
+            await Promise.all(subPromises);
+          }
+        }
+
+        if (request.themes_exercises?.length) {
+          promises.push(
+            ThemeExercise.bulkCreate(
+              request.themes_exercises.map((theme) => ({
+                id_exercise,
+                titleThemeExercises: theme.titleThemeExercises,
+                contentThemeExercises: theme.contentThemeExercises,
+              })),
+              { transaction }
+            )
+          );
+        }
+
+        if (request.objectives_exercises?.length) {
+          promises.push(
+            ObjectiveExercise.bulkCreate(
+              request.objectives_exercises.map((objective) => ({
+                id_exercise,
+                titleObjectiveExercises: objective.titleObjectiveExercises,
+                contentObjectiveExercises: objective.contentObjectiveExercises,
+              })),
+              { transaction }
+            )
+          );
+        }
+
+        await Promise.all(promises);
+
+        const fullExercise = await ExerciseModel.findByPk(id_exercise, {
+          include: [
+            {
+              model: ExerciseItem,
+              as: "exerciseItems",
+              include: [
+                { model: OptionsMultiple, as: "optionsMultiples" },
+                { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
+              ],
+            },
+            { model: ThemeExercise, as: "themeExercises" },
+            { model: ObjectiveExercise, as: "objectiveExercises" },
+          ],
+          transaction,
+        });
+
+        return fullExercise;
+      }
+    );
   };
 
   public getExercises = async (
@@ -172,6 +175,7 @@ export class ExerciseRepository {
           { model: ObjectiveExercise, as: "objectiveExercises" },
         ],
         where: whereClause,
+        order: [["createdAt", "DESC"]],
       });
 
     const totalPages = Math.ceil(total / limit);
@@ -228,6 +232,7 @@ export class ExerciseRepository {
           id_user,
           ...whereClause,
         },
+        order: [["createdAt", "DESC"]],
       });
 
     const totalPages = Math.ceil(total / limit);
