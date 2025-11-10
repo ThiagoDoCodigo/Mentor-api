@@ -1,5 +1,4 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { CustomError } from "../../erros/CustomError";
 import { ExerciseService } from "./exercise.service";
 import { ExercisesRequest } from "./exercise.interface";
 import { ExerciseModel } from "./models/exercises.model";
@@ -8,21 +7,12 @@ import { OptionsMultiple } from "./models/optionsMultiple.model";
 import { OptionsTrueOrFalse } from "./models/optionsTrueOrFalse.model";
 import { ThemeExercise } from "./models/themesExercise.model";
 import { ObjectiveExercise } from "./models/objetivesExercise.model";
+import { sendError } from "../../utils/sendError";
 
 export class ExerciseController {
   private exerciseService: ExerciseService;
   constructor(exerciseService: ExerciseService) {
     this.exerciseService = exerciseService;
-  }
-  private sendError(reply: FastifyReply, err: any) {
-    if (err instanceof CustomError) {
-      return reply
-        .code(err.statusCode)
-        .send({ message: err.message, sucess: false });
-    }
-    return reply
-      .code(500)
-      .send({ message: "Erro interno no servidor.", sucess: false });
   }
 
   public createExercise = async (
@@ -44,7 +34,7 @@ export class ExerciseController {
         createdExercise: createdExercise,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -67,7 +57,7 @@ export class ExerciseController {
 
       return reply.code(200).send(response);
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -92,7 +82,7 @@ export class ExerciseController {
       );
       return reply.code(200).send(response);
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -112,7 +102,7 @@ export class ExerciseController {
       );
       return reply.code(200).send(response);
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -141,7 +131,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -170,7 +160,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -199,7 +189,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -228,7 +218,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -257,7 +247,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -286,7 +276,7 @@ export class ExerciseController {
         sucess: true,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 }

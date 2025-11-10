@@ -2,23 +2,13 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { CustomError } from "../../erros/CustomError";
 import { UserService } from "./user.service";
 import { UserPatch, UserRequest } from "./user.interface";
+import { sendError } from "../../utils/sendError";
 
 export class UserController {
   private userService: UserService;
 
   constructor(userService: UserService) {
     this.userService = userService;
-  }
-
-  private sendError(reply: FastifyReply, err: any) {
-    if (err instanceof CustomError) {
-      return reply
-        .code(err.statusCode)
-        .send({ message: err.message, sucess: false });
-    }
-    return reply
-      .code(500)
-      .send({ message: "Erro interno no servidor.", sucess: false });
   }
 
   public createUser = async (
@@ -34,7 +24,7 @@ export class UserController {
         createdUser: createdUser,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -43,7 +33,7 @@ export class UserController {
       const users = await this.userService.getUsers();
       return reply.code(200).send({ users: users, sucess: true });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 
@@ -68,7 +58,7 @@ export class UserController {
         updatedUser: updatedUser,
       });
     } catch (err) {
-      return this.sendError(reply, err);
+      return sendError(reply, err);
     }
   };
 }

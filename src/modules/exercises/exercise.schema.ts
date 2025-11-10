@@ -224,3 +224,205 @@ export const createExercisesSchema: FastifySchema = {
     },
   },
 };
+
+export const updateExerciseSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      subjectExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O assunto deve ser uma string",
+        },
+      },
+      descriptionExercises: {
+        type: "string",
+        errorMessage: {
+          type: "A descrição deve ser uma string",
+        },
+      },
+      gradeLevelExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O nível de ensino deve ser uma string",
+        },
+      },
+      complexityLevelExercises: {
+        type: "string",
+        errorMessage: {
+          type: "A complexidade do ensino deve ser uma string",
+        },
+      },
+      durationMinutesExercises: {
+        type: "number",
+        errorMessage: {
+          type: "A duração deve ser um número",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties:
+        "Atributos extras ou fora do padrão não são permitidos",
+      minProperties: "Envie ao menos um campo para atualizar o exercício",
+    },
+  },
+};
+
+export const updateObjectivesExerciseSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      titleObjectiveExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O título do objetivo deve ser uma string",
+        },
+      },
+      contentObjectiveExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O conteúdo do objetivo deve ser uma string",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties: "Atributos extras não são permitidos no objetivo",
+      minProperties: "Envie ao menos um campo para atualizar o objetivo",
+    },
+  },
+};
+
+export const updateThemesExerciseSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      titleThemeExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O título do tema deve ser uma string",
+        },
+      },
+      contentThemeExercises: {
+        type: "string",
+        errorMessage: {
+          type: "O conteúdo do tema deve ser uma string",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties: "Atributos extras não são permitidos no tema",
+      minProperties: "Envie ao menos um campo para atualizar o tema",
+    },
+  },
+};
+
+export const updateExercisesItemSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      type_exercise: {
+        type: "string",
+        errorMessage: {
+          type: "O tipo de exercício deve ser uma string",
+        },
+      },
+      bloom_level: {
+        type: "string",
+        errorMessage: {
+          type: "O nível Bloom deve ser uma string",
+        },
+      },
+      title_exercise: {
+        type: "string",
+        errorMessage: {
+          type: "O título do exercício deve ser uma string",
+        },
+      },
+      content_exercise: {
+        type: "string",
+        errorMessage: {
+          type: "O conteúdo do exercício deve ser uma string",
+        },
+      },
+      correct_answer_exercise: {
+        type: ["string", "null"],
+        errorMessage: {
+          type: "A resposta correta deve ser uma string ou null",
+        },
+      },
+      explanation_exercise: {
+        type: "string",
+        errorMessage: {
+          type: "A explicação deve ser uma string",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties:
+        "Atributos extras ou fora do padrão não são permitidos no exercício",
+      minProperties: "Envie ao menos um campo para atualizar o exercício",
+    },
+  },
+};
+
+export const updateOptionsMultipleSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      option: {
+        type: "string",
+        errorMessage: {
+          type: "A opção deve ser uma string",
+        },
+      },
+      content_option: {
+        type: "string",
+        errorMessage: {
+          type: "O conteúdo da opção deve ser uma string",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties:
+        "Atributos extras não são permitidos em opções de múltipla escolha",
+      minProperties: "Envie ao menos um campo para atualizar a opção",
+    },
+  },
+};
+
+export const updateOptionsTrueFalseSchema: FastifySchema = {
+  body: {
+    type: "object",
+    minProperties: 1,
+    properties: {
+      option: {
+        type: "string",
+        errorMessage: {
+          type: "A opção deve ser uma string",
+        },
+      },
+      content_option: {
+        type: "string",
+        errorMessage: {
+          type: "O conteúdo da opção deve ser uma string",
+        },
+      },
+    },
+    additionalProperties: false,
+    errorMessage: {
+      additionalProperties:
+        "Atributos extras não são permitidos em opções de verdadeiro/falso",
+      minProperties: "Envie ao menos um campo para atualizar a opção",
+    },
+  },
+};

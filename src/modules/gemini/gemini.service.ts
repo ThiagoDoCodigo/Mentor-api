@@ -84,15 +84,15 @@ export class GeminiService {
       ---
 
       ### Dados recebidos:
-      - Assunto: ${request.subject_lesson_plan}
-      - Descrição: ${request.description_lesson_plan}
-      - Nível de ensino: ${request.grade_level_lesson_plan}
-      - Complexidade: ${request.complexity_level_lesson_plan}
-      - Duração (minutos): ${request.duration_minutes_lesson_plan}
+      - Assunto: ${request.subjectLessonPlan}
+      - Descrição: ${request.descriptionLessonPlan}
+      - Nível de ensino: ${request.gradeLevelLessonPlan}
+      - Complexidade: ${request.complexityLevelLessonPlan}
+      - Duração (minutos): ${request.durationMinutesLessonPlan}
       - Objetivos: ${JSON.stringify(request.objectives, null, 2)}
       - Temas: ${JSON.stringify(request.themes, null, 2)}
       - Metodologias de ensino: ${JSON.stringify(
-        request.teaching_methodologies,
+        request.teachingMethodologies,
         null,
         2
       )}
@@ -102,61 +102,73 @@ export class GeminiService {
       ### Estrutura esperada (retorne **somente JSON válido**, sem markdown, sem comentários, sem texto fora do JSON):
 
       {
-        "subject_lesson_plan": "string",
-        "description_lesson_plan": "string",
-        "grade_level_lesson_plan": "string",
-        "complexity_level_lesson_plan": "string",
-        "duration_minutes_lesson_plan": number,
+        "subjectLessonPlan": "string",
+        "descriptionLessonPlan": "string",
+        "gradeLevelLessonPlan": "string",
+        "complexityLevelLessonPlan": "string",
+        "durationMinutesLessonPlan": number,
 
-        "general_objective": "string",
-        "specific_objectives": [
+        "generalObjective": "string",
+        "specificObjectives": [
           {
-            "title_objective_lesson_plan": "string",
-            "content_objective_lesson_plan": "string"
+            "titleObjetivesLessonPlan": "string",
+            "contentObjetivesLessonPlan": "string"
           }
         ],
 
-        "competencies": ["string"],
-        "skills": ["string"],
+        "competencies": [
+          {
+            "contentCompetenciesLessonPlan": "string"
+          }
+        ],
+        "skills": [
+          {
+            "contentSkillsLessonPlan": "string"
+          }
+        ],
 
         "themes": [
           {
-            "title_theme_lesson_plan": "string",
-            "content_theme_lesson_plan": "string"
+            "titleThemesLessonPlan": "string",
+            "contentThemesLessonPlan": "string"
           }
         ],
 
-        "teaching_methodologies": [
+        "teachingMethodologies": [
           {
-            "title_teaching_methodology_lesson_plan": "string",
-            "content_teaching_methodology_lesson_plan": "string"
+            "titleMethodologyLessonPlan": "string",
+            "contentMethodologyLessonPlan": "string"
           }
         ],
 
-        "resources": ["string"],
+        "resources": [
+          {
+            "contentResourcesLessonPlan": "string"
+          }
+        ],
 
         "topics": [
           {
-            "title_topic_lesson_plan": "string",
-            "content_topic_lesson_plan": "string",
+            "titleTopicsLessonPlan": "string",
+            "contentTopicsLessonPlan": "string",
             "detailed_explanation_topic_lesson_plan": "string",
-            "examples_topic_lesson_plan": [
+            "examplesTopicLessonPlan": [
               {
-                "title_examples_topic_lesson_plan": "string",
-                "content_examples_topic_lesson_plan": "string"
+                "titleExamplesTopicLessonPlan": "string",
+                "contentExamplesTopicLessonPlan": "string"
               }
             ],
-            "activities_topic_lesson_plan": [
+            "activitiesTopicLessonPlan": [
               {
-                "title_activities_topic_lesson_plan": "string",
-                "content_activities_topic_lesson_plan": "string",
-                "explication_activities_topic_lesson_plan": "string"
+                "titleActivitiesTopicLessonPlan": "string",
+                "contentActivitiesTopicLessonPlan": "string",
+                "explicationActivitiesTopicLessonPlan": "string"
               }
             ],
-            "connections_topic_lesson_plan": [
+            "connectionsTopicLessonPlan": [
               {
-                "title_connections_topic_lesson_plan": "string",
-                "content_connections_topic_lesson_plan": "string"
+                "titleConnectionsTopics": "string",
+                "contentConnectionsTopics": "string"
               }
             ]
           }
@@ -173,18 +185,22 @@ export class GeminiService {
           "objective": "string"
         },
 
-        "inclusive_adaptation": {
-          "visual_impairment": "string",
-          "learning_difficulties": "string",
-          "high_abilities": "string"
+        "inclusiveAdaptation": {
+          "visualImpairment": "string",
+          "learningDifficulties": "string",
+          "highAbilities": "string"
         },
 
-        "references": ["string"],
+        "references": [
+          {
+            "contentReferencesLessonPlan": "string"
+          }
+        ],
 
         "closure": {
           "summary": "string",
           "reflection": "string",
-          "next_steps": "string"
+          "nextSteps": "string"
         }
       }
 

@@ -32,7 +32,7 @@ export class ExerciseService {
 
       return exercise;
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -44,7 +44,7 @@ export class ExerciseService {
     try {
       return await this.exerciseRepository.getExercises(page, limit, search);
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -62,7 +62,7 @@ export class ExerciseService {
         search
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -79,7 +79,7 @@ export class ExerciseService {
 
       return exercise;
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -95,7 +95,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -111,7 +111,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -127,7 +127,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -143,7 +143,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -159,7 +159,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 
@@ -175,7 +175,7 @@ export class ExerciseService {
         patch
       );
     } catch (err: any) {
-      handleSequelizeError(err);
+      handleSequelizeError(err, "Exercício");
     }
   };
 }
