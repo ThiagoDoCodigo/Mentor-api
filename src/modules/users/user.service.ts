@@ -14,14 +14,14 @@ export class UserService {
 
   public createUser = async (newUser: UserRequest): Promise<UserResponse> => {
     try {
+      if (!validateCPF(newUser.cpf_user)) {
+        throw new CustomError("CPF inválido!", 400);
+      }
+
       const userToCreate = {
         ...newUser,
         password_user: await bcrypt.hash(newUser.password_user, 10),
       };
-
-      if (!validateCPF(newUser.cpf_user)) {
-        throw new CustomError("CPF inválido!", 400);
-      }
 
       const createdUser = await this.userRepository.createUser(userToCreate);
 
