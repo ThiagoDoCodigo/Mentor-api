@@ -5,12 +5,9 @@ import { LessonPlanRepository } from "./lesson_plans.repository";
 import { Lesson_planModel } from "./models/Lesson_plan.model";
 import { Objetives_lesson_planModel } from "./models/Objetives_lesson_plan.model";
 import { Competencies_lesson_planModel } from "./models/Competencies_lesson_plan.model";
-import { Skills_lesson_planModel } from "./models/Skills_lesson_plan.model";
 import { Themes_lesson_planModel } from "./models/Themes_lesson_plan.model";
 import { Methodology_lesson_planModel } from "./models/Methodology_lesson_plan.model";
-import { Resources_lesson_planModel } from "./models/Resources_lesson_plan.model";
 import { Topics_lesson_planModel } from "./models/Topics_lesson_plan.model";
-import { Evaluation_lesson_planModel } from "./models/Evaluation_lesson_plan.model";
 import { Homework_lesson_planModel } from "./models/Homework_lesson_plan.model";
 import { InclusiveAdaptation_lesson_planModel } from "./models/InclusiveAdaptation_lesson_plan.model";
 import { Examples_topicsModel } from "./models/Examples_topics.model";
@@ -154,24 +151,6 @@ export class LessonPlanService {
     }
   };
 
-  public updateSkillsLessonPlan = async (
-    id_skills_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Skills_lesson_planModel>
-  ) => {
-    try {
-      const skillsLessonPlan =
-        await this.lessonPlanRepository.updateSkillsLessonPlan(
-          id_skills_lesson_plan,
-          id_user,
-          patch
-        );
-      return skillsLessonPlan;
-    } catch (err: any) {
-      handleSequelizeError(err, "Habilidades do plano de aula");
-    }
-  };
-
   public updateThemesLessonPlan = async (
     id_themes_lesson_plan: string,
     id_user: string,
@@ -205,24 +184,6 @@ export class LessonPlanService {
       return methodologyLessonPlan;
     } catch (err: any) {
       handleSequelizeError(err, "Metodologia do plano de aula");
-    }
-  };
-
-  public updateResourcesLessonPlan = async (
-    id_resources_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Resources_lesson_planModel>
-  ) => {
-    try {
-      const resourcesLessonPlan =
-        await this.lessonPlanRepository.updateResourcesLessonPlan(
-          id_resources_lesson_plan,
-          id_user,
-          patch
-        );
-      return resourcesLessonPlan;
-    } catch (err: any) {
-      handleSequelizeError(err, "Recursos do plano de aula");
     }
   };
 
@@ -295,24 +256,6 @@ export class LessonPlanService {
       return connectionsTopics;
     } catch (err: any) {
       handleSequelizeError(err, "Conexões do plano de aula");
-    }
-  };
-
-  public updateEvaluationLessonPlan = async (
-    id_evaluation_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Evaluation_lesson_planModel>
-  ) => {
-    try {
-      const evaluationLessonPlan =
-        await this.lessonPlanRepository.updateEvaluationLessonPlan(
-          id_evaluation_lesson_plan,
-          id_user,
-          patch
-        );
-      return evaluationLessonPlan;
-    } catch (err: any) {
-      handleSequelizeError(err, "Avaliação do plano de aula");
     }
   };
 

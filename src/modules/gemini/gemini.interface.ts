@@ -68,12 +68,6 @@ export interface TopicGemini {
   connectionsTopicLessonPlan: connectionsTopicLessonPlan[];
 }
 
-export interface EvaluationGemini {
-  diagnostic: string;
-  formative: string;
-  summative: string;
-}
-
 export interface HomeworkGemini {
   description: string;
   objective: string;
@@ -95,14 +89,6 @@ export interface CompetenciesGemini {
   contentCompetenciesLessonPlan: string;
 }
 
-export interface SkillsGemini {
-  contentSkillsLessonPlan: string;
-}
-
-export interface ResourcesGemini {
-  contentResourcesLessonPlan: string;
-}
-
 export interface ReferencesGemini {
   contentReferencesLessonPlan: string;
 }
@@ -118,13 +104,10 @@ export interface LessonPlanResponseGemini {
   specificObjectives: ObjectiveGemini[];
 
   competencies: CompetenciesGemini[];
-  skills: SkillsGemini[];
   themes: ThemeGemini[];
   teachingMethodologies: TeachingMethodologyGemini[];
-  resources: ResourcesGemini[];
   topics: TopicGemini[];
 
-  evaluation: EvaluationGemini;
   homework: HomeworkGemini;
   inclusiveAdaptation: InclusiveAdaptationGemini;
   references: ReferencesGemini[];

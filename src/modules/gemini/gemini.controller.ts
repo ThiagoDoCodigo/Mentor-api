@@ -3,7 +3,6 @@ import {
   LessonPlanRequestGemini,
   ExercisesRequestGemini,
 } from "./gemini.interface";
-import { CustomError } from "../../erros/CustomError";
 import { GeminiService } from "./gemini.service";
 import { sendError } from "../../utils/sendError";
 

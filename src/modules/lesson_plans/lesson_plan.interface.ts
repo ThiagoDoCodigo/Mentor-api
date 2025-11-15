@@ -39,12 +39,6 @@ export interface TopicRequest {
   connectionsTopicLessonPlan: connectionsTopicLessonPlanRequest[];
 }
 
-export interface EvaluationRequest {
-  diagnostic: string;
-  formative: string;
-  summative: string;
-}
-
 export interface HomeworkRequest {
   description: string;
   objective: string;
@@ -66,14 +60,6 @@ export interface CompetenciesRequest {
   contentCompetenciesLessonPlan: string;
 }
 
-export interface SkillsRequest {
-  contentSkillsLessonPlan: string;
-}
-
-export interface ResourcesRequest {
-  contentResourcesLessonPlan: string;
-}
-
 export interface ReferencesRequest {
   contentReferencesLessonPlan: string;
 }
@@ -89,13 +75,10 @@ export interface LessonPlanRequest {
   specificObjectives: ObjectiveRequest[];
 
   competencies: CompetenciesRequest[];
-  skills: SkillsRequest[];
   themes: ThemeRequest[];
   teachingMethodologies: TeachingMethodologyRequest[];
-  resources: ResourcesRequest[];
   topics: TopicRequest[];
 
-  evaluation: EvaluationRequest;
   homework: HomeworkRequest;
   inclusiveAdaptation: InclusiveAdaptationRequest;
   references: ReferencesRequest[];
@@ -157,14 +140,6 @@ export interface TopicResponse {
   connectionsTopicLessonPlan: connectionsTopicLessonPlanResponse[];
 }
 
-export interface EvaluationResponse {
-  id_evaluation_lesson_plan: string;
-  id_lesson_plan: string;
-  diagnostic: string;
-  formative: string;
-  summative: string;
-}
-
 export interface HomeworkResponse {
   id_homework_lesson_plan: string;
   id_lesson_plan: string;
@@ -194,18 +169,6 @@ export interface CompetenciesResponse {
   contentCompetenciesLessonPlan: string;
 }
 
-export interface SkillsResponse {
-  id_skills_lesson_plan: string;
-  id_lesson_plan: string;
-  contentSkillsLessonPlan: string;
-}
-
-export interface ResourcesResponse {
-  id_resources_lesson_plan: string;
-  id_lesson_plan: string;
-  contentResourcesLessonPlan: string;
-}
-
 export interface ReferencesResponse {
   id_references_lesson_plan: string;
   id_lesson_plan: string;
@@ -225,13 +188,10 @@ export interface LessonPlanResponse {
   specificObjectives: ObjectiveResponse[];
 
   competencies: CompetenciesResponse[];
-  skills: SkillsResponse[];
   themes: ThemeResponse[];
   teachingMethodologies: TeachingMethodologyResponse[];
-  resources: ResourcesResponse[];
   topics: TopicResponse[];
 
-  evaluation: EvaluationResponse;
   homework: HomeworkResponse;
   inclusiveAdaptation: InclusiveAdaptationResponse;
   references: ReferencesResponse[];
