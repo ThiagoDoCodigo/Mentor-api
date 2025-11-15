@@ -8,7 +8,7 @@
     "dev:mem": "npx --node-arg=\"--max-old-space-size=8192\" ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest --runInBand",
+    "test": "jest --verbose --coverage",
     "sync": "ts-node -r dotenv/config src/data/sync.ts"
   },
   "keywords": [],
