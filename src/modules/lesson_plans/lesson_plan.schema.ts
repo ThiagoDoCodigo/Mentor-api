@@ -12,12 +12,9 @@ export const createLessonPlanSchema: FastifySchema = {
       "generalObjective",
       "specificObjectives",
       "competencies",
-      "skills",
       "themes",
       "teachingMethodologies",
-      "resources",
       "topics",
-      "evaluation",
       "homework",
       "inclusiveAdaptation",
       "references",
@@ -101,24 +98,6 @@ export const createLessonPlanSchema: FastifySchema = {
           },
         },
       },
-      skills: {
-        type: "array",
-        items: {
-          type: "object",
-          required: ["contentSkillsLessonPlan"],
-          properties: {
-            contentSkillsLessonPlan: { type: "string" },
-          },
-          additionalProperties: false,
-          errorMessage: {
-            required: {
-              contentSkillsLessonPlan: "O conteúdo da habilidade é obrigatório",
-            },
-            additionalProperties:
-              "Atributos extras não são permitidos nas habilidades",
-          },
-        },
-      },
       themes: {
         type: "array",
         items: {
@@ -155,24 +134,6 @@ export const createLessonPlanSchema: FastifySchema = {
             },
             additionalProperties:
               "Atributos extras não são permitidos nas metodologias de ensino",
-          },
-        },
-      },
-      resources: {
-        type: "array",
-        items: {
-          type: "object",
-          required: ["contentResourcesLessonPlan"],
-          properties: {
-            contentResourcesLessonPlan: { type: "string" },
-          },
-          additionalProperties: false,
-          errorMessage: {
-            required: {
-              contentResourcesLessonPlan: "O conteúdo do recurso é obrigatório",
-            },
-            additionalProperties:
-              "Atributos extras não são permitidos nos recursos",
           },
         },
       },
@@ -268,23 +229,6 @@ export const createLessonPlanSchema: FastifySchema = {
           },
         },
       },
-      evaluation: {
-        type: "object",
-        required: ["diagnostic", "formative", "summative"],
-        properties: {
-          diagnostic: { type: "string" },
-          formative: { type: "string" },
-          summative: { type: "string" },
-        },
-        additionalProperties: false,
-        errorMessage: {
-          required: {
-            diagnostic: "O campo diagnóstico é obrigatório",
-            formative: "O campo formativo é obrigatório",
-            summative: "O campo somativo é obrigatório",
-          },
-        },
-      },
       homework: {
         type: "object",
         required: ["description", "objective"],
@@ -365,12 +309,9 @@ export const createLessonPlanSchema: FastifySchema = {
         generalObjective: "O objetivo geral é obrigatório",
         specificObjectives: "Os objetivos específicos são obrigatórios",
         competencies: "As competências são obrigatórias",
-        skills: "As habilidades são obrigatórias",
         themes: "Os temas são obrigatórios",
         teachingMethodologies: "As metodologias de ensino são obrigatórias",
-        resources: "Os recursos são obrigatórios",
         topics: "Os tópicos são obrigatórios",
-        evaluation: "A avaliação é obrigatória",
         homework: "A tarefa de casa é obrigatória",
         inclusiveAdaptation: "As adaptações inclusivas são obrigatórias",
         references: "As referências são obrigatórias",
@@ -513,43 +454,6 @@ export const updateCompetenciesSchema: FastifySchema = {
   },
 };
 
-export const updateSkillsSchema: FastifySchema = {
-  body: {
-    type: "object",
-    properties: {
-      contentSkillsLessonPlan: {
-        type: "string",
-        errorMessage: { type: "O conteúdo da habilidade deve ser uma string" },
-      },
-    },
-    minProperties: 1,
-    additionalProperties: false,
-    errorMessage: {
-      minProperties: "Informe ao menos um campo para atualizar a habilidade",
-      additionalProperties:
-        "Atributos extras não são permitidos nas habilidades",
-    },
-  },
-};
-
-export const updateResourcesSchema: FastifySchema = {
-  body: {
-    type: "object",
-    properties: {
-      contentResourcesLessonPlan: {
-        type: "string",
-        errorMessage: { type: "O conteúdo do recurso deve ser uma string" },
-      },
-    },
-    minProperties: 1,
-    additionalProperties: false,
-    errorMessage: {
-      minProperties: "Informe ao menos um campo para atualizar o recurso",
-      additionalProperties: "Atributos extras não são permitidos nos recursos",
-    },
-  },
-};
-
 export const updateReferencesSchema: FastifySchema = {
   body: {
     type: "object",
@@ -666,32 +570,6 @@ export const updateConnectionsTopicLessonPlanSchema: FastifySchema = {
       minProperties: "Informe ao menos um campo para atualizar a conexão",
       additionalProperties:
         "Atributos extras não são permitidos nas conexões do tópico",
-    },
-  },
-};
-
-export const updateEvaluationSchema: FastifySchema = {
-  body: {
-    type: "object",
-    properties: {
-      diagnostic: {
-        type: "string",
-        errorMessage: { type: "A avaliação diagnostica deve ser uma string" },
-      },
-      formative: {
-        type: "string",
-        errorMessage: { type: "A avaliação formativa deve ser uma string" },
-      },
-      summative: {
-        type: "string",
-        errorMessage: { type: "A avaliação somativa deve ser uma string" },
-      },
-    },
-    minProperties: 1,
-    additionalProperties: false,
-    errorMessage: {
-      minProperties: "Informe ao menos um campo para atualizar a avaliação",
-      additionalProperties: "Atributos extras não são permitidos na avaliação",
     },
   },
 };

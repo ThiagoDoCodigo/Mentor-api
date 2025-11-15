@@ -6,12 +6,9 @@ import { sendError } from "../../utils/sendError";
 import { Lesson_planModel } from "./models/Lesson_plan.model";
 import { Objetives_lesson_planModel } from "./models/Objetives_lesson_plan.model";
 import { Competencies_lesson_planModel } from "./models/Competencies_lesson_plan.model";
-import { Skills_lesson_planModel } from "./models/Skills_lesson_plan.model";
 import { Themes_lesson_planModel } from "./models/Themes_lesson_plan.model";
 import { Methodology_lesson_planModel } from "./models/Methodology_lesson_plan.model";
-import { Resources_lesson_planModel } from "./models/Resources_lesson_plan.model";
 import { Topics_lesson_planModel } from "./models/Topics_lesson_plan.model";
-import { Evaluation_lesson_planModel } from "./models/Evaluation_lesson_plan.model";
 import { Homework_lesson_planModel } from "./models/Homework_lesson_plan.model";
 import { InclusiveAdaptation_lesson_planModel } from "./models/InclusiveAdaptation_lesson_plan.model";
 import { Examples_topicsModel } from "./models/Examples_topics.model";
@@ -41,7 +38,7 @@ export class LessonPlanController {
         id_user
       );
       return reply.code(201).send({
-        message: "Exercício criado com sucesso.",
+        message: "Plano de aula criado com sucesso.",
         sucess: true,
         createdLessonPlan: createdLessonPlan,
       });
@@ -138,7 +135,7 @@ export class LessonPlanController {
         lessonPlan
       );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -169,7 +166,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -201,38 +198,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
-        sucess: true,
-        updatedLessonPlan: updatedLessonPlan,
-      });
-    } catch (err) {
-      return sendError(reply, err);
-    }
-  };
-
-  public updateSkillsLessonPlan = async (
-    request: FastifyRequest<{
-      Body: Partial<Skills_lesson_planModel>;
-      Params: { id_skills_lesson_plan: string };
-    }>,
-    reply: FastifyReply
-  ) => {
-    try {
-      const id_skills_lesson_plan = request.params.id_skills_lesson_plan;
-
-      const user = request.authUser as any;
-      const id_user = user.id_user;
-
-      const lessonPlan = request.body as Skills_lesson_planModel;
-
-      const updatedLessonPlan =
-        await this.lessonPlanService.updateSkillsLessonPlan(
-          id_skills_lesson_plan,
-          id_user,
-          lessonPlan
-        );
-      return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -263,7 +229,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -295,38 +261,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
-        sucess: true,
-        updatedLessonPlan: updatedLessonPlan,
-      });
-    } catch (err) {
-      return sendError(reply, err);
-    }
-  };
-
-  public updateResourcesLessonPlan = async (
-    request: FastifyRequest<{
-      Body: Partial<Resources_lesson_planModel>;
-      Params: { id_resources_lesson_plan: string };
-    }>,
-    reply: FastifyReply
-  ) => {
-    try {
-      const id_resources_lesson_plan = request.params.id_resources_lesson_plan;
-
-      const user = request.authUser as any;
-      const id_user = user.id_user;
-
-      const lessonPlan = request.body as Resources_lesson_planModel;
-
-      const updatedLessonPlan =
-        await this.lessonPlanService.updateResourcesLessonPlan(
-          id_resources_lesson_plan,
-          id_user,
-          lessonPlan
-        );
-      return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -357,7 +292,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -388,7 +323,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -419,7 +354,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -450,39 +385,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
-        sucess: true,
-        updatedLessonPlan: updatedLessonPlan,
-      });
-    } catch (err) {
-      return sendError(reply, err);
-    }
-  };
-
-  public updateEvaluationLessonPlan = async (
-    request: FastifyRequest<{
-      Body: Partial<Evaluation_lesson_planModel>;
-      Params: { id_evaluation_lesson_plan: string };
-    }>,
-    reply: FastifyReply
-  ) => {
-    try {
-      const id_evaluation_lesson_plan =
-        request.params.id_evaluation_lesson_plan;
-
-      const user = request.authUser as any;
-      const id_user = user.id_user;
-
-      const lessonPlan = request.body as Evaluation_lesson_planModel;
-
-      const updatedLessonPlan =
-        await this.lessonPlanService.updateEvaluationLessonPlan(
-          id_evaluation_lesson_plan,
-          id_user,
-          lessonPlan
-        );
-      return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -513,7 +416,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -545,7 +448,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -577,7 +480,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });
@@ -608,7 +511,7 @@ export class LessonPlanController {
           lessonPlan
         );
       return reply.code(200).send({
-        message: "Exercício atualizado com sucesso.",
+        message: "Plano de aula atualizado com sucesso.",
         sucess: true,
         updatedLessonPlan: updatedLessonPlan,
       });

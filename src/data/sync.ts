@@ -46,19 +46,9 @@ import {
 } from "../modules/lesson_plans/models/Competencies_lesson_plan.model";
 
 import {
-  Skills_lesson_planModel,
-  initSkills_lesson_plan,
-} from "../modules/lesson_plans/models/Skills_lesson_plan.model";
-
-import {
   Methodology_lesson_planModel,
   initMethodology_lesson_planModel,
 } from "../modules/lesson_plans/models/Methodology_lesson_plan.model";
-
-import {
-  Resources_lesson_planModel,
-  initResources_lesson_planModel,
-} from "../modules/lesson_plans/models/Resources_lesson_plan.model";
 
 import {
   Topics_lesson_planModel,
@@ -91,11 +81,6 @@ import {
 } from "../modules/lesson_plans/models/Closure_lesson_plan.model";
 
 import {
-  Evaluation_lesson_planModel,
-  initEvaluation_lesson_plan,
-} from "../modules/lesson_plans/models/Evaluation_lesson_plan.model";
-
-import {
   Homework_lesson_planModel,
   initHomework_lesson_plan,
 } from "../modules/lesson_plans/models/Homework_lesson_plan.model";
@@ -123,14 +108,11 @@ const syncDatabase = async () => {
     initThemes_lesson_plan(sequelize);
     initObjetives_lesson_plan(sequelize);
     initCompetencies_lesson_plan(sequelize);
-    initSkills_lesson_plan(sequelize);
     initMethodology_lesson_planModel(sequelize);
-    initResources_lesson_planModel(sequelize);
     initTopics_lesson_planModel(sequelize);
-    initEvaluation_lesson_plan(sequelize);
+    initExamples_topicsModel(sequelize);
     initHomework_lesson_plan(sequelize);
     initInclusiveAdaptation_lesson_plan(sequelize);
-    initExamples_topicsModel(sequelize);
     initActivities_topicsModel(sequelize);
     initConnections_topicsModel(sequelize);
     initReferences_lesson_planModel(sequelize);
@@ -229,7 +211,7 @@ const syncDatabase = async () => {
     });
     Objetives_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -241,19 +223,7 @@ const syncDatabase = async () => {
     });
     Competencies_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
-    });
-
-    // ===============================
-    // 🧩 LessonPlan <-> Skills
-    // ===============================
-    Lesson_planModel.hasMany(Skills_lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "skills_lesson_plan",
-    });
-    Skills_lesson_planModel.belongsTo(Lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // =========================================
@@ -265,7 +235,7 @@ const syncDatabase = async () => {
     });
     Themes_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -277,19 +247,7 @@ const syncDatabase = async () => {
     });
     Methodology_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
-    });
-
-    // ===============================
-    // 🧩 LessonPlan <-> Resources
-    // ===============================
-    Lesson_planModel.hasMany(Resources_lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "resources_lesson_plan",
-    });
-    Resources_lesson_planModel.belongsTo(Lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -301,19 +259,7 @@ const syncDatabase = async () => {
     });
     Topics_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
-    });
-
-    // ===============================
-    // 🧩 LessonPlan <-> evoluation
-    // ===============================
-    Lesson_planModel.hasOne(Evaluation_lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "evaluation_lesson_plan",
-    });
-    Evaluation_lesson_planModel.belongsTo(Lesson_planModel, {
-      foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -325,7 +271,7 @@ const syncDatabase = async () => {
     });
     Homework_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -337,7 +283,7 @@ const syncDatabase = async () => {
     });
     InclusiveAdaptation_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -349,7 +295,7 @@ const syncDatabase = async () => {
     });
     References_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // ===============================
@@ -361,7 +307,7 @@ const syncDatabase = async () => {
     });
     Closure_lesson_planModel.belongsTo(Lesson_planModel, {
       foreignKey: "id_lesson_plan",
-      as: "lessonPlan",
+      as: "lesson_plan",
     });
 
     // =======================
@@ -373,7 +319,7 @@ const syncDatabase = async () => {
     });
     Examples_topicsModel.belongsTo(Topics_lesson_planModel, {
       foreignKey: "id_topics_lesson_plan",
-      as: "topics",
+      as: "topics_lesson_plan",
     });
 
     // =========================
@@ -385,7 +331,7 @@ const syncDatabase = async () => {
     });
     Activities_topicsModel.belongsTo(Topics_lesson_planModel, {
       foreignKey: "id_topics_lesson_plan",
-      as: "topics",
+      as: "topics_lesson_plan",
     });
 
     // ==========================
@@ -397,13 +343,13 @@ const syncDatabase = async () => {
     });
     Connections_topicsModel.belongsTo(Topics_lesson_planModel, {
       foreignKey: "id_topics_lesson_plan",
-      as: "topics",
+      as: "topics_lesson_plan",
     });
 
     // ==========================================
     // 🚀 Sincroniza todos os modelos
     // ==========================================
-    await sequelize.sync({ alter: true }); // usar { force: true } apenas se quiser recriar tabelas
+    await sequelize.sync({ alter: true, force: true }); // usar { force: true } apenas se quiser recriar tabelas
     console.log("✅ Tabelas criadas/alinhadas com sucesso!");
   } catch (error) {
     console.error("❌ Erro ao sincronizar o banco:", error);

@@ -2,12 +2,9 @@ import sequelize from "../../data/database";
 import { Lesson_planModel } from "./models/Lesson_plan.model";
 import { Objetives_lesson_planModel } from "./models/Objetives_lesson_plan.model";
 import { Competencies_lesson_planModel } from "./models/Competencies_lesson_plan.model";
-import { Skills_lesson_planModel } from "./models/Skills_lesson_plan.model";
 import { Themes_lesson_planModel } from "./models/Themes_lesson_plan.model";
 import { Methodology_lesson_planModel } from "./models/Methodology_lesson_plan.model";
-import { Resources_lesson_planModel } from "./models/Resources_lesson_plan.model";
 import { Topics_lesson_planModel } from "./models/Topics_lesson_plan.model";
-import { Evaluation_lesson_planModel } from "./models/Evaluation_lesson_plan.model";
 import { Homework_lesson_planModel } from "./models/Homework_lesson_plan.model";
 import { InclusiveAdaptation_lesson_planModel } from "./models/InclusiveAdaptation_lesson_plan.model";
 import { Examples_topicsModel } from "./models/Examples_topics.model";
@@ -69,18 +66,6 @@ export class LessonPlanRepository {
         );
       }
 
-      if (request.skills?.length) {
-        promises.push(
-          Skills_lesson_planModel.bulkCreate(
-            request.skills.map((item) => ({
-              id_lesson_plan,
-              contentSkillsLessonPlan: item.contentSkillsLessonPlan,
-            })),
-            { transaction }
-          )
-        );
-      }
-
       if (request.themes?.length) {
         promises.push(
           Themes_lesson_planModel.bulkCreate(
@@ -102,32 +87,6 @@ export class LessonPlanRepository {
               titleMethodologyLessonPlan: item.titleMethodologyLessonPlan,
               contentMethodologyLessonPlan: item.contentMethodologyLessonPlan,
             })),
-            { transaction }
-          )
-        );
-      }
-
-      if (request.resources?.length) {
-        promises.push(
-          Resources_lesson_planModel.bulkCreate(
-            request.resources.map((item) => ({
-              id_lesson_plan,
-              contentResourcesLessonPlan: item.contentResourcesLessonPlan,
-            })),
-            { transaction }
-          )
-        );
-      }
-
-      if (request.evaluation) {
-        promises.push(
-          Evaluation_lesson_planModel.create(
-            {
-              id_lesson_plan,
-              diagnostic: request.evaluation.diagnostic,
-              formative: request.evaluation.formative,
-              summative: request.evaluation.summative,
-            },
             { transaction }
           )
         );
@@ -270,13 +229,11 @@ export class LessonPlanRepository {
             model: Competencies_lesson_planModel,
             as: "competencies_lesson_plan",
           },
-          { model: Skills_lesson_planModel, as: "skills_lesson_plan" },
           { model: Themes_lesson_planModel, as: "themes_lesson_plan" },
           {
             model: Methodology_lesson_planModel,
             as: "methodology_lesson_plan",
           },
-          { model: Resources_lesson_planModel, as: "resources_lesson_plan" },
           {
             model: Topics_lesson_planModel,
             as: "topics_lesson_plan",
@@ -286,7 +243,6 @@ export class LessonPlanRepository {
               { model: Connections_topicsModel, as: "connections_topics" },
             ],
           },
-          { model: Evaluation_lesson_planModel, as: "evaluation_lesson_plan" },
           { model: Homework_lesson_planModel, as: "homework_lesson_plan" },
           {
             model: InclusiveAdaptation_lesson_planModel,
@@ -338,13 +294,11 @@ export class LessonPlanRepository {
             model: Competencies_lesson_planModel,
             as: "competencies_lesson_plan",
           },
-          { model: Skills_lesson_planModel, as: "skills_lesson_plan" },
           { model: Themes_lesson_planModel, as: "themes_lesson_plan" },
           {
             model: Methodology_lesson_planModel,
             as: "methodology_lesson_plan",
           },
-          { model: Resources_lesson_planModel, as: "resources_lesson_plan" },
           {
             model: Topics_lesson_planModel,
             as: "topics_lesson_plan",
@@ -354,7 +308,6 @@ export class LessonPlanRepository {
               { model: Connections_topicsModel, as: "connections_topics" },
             ],
           },
-          { model: Evaluation_lesson_planModel, as: "evaluation_lesson_plan" },
           { model: Homework_lesson_planModel, as: "homework_lesson_plan" },
           {
             model: InclusiveAdaptation_lesson_planModel,
@@ -415,13 +368,11 @@ export class LessonPlanRepository {
             model: Competencies_lesson_planModel,
             as: "competencies_lesson_plan",
           },
-          { model: Skills_lesson_planModel, as: "skills_lesson_plan" },
           { model: Themes_lesson_planModel, as: "themes_lesson_plan" },
           {
             model: Methodology_lesson_planModel,
             as: "methodology_lesson_plan",
           },
-          { model: Resources_lesson_planModel, as: "resources_lesson_plan" },
           {
             model: Topics_lesson_planModel,
             as: "topics_lesson_plan",
@@ -431,7 +382,6 @@ export class LessonPlanRepository {
               { model: Connections_topicsModel, as: "connections_topics" },
             ],
           },
-          { model: Evaluation_lesson_planModel, as: "evaluation_lesson_plan" },
           { model: Homework_lesson_planModel, as: "homework_lesson_plan" },
           {
             model: InclusiveAdaptation_lesson_planModel,
@@ -468,13 +418,11 @@ export class LessonPlanRepository {
           model: Competencies_lesson_planModel,
           as: "competencies_lesson_plan",
         },
-        { model: Skills_lesson_planModel, as: "skills_lesson_plan" },
         { model: Themes_lesson_planModel, as: "themes_lesson_plan" },
         {
           model: Methodology_lesson_planModel,
           as: "methodology_lesson_plan",
         },
-        { model: Resources_lesson_planModel, as: "resources_lesson_plan" },
         {
           model: Topics_lesson_planModel,
           as: "topics_lesson_plan",
@@ -484,7 +432,6 @@ export class LessonPlanRepository {
             { model: Connections_topicsModel, as: "connections_topics" },
           ],
         },
-        { model: Evaluation_lesson_planModel, as: "evaluation_lesson_plan" },
         { model: Homework_lesson_planModel, as: "homework_lesson_plan" },
         {
           model: InclusiveAdaptation_lesson_planModel,
@@ -592,36 +539,6 @@ export class LessonPlanRepository {
     return competenciesLessonPlan;
   };
 
-  public updateSkillsLessonPlan = async (
-    id_skills_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Skills_lesson_planModel>
-  ) => {
-    const skillsLessonPlan = await Skills_lesson_planModel.findOne({
-      where: { id_skills_lesson_plan },
-      include: [{ model: Lesson_planModel, as: "lesson_plan" }],
-    });
-
-    if (!skillsLessonPlan) {
-      throw new CustomError(
-        "Habilidades do plano de aula não encontrado",
-        404,
-        "GenericError"
-      );
-    }
-
-    if (skillsLessonPlan?.lesson_plan?.id_user !== id_user) {
-      throw new CustomError(
-        "Habilidades do plano de aula nao pertence ao usuário",
-        403,
-        "GenericError"
-      );
-    }
-
-    await skillsLessonPlan.update(patch);
-    return skillsLessonPlan;
-  };
-
   public updateThemesLessonPlan = async (
     id_themes_lesson_plan: string,
     id_user: string,
@@ -680,36 +597,6 @@ export class LessonPlanRepository {
 
     await methodologyLessonPlan.update(patch);
     return methodologyLessonPlan;
-  };
-
-  public updateResourcesLessonPlan = async (
-    id_resources_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Resources_lesson_planModel>
-  ) => {
-    const resourcesLessonPlan = await Resources_lesson_planModel.findOne({
-      where: { id_resources_lesson_plan },
-      include: [{ model: Lesson_planModel, as: "lesson_plan" }],
-    });
-
-    if (!resourcesLessonPlan) {
-      throw new CustomError(
-        "Recursos do plano de aula não encontrado",
-        404,
-        "GenericError"
-      );
-    }
-
-    if (resourcesLessonPlan?.lesson_plan?.id_user !== id_user) {
-      throw new CustomError(
-        "Recursos do plano de aula nao pertence ao usuário",
-        403,
-        "GenericError"
-      );
-    }
-
-    await resourcesLessonPlan.update(patch);
-    return resourcesLessonPlan;
   };
 
   public updateTopicsLessonPlan = async (
@@ -852,36 +739,6 @@ export class LessonPlanRepository {
 
     await connectionsTopics.update(patch);
     return connectionsTopics;
-  };
-
-  public updateEvaluationLessonPlan = async (
-    id_evaluation_lesson_plan: string,
-    id_user: string,
-    patch: Partial<Evaluation_lesson_planModel>
-  ) => {
-    const evaluationLessonPlan = await Evaluation_lesson_planModel.findOne({
-      where: { id_evaluation_lesson_plan },
-      include: [{ model: Lesson_planModel, as: "lesson_plan" }],
-    });
-
-    if (!evaluationLessonPlan) {
-      throw new CustomError(
-        "Avaliação do plano de aula não encontrado",
-        404,
-        "GenericError"
-      );
-    }
-
-    if (evaluationLessonPlan?.lesson_plan?.id_user !== id_user) {
-      throw new CustomError(
-        "Avaliação do plano de aula nao pertence ao usuário",
-        403,
-        "GenericError"
-      );
-    }
-
-    await evaluationLessonPlan.update(patch);
-    return evaluationLessonPlan;
   };
 
   public updateHomeworkLessonPlan = async (

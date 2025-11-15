@@ -2,7 +2,7 @@ import { UserService } from "../../modules/users/user.service";
 import { UserRequest, UserResponse } from "../../modules/users/user.interface";
 import bcrypt from "bcrypt";
 
-describe("UserBusiness - createUser", () => {
+describe("UserService - createUser", () => {
   const mockCreateUser = jest.fn<Promise<UserResponse>, [UserRequest]>();
   const mockService = {
     createUser: mockCreateUser,
@@ -13,7 +13,7 @@ describe("UserBusiness - createUser", () => {
     jest.clearAllMocks();
   });
 
-  it("Must create a user successfully", async () => {
+  it("Deve criar um usuário com sucesso", async () => {
     const input: UserRequest = {
       name_user: "João",
       email_user: "joao@example.com",
@@ -41,7 +41,7 @@ describe("UserBusiness - createUser", () => {
     expect(mockCreateUser).toHaveBeenCalledWith({ ...input });
   });
 
-  it("Should throw an error if the CPF is invalid", async () => {
+  it("Deve falhar ao criar um usuário com CPF inválido", async () => {
     const input: UserRequest = {
       name_user: "João",
       email_user: "joao@example.com",

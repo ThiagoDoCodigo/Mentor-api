@@ -8,14 +8,11 @@ import {
   updateThemeSchema,
   updateTeachingMethodologySchema,
   updateCompetenciesSchema,
-  updateSkillsSchema,
-  updateResourcesSchema,
   updateReferencesSchema,
   updateTopicSchema,
   updateExamplesTopicLessonPlanSchema,
   updateActivitiesTopicLessonPlanSchema,
   updateConnectionsTopicLessonPlanSchema,
-  updateEvaluationSchema,
   updateHomeworkSchema,
   updateInclusiveAdaptationSchema,
   updateClosureSchema,
@@ -68,12 +65,6 @@ export default async function lessonPlanRoutes(fastify: FastifyInstance) {
     );
 
     instance.patch(
-      "/update/skills/:id_skills_lesson_plan",
-      { schema: updateSkillsSchema },
-      lessonPlanController.updateSkillsLessonPlan.bind(lessonPlanController)
-    );
-
-    instance.patch(
       "/update/themes/:id_themes_lesson_plan",
       { schema: updateThemeSchema },
       lessonPlanController.updateThemesLessonPlan.bind(lessonPlanController)
@@ -85,12 +76,6 @@ export default async function lessonPlanRoutes(fastify: FastifyInstance) {
       lessonPlanController.updateMethodologyLessonPlan.bind(
         lessonPlanController
       )
-    );
-
-    instance.patch(
-      "/update/resources/:id_resources_lesson_plan",
-      { schema: updateResourcesSchema },
-      lessonPlanController.updateResourcesLessonPlan.bind(lessonPlanController)
     );
 
     instance.patch(
@@ -114,12 +99,6 @@ export default async function lessonPlanRoutes(fastify: FastifyInstance) {
       "/update/connections-topics/:id_connections_topics",
       { schema: updateConnectionsTopicLessonPlanSchema },
       lessonPlanController.updateConnectionsTopics.bind(lessonPlanController)
-    );
-
-    instance.patch(
-      "/update/evaluations/:id_evaluation_lesson_plan",
-      { schema: updateEvaluationSchema },
-      lessonPlanController.updateEvaluationLessonPlan.bind(lessonPlanController)
     );
 
     instance.patch(

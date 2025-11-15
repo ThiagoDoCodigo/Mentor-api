@@ -121,11 +121,6 @@ export class GeminiService {
             "contentCompetenciesLessonPlan": "string"
           }
         ],
-        "skills": [
-          {
-            "contentSkillsLessonPlan": "string"
-          }
-        ],
 
         "themes": [
           {
@@ -138,12 +133,6 @@ export class GeminiService {
           {
             "titleMethodologyLessonPlan": "string",
             "contentMethodologyLessonPlan": "string"
-          }
-        ],
-
-        "resources": [
-          {
-            "contentResourcesLessonPlan": "string"
           }
         ],
 
@@ -173,12 +162,6 @@ export class GeminiService {
             ]
           }
         ],
-
-        "evaluation": {
-          "diagnostic": "string",
-          "formative": "string",
-          "summative": "string"
-        },
 
         "homework": {
           "description": "string",
