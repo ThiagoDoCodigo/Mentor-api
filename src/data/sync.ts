@@ -147,7 +147,7 @@ const syncDatabase = async () => {
     // ===============================
     ExerciseItem.hasMany(OptionsMultiple, {
       foreignKey: "id_exercise_item",
-      as: "optionsMultiples",
+      as: "optionsMultiple",
     });
     OptionsMultiple.belongsTo(ExerciseItem, {
       foreignKey: "id_exercise_item",
@@ -159,7 +159,7 @@ const syncDatabase = async () => {
     // ===============================
     ExerciseItem.hasMany(OptionsTrueOrFalse, {
       foreignKey: "id_exercise_item",
-      as: "optionsTrueOrFalses",
+      as: "optionsTrueOrFalse",
     });
     OptionsTrueOrFalse.belongsTo(ExerciseItem, {
       foreignKey: "id_exercise_item",
