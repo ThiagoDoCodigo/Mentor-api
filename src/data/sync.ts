@@ -135,7 +135,7 @@ const syncDatabase = async () => {
     // ===============================
     ExerciseModel.hasMany(ExerciseItem, {
       foreignKey: "id_exercise",
-      as: "exerciseItems",
+      as: "execiseItems",
     });
     ExerciseItem.belongsTo(ExerciseModel, {
       foreignKey: "id_exercise",
