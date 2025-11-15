@@ -12,7 +12,9 @@ export class UserService {
     this.userRepository = userRepository;
   }
 
-  public createUser = async (newUser: UserRequest): Promise<UserResponse> => {
+  public createUser = async (
+    newUser: UserRequest
+  ): Promise<UserResponse | null> => {
     try {
       if (!validateCPF(newUser.cpf_user)) {
         throw new CustomError("CPF inválido!", 400);
@@ -54,6 +56,10 @@ export class UserService {
     userPatch: UserPatch
   ): Promise<UserResponse> => {
     try {
+      if (userPatch.cpf_user && !validateCPF(userPatch.cpf_user)) {
+        throw new CustomError("CPF inválido!", 400);
+      }
+
       if (Object.keys(userPatch).length === 0) {
         throw new CustomError("Nenhum atributo para atualizar", 400);
       }
@@ -63,10 +69,6 @@ export class UserService {
           userPatch.password_user,
           10
         );
-      }
-
-      if (userPatch.cpf_user && !validateCPF(userPatch.cpf_user)) {
-        throw new CustomError("CPF inválido!", 400);
       }
 
       const updatedUser = await this.userRepository.patchUser(
