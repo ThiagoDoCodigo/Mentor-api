@@ -226,7 +226,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Objetives_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -238,7 +238,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Competencies_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -250,7 +250,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Skills_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // =========================================
@@ -262,7 +262,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Themes_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -274,7 +274,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Methodology_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -286,7 +286,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Resources_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -298,7 +298,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Topics_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -310,7 +310,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Evaluation_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -322,7 +322,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Homework_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -334,7 +334,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   InclusiveAdaptation_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -346,7 +346,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   References_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // ===============================
@@ -358,7 +358,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Closure_lesson_planModel.belongsTo(Lesson_planModel, {
     foreignKey: "id_lesson_plan",
-    as: "lessonPlan",
+    as: "lesson_plan",
   });
 
   // =======================
@@ -370,7 +370,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Examples_topicsModel.belongsTo(Topics_lesson_planModel, {
     foreignKey: "id_topics_lesson_plan",
-    as: "topics",
+    as: "topics_lesson_plan",
   });
 
   // =========================
@@ -382,7 +382,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Activities_topicsModel.belongsTo(Topics_lesson_planModel, {
     foreignKey: "id_topics_lesson_plan",
-    as: "topics",
+    as: "topics_lesson_plan",
   });
 
   // ==========================
@@ -394,6 +394,6 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   });
   Connections_topicsModel.belongsTo(Topics_lesson_planModel, {
     foreignKey: "id_topics_lesson_plan",
-    as: "topics",
+    as: "topics_lesson_plan",
   });
 }
