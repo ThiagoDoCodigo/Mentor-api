@@ -27,9 +27,13 @@ Certifique-se de ter instalado:
 ## Passo 2.2: Instalação de Dependências
 
 Navegue até o diretório raiz do projeto e instale todas as dependências necessárias (produção e desenvolvimento):
+```
 npm install
+```
 \# ou
+```
 yarn install
+```
 
 ## Passo 2.3: Configuração das Variáveis de Ambiente
 
