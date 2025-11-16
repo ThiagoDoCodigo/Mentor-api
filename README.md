@@ -55,7 +55,9 @@ GEMINI_API_KEY=
 ## Passo 2.4: Criação e Sincronização do Banco de Dados
 
 Após configurar as variáveis de ambiente, execute o script de sincronização para criar o schema e todas as tabelas no PostgreSQL via Sequelize:
+```
 npm run sync
+```
 
 Comando: Este script executa src/data/sync.ts e é crucial para preparar o ambiente de dados.
 
@@ -66,31 +68,42 @@ O Projeto Mentor oferece diferentes scripts para ambientes de desenvolvimento e 
 ### 3.1. Modo Desenvolvimento Padrão
 
 Inicia o servidor em modo de observação (ts-node-dev), com hot-reload. Ideal para o desenvolvimento diário:
+
+```
 npm run dev
+```
 
 ### 3.2. Modo Desenvolvimento (Memória Aumentada)
 
-Inicia o servidor alocando um limite maior de memória (--max-old-space-size=8192). Utilize este modo se estiver realizando operações intensivas, como testes ou geração de conteúdo massivo via Gemini API:
+Inicia o servidor alocando um limite maior de memória (--max-old-space-size=8192). Utilize este modo se estiver realizando operações intensivas, como testes ou 
+geração de conteúdo massivo via Gemini API:
+
+```
 npm run dev:mem
+```
 
 ### 3.3. Modo Produção
 
 Para rodar a aplicação em ambiente de produção (usando a versão compilada em JavaScript):
 
 1. Compilação do TypeScript para JavaScript:
+```
 npm run build
-2. 
-3. Execução do Servidor Compilado:
+``` 
+2. Execução do Servidor Compilado:
+```
 npm start
-4.
+```
+
 
 ## 4. Rodando os Testes
 
 O projeto utiliza o Jest como framework de testes, incluindo a verificação de cobertura de código.
 
 Execute o comando a seguir para rodar todos os testes unitários e de integração:
+```
 npm test
-
+```
 Comando: O script é configurado para rodar jest --verbose --coverage, fornecendo um relatório detalhado da execução e cobertura dos testes.
 
 .
