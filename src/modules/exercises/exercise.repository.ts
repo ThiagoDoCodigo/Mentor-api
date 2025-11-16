@@ -5,15 +5,30 @@ import { OptionsMultiple } from "./models/optionsMultiple.model";
 import { OptionsTrueOrFalse } from "./models/optionsTrueOrFalse.model";
 import { ThemeExercise } from "./models/themesExercise.model";
 import { ObjectiveExercise } from "./models/objetivesExercise.model";
-import { ExercisesRequest } from "./exercise.interface";
 import { CustomError } from "../../erros/CustomError";
 import { Op } from "sequelize";
+import {
+  ExercisesRequest,
+  ExercisesResponse,
+  patchExercises,
+  patchExercisesResponse,
+  patchExerciseItem,
+  patchExerciseItemResponse,
+  patchThemeExercises,
+  patchThemeExercisesResponse,
+  patchObjectivesExercises,
+  patchObjectivesExercisesResponse,
+  patchMultipleOptions,
+  patchMultipleOptionsResponse,
+  patchTrueOrFalseOptions,
+  patchTrueOrFalseOptionsResponse,
+} from "./exercise.interface";
 
 export class ExerciseRepository {
   public createExercise = async (
     request: ExercisesRequest,
     id_user: string
-  ) => {
+  ): Promise<ExercisesResponse | null> => {
     return await sequelize.transaction(
       { logging: false },
       async (transaction) => {
@@ -118,10 +133,10 @@ export class ExerciseRepository {
           include: [
             {
               model: ExerciseItem,
-              as: "exerciseItems",
+              as: "execiseItems",
               include: [
-                { model: OptionsMultiple, as: "optionsMultiples" },
-                { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
+                { model: OptionsMultiple, as: "optionsMultiple" },
+                { model: OptionsTrueOrFalse, as: "optionsTrueOrFalse" },
               ],
             },
             { model: ThemeExercise, as: "themeExercises" },
@@ -165,10 +180,10 @@ export class ExerciseRepository {
         include: [
           {
             model: ExerciseItem,
-            as: "exerciseItems",
+            as: "execiseItems",
             include: [
-              { model: OptionsMultiple, as: "optionsMultiples" },
-              { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
+              { model: OptionsMultiple, as: "optionsMultiple" },
+              { model: OptionsTrueOrFalse, as: "optionsTrueOrFalse" },
             ],
           },
           { model: ThemeExercise, as: "themeExercises" },
@@ -219,10 +234,10 @@ export class ExerciseRepository {
         include: [
           {
             model: ExerciseItem,
-            as: "exerciseItems",
+            as: "execiseItems",
             include: [
-              { model: OptionsMultiple, as: "optionsMultiples" },
-              { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
+              { model: OptionsMultiple, as: "optionsMultiple" },
+              { model: OptionsTrueOrFalse, as: "optionsTrueOrFalse" },
             ],
           },
           { model: ThemeExercise, as: "themeExercises" },
@@ -250,10 +265,10 @@ export class ExerciseRepository {
       include: [
         {
           model: ExerciseItem,
-          as: "exerciseItems",
+          as: "execiseItems",
           include: [
-            { model: OptionsMultiple, as: "optionsMultiples" },
-            { model: OptionsTrueOrFalse, as: "optionsTrueOrFalses" },
+            { model: OptionsMultiple, as: "optionsMultiple" },
+            { model: OptionsTrueOrFalse, as: "optionsTrueOrFalse" },
           ],
         },
         { model: ThemeExercise, as: "themeExercises" },
@@ -269,8 +284,8 @@ export class ExerciseRepository {
   public updateExercise = async (
     id_exercise: string,
     id_user: string,
-    patch: Partial<ExerciseModel>
-  ) => {
+    patch: patchExercises
+  ): Promise<patchExercisesResponse> => {
     const exercise = await ExerciseModel.findByPk(id_exercise);
     if (!exercise) throw new CustomError("Exercício não encontrado", 404);
     if (exercise.id_user !== id_user)
@@ -283,8 +298,8 @@ export class ExerciseRepository {
   public updateExerciseItem = async (
     id_exercise_item: string,
     id_user: string,
-    patch: Partial<ExerciseItem>
-  ) => {
+    patch: patchExerciseItem
+  ): Promise<patchExerciseItemResponse> => {
     const item = await ExerciseItem.findOne({
       where: { id_exercise_item },
       include: [{ model: ExerciseModel, as: "exercise" }],
@@ -301,8 +316,8 @@ export class ExerciseRepository {
   public updateThemeExercise = async (
     id_theme_exercise: string,
     id_user: string,
-    patch: Partial<ThemeExercise>
-  ) => {
+    patch: patchThemeExercises
+  ): Promise<patchThemeExercisesResponse> => {
     const theme = await ThemeExercise.findOne({
       where: { id_theme_exercise },
       include: [{ model: ExerciseModel, as: "exercise" }],
@@ -319,8 +334,8 @@ export class ExerciseRepository {
   public updateObjectiveExercise = async (
     id_objective_exercise: string,
     id_user: string,
-    patch: Partial<ObjectiveExercise>
-  ) => {
+    patch: patchObjectivesExercises
+  ): Promise<patchObjectivesExercisesResponse> => {
     const obj = await ObjectiveExercise.findOne({
       where: { id_objective_exercise },
       include: [{ model: ExerciseModel, as: "exercise" }],
@@ -337,8 +352,8 @@ export class ExerciseRepository {
   public updateOptionMultiple = async (
     id_optionsMultiple: string,
     id_user: string,
-    patch: Partial<OptionsMultiple>
-  ) => {
+    patch: patchMultipleOptions
+  ): Promise<patchMultipleOptionsResponse> => {
     const option = await OptionsMultiple.findOne({
       where: { id_optionsMultiple },
       include: [
@@ -361,8 +376,8 @@ export class ExerciseRepository {
   public updateOptionTrueOrFalse = async (
     id_optionsTrueOrFalse: string,
     id_user: string,
-    patch: Partial<OptionsTrueOrFalse>
-  ) => {
+    patch: patchTrueOrFalseOptions
+  ): Promise<patchTrueOrFalseOptionsResponse> => {
     const option = await OptionsTrueOrFalse.findOne({
       where: { id_optionsTrueOrFalse },
       include: [

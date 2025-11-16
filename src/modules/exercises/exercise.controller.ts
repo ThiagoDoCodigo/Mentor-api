@@ -1,12 +1,14 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { ExerciseService } from "./exercise.service";
-import { ExercisesRequest } from "./exercise.interface";
-import { ExerciseModel } from "./models/exercises.model";
-import { ExerciseItem } from "./models/exerciseItem.model";
-import { OptionsMultiple } from "./models/optionsMultiple.model";
-import { OptionsTrueOrFalse } from "./models/optionsTrueOrFalse.model";
-import { ThemeExercise } from "./models/themesExercise.model";
-import { ObjectiveExercise } from "./models/objetivesExercise.model";
+import {
+  ExercisesRequest,
+  patchExercises,
+  patchExerciseItem,
+  patchThemeExercises,
+  patchObjectivesExercises,
+  patchMultipleOptions,
+  patchTrueOrFalseOptions,
+} from "./exercise.interface";
 import { sendError } from "../../utils/sendError";
 
 export class ExerciseController {
@@ -108,7 +110,7 @@ export class ExerciseController {
 
   public updateExercise = async (
     request: FastifyRequest<{
-      Body: Partial<ExerciseModel>;
+      Body: patchExercises;
       Params: { id_exercise: string };
     }>,
     reply: FastifyReply
@@ -119,7 +121,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as ExerciseModel;
+      const exercise = request.body as patchExercises;
       const response = await this.exerciseService.updateExercise(
         id_exercise,
         id_user,
@@ -137,7 +139,7 @@ export class ExerciseController {
 
   public updateExerciseItem = async (
     request: FastifyRequest<{
-      Body: Partial<ExerciseItem>;
+      Body: patchExerciseItem;
       Params: { id_exercise_item: string };
     }>,
     reply: FastifyReply
@@ -148,7 +150,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as ExerciseItem;
+      const exercise = request.body as patchExerciseItem;
       const response = await this.exerciseService.updateExerciseItem(
         id_exercise_item,
         id_user,
@@ -166,7 +168,7 @@ export class ExerciseController {
 
   public updateThemeExercise = async (
     request: FastifyRequest<{
-      Body: Partial<ThemeExercise>;
+      Body: patchThemeExercises;
       Params: { id_theme_exercises: string };
     }>,
     reply: FastifyReply
@@ -177,7 +179,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as ThemeExercise;
+      const exercise = request.body as patchThemeExercises;
       const response = await this.exerciseService.updateThemeExercise(
         id_theme_exercises,
         id_user,
@@ -195,7 +197,7 @@ export class ExerciseController {
 
   public updateObjectiveExercise = async (
     request: FastifyRequest<{
-      Body: Partial<ObjectiveExercise>;
+      Body: patchObjectivesExercises;
       Params: { id_objective_exercises: string };
     }>,
     reply: FastifyReply
@@ -206,7 +208,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as ObjectiveExercise;
+      const exercise = request.body as patchObjectivesExercises;
       const response = await this.exerciseService.updateObjectiveExercise(
         id_objective_exercises,
         id_user,
@@ -224,7 +226,7 @@ export class ExerciseController {
 
   public updateOptionMultipleExercise = async (
     request: FastifyRequest<{
-      Body: Partial<OptionsMultiple>;
+      Body: patchMultipleOptions;
       Params: { id_optionsMultiple: string };
     }>,
     reply: FastifyReply
@@ -235,7 +237,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as OptionsMultiple;
+      const exercise = request.body as patchMultipleOptions;
       const response = await this.exerciseService.updateOptionMultiple(
         id_optionsMultiple,
         id_user,
@@ -253,7 +255,7 @@ export class ExerciseController {
 
   public updateOptionTrueOrFalseExercise = async (
     request: FastifyRequest<{
-      Body: Partial<OptionsTrueOrFalse>;
+      Body: patchTrueOrFalseOptions;
       Params: { id_optionsTrueOrFalse: string };
     }>,
     reply: FastifyReply
@@ -264,7 +266,7 @@ export class ExerciseController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const exercise = request.body as OptionsTrueOrFalse;
+      const exercise = request.body as patchTrueOrFalseOptions;
       const response = await this.exerciseService.updateOptionTrueOrFalse(
         id_optionsTrueOrFalse,
         id_user,
