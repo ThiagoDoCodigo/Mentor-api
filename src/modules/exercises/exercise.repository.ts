@@ -332,12 +332,12 @@ export class ExerciseRepository {
   };
 
   public updateObjectiveExercise = async (
-    id_objective_exercise: string,
+    id_objective_exercises: string,
     id_user: string,
     patch: patchObjectivesExercises
   ): Promise<patchObjectivesExercisesResponse> => {
     const obj = await ObjectiveExercise.findOne({
-      where: { id_objective_exercise },
+      where: { id_objective_exercises },
       include: [{ model: ExerciseModel, as: "exercise" }],
     });
 
