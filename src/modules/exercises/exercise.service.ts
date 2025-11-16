@@ -1,13 +1,22 @@
 import { handleSequelizeError } from "../../utils/handleSequelizeError";
 import { CustomError } from "../../erros/CustomError";
 import { ExerciseRepository } from "./exercise.repository";
-import { ExercisesRequest } from "./exercise.interface";
-import { ExerciseModel } from "./models/exercises.model";
-import { ExerciseItem } from "./models/exerciseItem.model";
-import { OptionsMultiple } from "./models/optionsMultiple.model";
-import { OptionsTrueOrFalse } from "./models/optionsTrueOrFalse.model";
-import { ThemeExercise } from "./models/themesExercise.model";
-import { ObjectiveExercise } from "./models/objetivesExercise.model";
+import {
+  ExercisesRequest,
+  ExercisesResponse,
+  patchExercises,
+  patchExercisesResponse,
+  patchExerciseItem,
+  patchExerciseItemResponse,
+  patchThemeExercises,
+  patchThemeExercisesResponse,
+  patchObjectivesExercises,
+  patchObjectivesExercisesResponse,
+  patchMultipleOptions,
+  patchMultipleOptionsResponse,
+  patchTrueOrFalseOptions,
+  patchTrueOrFalseOptionsResponse,
+} from "./exercise.interface";
 
 export class ExerciseService {
   private exerciseRepository: ExerciseRepository;
@@ -19,7 +28,7 @@ export class ExerciseService {
   public createExercise = async (
     request: ExercisesRequest,
     id_user: string
-  ) => {
+  ): Promise<ExercisesResponse> => {
     try {
       const exercise = await this.exerciseRepository.createExercise(
         request,
@@ -86,8 +95,8 @@ export class ExerciseService {
   public updateExercise = async (
     id_exercise: string,
     id_user: string,
-    patch: Partial<ExerciseModel>
-  ) => {
+    patch: patchExercises
+  ): Promise<patchExercisesResponse> => {
     try {
       return await this.exerciseRepository.updateExercise(
         id_exercise,
@@ -102,8 +111,8 @@ export class ExerciseService {
   public updateExerciseItem = async (
     id_exercise_item: string,
     id_user: string,
-    patch: Partial<ExerciseItem>
-  ) => {
+    patch: patchExerciseItem
+  ): Promise<patchExerciseItemResponse> => {
     try {
       return await this.exerciseRepository.updateExerciseItem(
         id_exercise_item,
@@ -118,8 +127,8 @@ export class ExerciseService {
   public updateThemeExercise = async (
     id_theme_exercise: string,
     id_user: string,
-    patch: Partial<ThemeExercise>
-  ) => {
+    patch: patchThemeExercises
+  ): Promise<patchThemeExercisesResponse> => {
     try {
       return await this.exerciseRepository.updateThemeExercise(
         id_theme_exercise,
@@ -134,8 +143,8 @@ export class ExerciseService {
   public updateObjectiveExercise = async (
     id_objective_exercises: string,
     id_user: string,
-    patch: Partial<ObjectiveExercise>
-  ) => {
+    patch: patchObjectivesExercises
+  ): Promise<patchObjectivesExercisesResponse> => {
     try {
       return await this.exerciseRepository.updateObjectiveExercise(
         id_objective_exercises,
@@ -150,8 +159,8 @@ export class ExerciseService {
   public updateOptionMultiple = async (
     id_optionsMultiple: string,
     id_user: string,
-    patch: Partial<OptionsMultiple>
-  ) => {
+    patch: patchMultipleOptions
+  ): Promise<patchMultipleOptionsResponse> => {
     try {
       return await this.exerciseRepository.updateOptionMultiple(
         id_optionsMultiple,
@@ -166,8 +175,8 @@ export class ExerciseService {
   public updateOptionTrueOrFalse = async (
     id_optionsTrueOrFalse: string,
     id_user: string,
-    patch: Partial<OptionsTrueOrFalse>
-  ) => {
+    patch: patchTrueOrFalseOptions
+  ): Promise<patchTrueOrFalseOptionsResponse> => {
     try {
       return await this.exerciseRepository.updateOptionTrueOrFalse(
         id_optionsTrueOrFalse,

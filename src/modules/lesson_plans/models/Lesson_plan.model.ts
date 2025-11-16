@@ -26,10 +26,10 @@ export class Lesson_planModel extends Model {
   public readonly themes_lesson_plan?: Themes_lesson_planModel[];
   public readonly methodology_lesson_plan?: Methodology_lesson_planModel[];
   public readonly topics_lesson_plan?: Topics_lesson_planModel[];
-  public readonly homework_lesson_plan?: Homework_lesson_planModel[];
-  public readonly inclusive_adaptation_lesson_plan?: InclusiveAdaptation_lesson_planModel[];
+  public readonly homework_lesson_plan?: Homework_lesson_planModel;
+  public readonly inclusive_adaptation_lesson_plan?: InclusiveAdaptation_lesson_planModel;
   public readonly references_lesson_plan?: References_lesson_planModel[];
-  public readonly closure_lesson_plan?: Closure_lesson_planModel[];
+  public readonly closure_lesson_plan?: Closure_lesson_planModel;
 }
 
 export function initLessonPlan(sequelize: Sequelize) {

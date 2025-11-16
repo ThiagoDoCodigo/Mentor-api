@@ -132,7 +132,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   // ===============================
   ExerciseModel.hasMany(ExerciseItem, {
     foreignKey: "id_exercise",
-    as: "exerciseItems",
+    as: "execiseItems",
   });
   ExerciseItem.belongsTo(ExerciseModel, {
     foreignKey: "id_exercise",
@@ -144,7 +144,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   // ===============================
   ExerciseItem.hasMany(OptionsMultiple, {
     foreignKey: "id_exercise_item",
-    as: "optionsMultiples",
+    as: "optionsMultiple",
   });
   OptionsMultiple.belongsTo(ExerciseItem, {
     foreignKey: "id_exercise_item",
@@ -156,7 +156,7 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
   // ===============================
   ExerciseItem.hasMany(OptionsTrueOrFalse, {
     foreignKey: "id_exercise_item",
-    as: "optionsTrueOrFalses",
+    as: "optionsTrueOrFalse",
   });
   OptionsTrueOrFalse.belongsTo(ExerciseItem, {
     foreignKey: "id_exercise_item",

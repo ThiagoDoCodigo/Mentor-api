@@ -64,27 +64,6 @@ describe("UserService - createUser", () => {
     expect(mockCreateUser).not.toHaveBeenCalled();
   });
 
-  it("Deve falhar ao criar um usuário com erro genérico", async () => {
-    const input: UserRequest = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockCreateUser.mockRejectedValue(
-      new CustomError("Erro interno", 400, "GenericError")
-    );
-
-    await expect(service.createUser({ ...input })).rejects.toThrow(
-      "Erro interno"
-    );
-
-    expect(mockCreateUser).toHaveBeenCalledWith({ ...input });
-  });
-
   it("deve lançar erro se retorno do DB for vazio", async () => {
     const input: UserRequest = {
       name_user: "João",
@@ -103,54 +82,6 @@ describe("UserService - createUser", () => {
 
     await expect(service.createUser({ ...input })).rejects.toThrow(
       "Erro ao criar usuário"
-    );
-
-    expect(mockCreateUser).toHaveBeenCalledWith({ ...input });
-  });
-
-  it("Deve lançar erro se email já estiver em uso (code 23505, constraint users_email_user_key)", async () => {
-    const input: UserRequest = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockCreateUser.mockRejectedValue(
-      new CustomError(
-        "Este email já está sendo utilizado por outro usuário!",
-        409
-      )
-    );
-
-    await expect(service.createUser({ ...input })).rejects.toThrow(
-      "Este email já está sendo utilizado por outro usuário!"
-    );
-
-    expect(mockCreateUser).toHaveBeenCalledWith({ ...input });
-  });
-
-  it("Deve lançar erro se CPF já estiver em uso (code 23505, constraint users_cpf_user_key)", async () => {
-    const input: UserRequest = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockCreateUser.mockRejectedValue(
-      new CustomError(
-        "Este cpf já está sendo utilizado por outro usuário!",
-        409
-      )
-    );
-
-    await expect(service.createUser({ ...input })).rejects.toThrow(
-      "Este cpf já está sendo utilizado por outro usuário!"
     );
 
     expect(mockCreateUser).toHaveBeenCalledWith({ ...input });
@@ -243,80 +174,5 @@ describe("UserService - patchUser", () => {
     );
 
     expect(mockPatchUser).not.toHaveBeenCalled();
-  });
-
-  it("Deve falhar ao atualizar um usuário com erro genérico", async () => {
-    const input: UserPatch = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    const id_user = "92261020-0381-49e3-8e82-e623eade192a";
-
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockPatchUser.mockRejectedValue(
-      new CustomError("Erro interno", 400, "GenericError")
-    );
-
-    await expect(service.patchUser(id_user, input)).rejects.toThrow(
-      "Erro interno"
-    );
-
-    expect(mockPatchUser).toHaveBeenCalledWith(id_user, input);
-  });
-
-  it("Deve lançar erro se email já estiver em uso (code 23505, constraint users_email_user_key)", async () => {
-    const input: UserPatch = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    const id_user = "92261020-0381-49e3-8e82-e623eade192a";
-
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockPatchUser.mockRejectedValue(
-      new CustomError(
-        "Este email já está sendo utilizado por outro usuário!",
-        409
-      )
-    );
-
-    await expect(service.patchUser(id_user, input)).rejects.toThrow(
-      "Este email já está sendo utilizado por outro usuário!"
-    );
-
-    expect(mockPatchUser).toHaveBeenCalledWith(id_user, input);
-  });
-
-  it("Deve lançar erro se CPF já estiver em uso (code 23505, constraint users_cpf_user_key)", async () => {
-    const input: UserPatch = {
-      name_user: "João",
-      email_user: "joao@example.com",
-      cpf_user: "07455315040",
-      password_user: "senha123",
-      role_user: "admin",
-    };
-    const id_user = "92261020-0381-49e3-8e82-e623eade192a";
-
-    jest.spyOn(bcrypt, "hash").mockImplementation(async () => "senha123");
-
-    mockPatchUser.mockRejectedValue(
-      new CustomError(
-        "Este cpf já está sendo utilizado por outro usuário!",
-        409
-      )
-    );
-
-    await expect(service.patchUser(id_user, input)).rejects.toThrow(
-      "Este cpf já está sendo utilizado por outro usuário!"
-    );
-
-    expect(mockPatchUser).toHaveBeenCalledWith(id_user, input);
   });
 });

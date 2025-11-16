@@ -13,14 +13,43 @@ import { Connections_topicsModel } from "./models/Connections_topics.model";
 import { References_lesson_planModel } from "./models/References_lesson_plan.model";
 import { Closure_lesson_planModel } from "./models/Closure_lesson_plan.model";
 import { CustomError } from "../../erros/CustomError";
-import { LessonPlanRequest } from "./lesson_plan.interface";
+import {
+  LessonPlanRequest,
+  LessonPlanResponse,
+  patchLessonPlan,
+  patchLessonPlanResponse,
+  patchObjective,
+  patchObjectiveResponse,
+  patchCompetencies,
+  patchCompetenciesResponse,
+  patchTheme,
+  patchThemeResponse,
+  patchTeachingMethodology,
+  patchTeachingMethodologyResponse,
+  patchTopic,
+  patchTopicResponse,
+  patchHomework,
+  patchHomeworkResponse,
+  patchInclusiveAdaptation,
+  patchInclusiveAdaptationResponse,
+  patchReferences,
+  patchReferencesResponse,
+  patchClosure,
+  patchClosureResponse,
+  patchExamplesTopics,
+  patchExamplesTopicsResponse,
+  patchActivitiesTopics,
+  patchActivitiesTopicsResponse,
+  patchConnectionsTopics,
+  patchConnectionsTopicsResponse,
+} from "./lesson_plan.interface";
 import { Op } from "sequelize";
 
 export class LessonPlanRepository {
   public createLessonPlan = async (
     request: LessonPlanRequest,
     id_user: string
-  ) => {
+  ): Promise<LessonPlanResponse | null> => {
     let lessonPlanCreated: InstanceType<typeof Lesson_planModel> | undefined;
 
     await sequelize.transaction({ logging: false }, async (transaction) => {
@@ -456,8 +485,8 @@ export class LessonPlanRepository {
   public updateLessonPlan = async (
     id_lesson_plan: string,
     id_user: string,
-    patch: Partial<Lesson_planModel>
-  ) => {
+    patch: patchLessonPlan
+  ): Promise<patchLessonPlanResponse> => {
     const lessonPlan = await Lesson_planModel.findByPk(id_lesson_plan);
     if (!lessonPlan) {
       throw new CustomError(
@@ -482,8 +511,8 @@ export class LessonPlanRepository {
   public updateObjetivesLessonPlan = async (
     id_objetives_lesson_plan: string,
     id_user: string,
-    patch: Partial<Objetives_lesson_planModel>
-  ) => {
+    patch: patchObjective
+  ): Promise<patchObjectiveResponse> => {
     const objetivesLessonPlan = await Objetives_lesson_planModel.findOne({
       where: { id_objetives_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -512,8 +541,8 @@ export class LessonPlanRepository {
   public updateCompetenciesLessonPlan = async (
     id_competencies_lesson_plan: string,
     id_user: string,
-    patch: Partial<Competencies_lesson_planModel>
-  ) => {
+    patch: patchCompetencies
+  ): Promise<patchCompetenciesResponse> => {
     const competenciesLessonPlan = await Competencies_lesson_planModel.findOne({
       where: { id_competencies_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -542,8 +571,8 @@ export class LessonPlanRepository {
   public updateThemesLessonPlan = async (
     id_themes_lesson_plan: string,
     id_user: string,
-    patch: Partial<Themes_lesson_planModel>
-  ) => {
+    patch: patchTheme
+  ): Promise<patchThemeResponse> => {
     const themesLessonPlan = await Themes_lesson_planModel.findOne({
       where: { id_themes_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -572,8 +601,8 @@ export class LessonPlanRepository {
   public updateMethodologyLessonPlan = async (
     id_methodology_lesson_plan: string,
     id_user: string,
-    patch: Partial<Methodology_lesson_planModel>
-  ) => {
+    patch: patchTeachingMethodology
+  ): Promise<patchTeachingMethodologyResponse> => {
     const methodologyLessonPlan = await Methodology_lesson_planModel.findOne({
       where: { id_methodology_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -602,8 +631,8 @@ export class LessonPlanRepository {
   public updateTopicsLessonPlan = async (
     id_topics_lesson_plan: string,
     id_user: string,
-    patch: Partial<Topics_lesson_planModel>
-  ) => {
+    patch: patchTopic
+  ): Promise<patchTopicResponse> => {
     const topicsLessonPlan = await Topics_lesson_planModel.findOne({
       where: { id_topics_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -632,8 +661,8 @@ export class LessonPlanRepository {
   public updateExamplesTopics = async (
     id_examples_topics: string,
     id_user: string,
-    patch: Partial<Examples_topicsModel>
-  ) => {
+    patch: patchExamplesTopics
+  ): Promise<patchExamplesTopicsResponse> => {
     const examplesTopics = await Examples_topicsModel.findOne({
       where: { id_examples_topics },
       include: [
@@ -668,8 +697,8 @@ export class LessonPlanRepository {
   public updateActivitiesTopics = async (
     id_activities_topics: string,
     id_user: string,
-    patch: Partial<Activities_topicsModel>
-  ) => {
+    patch: patchActivitiesTopics
+  ): Promise<patchActivitiesTopicsResponse> => {
     const activitiesTopics = await Activities_topicsModel.findOne({
       where: { id_activities_topics },
       include: [
@@ -706,8 +735,8 @@ export class LessonPlanRepository {
   public updateConnectionsTopics = async (
     id_connections_topics: string,
     id_user: string,
-    patch: Partial<Connections_topicsModel>
-  ) => {
+    patch: patchConnectionsTopics
+  ): Promise<patchConnectionsTopicsResponse> => {
     const connectionsTopics = await Connections_topicsModel.findOne({
       where: { id_connections_topics },
       include: [
@@ -744,8 +773,8 @@ export class LessonPlanRepository {
   public updateHomeworkLessonPlan = async (
     id_homework_lesson_plan: string,
     id_user: string,
-    patch: Partial<Homework_lesson_planModel>
-  ) => {
+    patch: patchHomework
+  ): Promise<patchHomeworkResponse> => {
     const homeworkLessonPlan = await Homework_lesson_planModel.findOne({
       where: { id_homework_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -774,8 +803,8 @@ export class LessonPlanRepository {
   public updateInclusiveAdaptationLessonPlan = async (
     id_inclusive_adaptation_lesson_plan: string,
     id_user: string,
-    patch: Partial<InclusiveAdaptation_lesson_planModel>
-  ) => {
+    patch: patchInclusiveAdaptation
+  ): Promise<patchInclusiveAdaptationResponse> => {
     const inclusiveAdaptationLessonPlan =
       await InclusiveAdaptation_lesson_planModel.findOne({
         where: { id_inclusive_adaptation_lesson_plan },
@@ -805,8 +834,8 @@ export class LessonPlanRepository {
   public updateReferencesLessonPlan = async (
     id_references_lesson_plan: string,
     id_user: string,
-    patch: Partial<References_lesson_planModel>
-  ) => {
+    patch: patchReferences
+  ): Promise<patchReferencesResponse> => {
     const referencesLessonPlan = await References_lesson_planModel.findOne({
       where: { id_references_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
@@ -835,8 +864,8 @@ export class LessonPlanRepository {
   public updateClosureLessonPlan = async (
     id_closure_lesson_plan: string,
     id_user: string,
-    patch: Partial<Closure_lesson_planModel>
-  ) => {
+    patch: patchClosure
+  ): Promise<patchClosureResponse> => {
     const closureLessonPlan = await Closure_lesson_planModel.findOne({
       where: { id_closure_lesson_plan },
       include: [{ model: Lesson_planModel, as: "lesson_plan" }],
