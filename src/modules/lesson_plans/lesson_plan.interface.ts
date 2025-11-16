@@ -91,6 +91,8 @@ export interface ObjectiveResponse {
   id_lesson_plan: string;
   titleObjetivesLessonPlan: string;
   contentObjetivesLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ThemeResponse {
@@ -98,6 +100,8 @@ export interface ThemeResponse {
   id_lesson_plan: string;
   titleThemesLessonPlan: string;
   contentThemesLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface TeachingMethodologyResponse {
@@ -105,6 +109,8 @@ export interface TeachingMethodologyResponse {
   id_lesson_plan: string;
   titleMethodologyLessonPlan: string;
   contentMethodologyLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface examplesTopicLessonPlanResponse {
@@ -112,6 +118,8 @@ export interface examplesTopicLessonPlanResponse {
   id_topics_lesson_plan: string;
   titleExamplesTopicLessonPlan: string;
   contentExamplesTopicLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface activitiesTopicLessonPlanResponse {
@@ -120,6 +128,8 @@ export interface activitiesTopicLessonPlanResponse {
   titleActivitiesTopicLessonPlan: string;
   contentActivitiesTopicLessonPlan: string;
   explicationActivitiesTopicLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface connectionsTopicLessonPlanResponse {
@@ -127,6 +137,8 @@ export interface connectionsTopicLessonPlanResponse {
   id_topics_lesson_plan: string;
   titleConnectionsTopics: string;
   contentConnectionsTopics: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface TopicResponse {
@@ -135,6 +147,9 @@ export interface TopicResponse {
   titleTopicsLessonPlan: string;
   contentTopicsLessonPlan: string;
   detailed_explanation_topic_lesson_plan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+
   examples_topics?: examplesTopicLessonPlanResponse[];
   activities_topics?: activitiesTopicLessonPlanResponse[];
   connections_topics?: connectionsTopicLessonPlanResponse[];
@@ -145,6 +160,8 @@ export interface HomeworkResponse {
   id_lesson_plan: string;
   description: string;
   objective: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface InclusiveAdaptationResponse {
@@ -153,6 +170,8 @@ export interface InclusiveAdaptationResponse {
   visualImpairment: string;
   learningDifficulties: string;
   highAbilities: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ClosureResponse {
@@ -161,18 +180,24 @@ export interface ClosureResponse {
   summary: string;
   reflection: string;
   nextSteps: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface CompetenciesResponse {
   id_competencies_lesson_plan: string;
   id_lesson_plan: string;
   contentCompetenciesLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ReferencesResponse {
   id_references_lesson_plan: string;
   id_lesson_plan: string;
   contentReferencesLessonPlan: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface LessonPlanResponse {
@@ -196,6 +221,8 @@ export interface LessonPlanResponse {
   inclusive_adaptation_lesson_plan?: InclusiveAdaptationResponse;
   references_lesson_plan?: ReferencesResponse[];
   closure_lesson_plan?: ClosureResponse;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface patchLessonPlan {
