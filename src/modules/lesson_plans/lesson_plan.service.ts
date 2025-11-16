@@ -346,4 +346,25 @@ export class LessonPlanService {
       handleSequelizeError(err, "Fechamento do plano de aula");
     }
   };
+
+  public deleteLessonPlan = async (
+    id_lesson_plan: string,
+    id_user: string
+  ): Promise<void> => {
+    try {
+      await this.lessonPlanRepository.deleteLessonPlan(id_lesson_plan, id_user);
+    } catch (err: any) {
+      handleSequelizeError(err, "Plano de aula");
+    }
+  };
+
+  public deleteLessonPlanAdmin = async (
+    id_lesson_plan: string
+  ): Promise<void> => {
+    try {
+      await this.lessonPlanRepository.deleteLessonPlanAdmin(id_lesson_plan);
+    } catch (err: any) {
+      handleSequelizeError(err, "Plano de aula");
+    }
+  };
 }

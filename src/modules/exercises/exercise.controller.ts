@@ -281,4 +281,45 @@ export class ExerciseController {
       return sendError(reply, err);
     }
   };
+
+  public deleteExercise = async (
+    request: FastifyRequest<{ Params: { id_exercise: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const id_exercises = request.params.id_exercise;
+      const user = request.authUser as any;
+      const id_user = user.id_user;
+      const response = await this.exerciseService.deleteExercise(
+        id_exercises,
+        id_user
+      );
+      return reply.code(200).send({
+        deletedExercise: response,
+        message: "Exercício deletado com sucesso.",
+        sucess: true,
+      });
+    } catch (err) {
+      return sendError(reply, err);
+    }
+  };
+
+  public deleteExerciseAdmin = async (
+    request: FastifyRequest<{ Params: { id_exercise: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const id_exercises = request.params.id_exercise;
+      const response = await this.exerciseService.deleteExerciseAdmin(
+        id_exercises
+      );
+      return reply.code(200).send({
+        deletedExercise: response,
+        message: "Exercício deletado com sucesso.",
+        sucess: true,
+      });
+    } catch (err) {
+      return sendError(reply, err);
+    }
+  };
 }

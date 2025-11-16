@@ -126,5 +126,16 @@ export default async function lessonPlanRoutes(fastify: FastifyInstance) {
       { schema: updateClosureSchema },
       lessonPlanController.updateClosureLessonPlan.bind(lessonPlanController)
     );
+
+    instance.delete(
+      "/delete-lesson-plan/:id_lesson_plan",
+      lessonPlanController.deleteLessonPlan.bind(lessonPlanController)
+    );
+
+    instance.delete(
+      "/delete-lesson-plan-admin/:id_lesson_plan",
+      { preHandler: instance.verifyRole("admin") },
+      lessonPlanController.deleteLessonPlan.bind(lessonPlanController) as any
+    );
   });
 }

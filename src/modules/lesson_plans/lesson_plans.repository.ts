@@ -890,4 +890,42 @@ export class LessonPlanRepository {
     await closureLessonPlan.update(patch);
     return closureLessonPlan;
   };
+
+  public deleteLessonPlan = async (id_lesson_plan: string, id_user: string) => {
+    const lessonPlan = await Lesson_planModel.findOne({
+      where: { id_lesson_plan },
+    });
+
+    if (!lessonPlan) {
+      throw new CustomError(
+        "Plano de aula nao encontrado",
+        404,
+        "GenericError"
+      );
+    }
+
+    if (lessonPlan.id_user !== id_user) {
+      throw new CustomError(
+        "Plano de aula nao pertence ao usuário",
+        403,
+        "GenericError"
+      );
+    }
+
+    await lessonPlan.destroy();
+  };
+
+  public deleteLessonPlanAdmin = async (id_lesson_plan: string) => {
+    const lessonPlan = await Lesson_planModel.destroy({
+      where: { id_lesson_plan },
+    });
+
+    if (!lessonPlan) {
+      throw new CustomError(
+        "Plano de aula nao encontrado",
+        404,
+        "GenericError"
+      );
+    }
+  };
 }

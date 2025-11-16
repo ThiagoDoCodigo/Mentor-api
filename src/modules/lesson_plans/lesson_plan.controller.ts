@@ -520,4 +520,39 @@ export class LessonPlanController {
       return sendError(reply, err);
     }
   };
+
+  public deleteLessonPlan = async (
+    request: FastifyRequest<{ Params: { id_lesson_plan: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const id_lesson_plan = request.params.id_lesson_plan;
+
+      const user = request.authUser as any;
+      const id_user = user.id_user;
+
+      await this.lessonPlanService.deleteLessonPlan(id_lesson_plan, id_user);
+      return reply
+        .code(200)
+        .send({ message: "Plano de aula excluído com sucesso.", sucess: true });
+    } catch (err) {
+      return sendError(reply, err);
+    }
+  };
+
+  public deleteLessonPlanAdmin = async (
+    request: FastifyRequest<{ Params: { id_lesson_plan: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const id_lesson_plan = request.params.id_lesson_plan;
+
+      await this.lessonPlanService.deleteLessonPlanAdmin(id_lesson_plan);
+      return reply
+        .code(200)
+        .send({ message: "Plano de aula excluído com sucesso.", sucess: true });
+    } catch (err) {
+      return sendError(reply, err);
+    }
+  };
 }
