@@ -76,5 +76,16 @@ export default async function exerciseRoutes(fastify: FastifyInstance) {
         exerciseController
       )
     );
+
+    instance.delete(
+      "/delete-exercise/:id_exercise",
+      exerciseController.deleteExercise.bind(exerciseController)
+    );
+
+    instance.delete(
+      "/delete-exercise-admin/:id_exercise",
+      { preHandler: instance.verifyRole("admin") },
+      exerciseController.deleteExerciseAdmin.bind(exerciseController) as any
+    );
   });
 }

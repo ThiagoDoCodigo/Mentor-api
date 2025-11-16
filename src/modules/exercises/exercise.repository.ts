@@ -396,4 +396,19 @@ export class ExerciseRepository {
     await option.update(patch);
     return option;
   };
+
+  public deleteExercise = async (id_exercise: string, id_user: string) => {
+    const exercise = await ExerciseModel.findByPk(id_exercise);
+    if (!exercise) throw new CustomError("Exercício não encontrado", 404);
+    if (exercise.id_user !== id_user)
+      throw new CustomError("Exercício não pertence ao usuário", 403);
+
+    await exercise.destroy();
+  };
+
+  public deleteExerciseAdmin = async (id_exercise: string) => {
+    const exercise = await ExerciseModel.destroy({ where: { id_exercise } });
+
+    if (!exercise) throw new CustomError("Exercício nao encontrado", 404);
+  };
 }

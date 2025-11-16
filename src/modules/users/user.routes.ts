@@ -36,5 +36,21 @@ export default async function UserRoutes(fastify: FastifyInstance) {
       },
       userController.patchUser.bind(userController)
     );
+
+    instance.delete<{ Params: { id: string } }>(
+      "/delete/:id",
+      {
+        preHandler: instance.verifyOwner("params", "id"),
+      },
+      userController.deleteUser.bind(userController)
+    );
+
+    instance.delete<{ Params: { id: string } }>(
+      "/deleteAdmin/:id",
+      {
+        preHandler: instance.verifyRole("admin"),
+      },
+      userController.deleteUser.bind(userController)
+    );
   });
 }

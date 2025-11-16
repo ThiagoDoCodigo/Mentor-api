@@ -187,4 +187,20 @@ export class ExerciseService {
       handleSequelizeError(err, "Exercício");
     }
   };
+
+  public deleteExercise = async (id_exercise: string, id_user: string) => {
+    try {
+      return await this.exerciseRepository.deleteExercise(id_exercise, id_user);
+    } catch (err: any) {
+      handleSequelizeError(err, "Exercício");
+    }
+  };
+
+  public deleteExerciseAdmin = async (id_exercise: string) => {
+    try {
+      return await this.exerciseRepository.deleteExerciseAdmin(id_exercise);
+    } catch (err: any) {
+      handleSequelizeError(err, "Exercício");
+    }
+  };
 }

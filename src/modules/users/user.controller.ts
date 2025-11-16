@@ -61,4 +61,26 @@ export class UserController {
       return sendError(reply, err);
     }
   };
+
+  public deleteUser = async (
+    request: FastifyRequest<{ Params: { id: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const userId = request.params.id;
+      if (!userId) {
+        return reply
+          .code(400)
+          .send({ message: "ID do usuário obrigatório.", sucess: false });
+      }
+      const deletedUser = await this.userService.deleteUser(userId);
+      return reply.code(200).send({
+        message: "Usuário excluido com sucesso.",
+        sucess: true,
+        deletedUser: deletedUser,
+      });
+    } catch (err) {
+      return sendError(reply, err);
+    }
+  };
 }

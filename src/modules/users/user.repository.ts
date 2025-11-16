@@ -1,6 +1,7 @@
 import sequelize from "../../data/database";
 import { UserRequest, UserResponse, UserPatch } from "./user.interface";
 import { User } from "./users.model";
+import { CustomError } from "../../erros/CustomError";
 
 export class UserRepository {
   public createUser = async (
@@ -66,5 +67,13 @@ export class UserRepository {
     });
 
     return updatedUser ? updatedUser.get({ plain: true }) : null;
+  };
+
+  public deleteUser = async (id_user: string): Promise<void> => {
+    const deletedUser = await User.destroy({ where: { id_user } });
+
+    if (!deletedUser) {
+      throw new CustomError("Usuário não encontrado", 404);
+    }
   };
 }

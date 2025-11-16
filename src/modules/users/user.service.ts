@@ -85,4 +85,12 @@ export class UserService {
       handleSequelizeUserError(err);
     }
   };
+
+  public deleteUser = async (id_user: string): Promise<void> => {
+    try {
+      await this.userRepository.deleteUser(id_user);
+    } catch (err: any) {
+      handleSequelizeUserError(err);
+    }
+  };
 }
