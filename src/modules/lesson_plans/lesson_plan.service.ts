@@ -1,20 +1,36 @@
 import { handleSequelizeError } from "../../utils/handleSequelizeError";
 import { CustomError } from "../../erros/CustomError";
-import { LessonPlanRequest } from "./lesson_plan.interface";
+import {
+  LessonPlanRequest,
+  LessonPlanResponse,
+  patchLessonPlan,
+  patchLessonPlanResponse,
+  patchObjective,
+  patchObjectiveResponse,
+  patchCompetencies,
+  patchCompetenciesResponse,
+  patchTheme,
+  patchThemeResponse,
+  patchTeachingMethodology,
+  patchTeachingMethodologyResponse,
+  patchTopic,
+  patchTopicResponse,
+  patchHomework,
+  patchHomeworkResponse,
+  patchInclusiveAdaptation,
+  patchInclusiveAdaptationResponse,
+  patchReferences,
+  patchReferencesResponse,
+  patchClosure,
+  patchClosureResponse,
+  patchExamplesTopics,
+  patchExamplesTopicsResponse,
+  patchActivitiesTopics,
+  patchActivitiesTopicsResponse,
+  patchConnectionsTopics,
+  patchConnectionsTopicsResponse,
+} from "./lesson_plan.interface";
 import { LessonPlanRepository } from "./lesson_plans.repository";
-import { Lesson_planModel } from "./models/Lesson_plan.model";
-import { Objetives_lesson_planModel } from "./models/Objetives_lesson_plan.model";
-import { Competencies_lesson_planModel } from "./models/Competencies_lesson_plan.model";
-import { Themes_lesson_planModel } from "./models/Themes_lesson_plan.model";
-import { Methodology_lesson_planModel } from "./models/Methodology_lesson_plan.model";
-import { Topics_lesson_planModel } from "./models/Topics_lesson_plan.model";
-import { Homework_lesson_planModel } from "./models/Homework_lesson_plan.model";
-import { InclusiveAdaptation_lesson_planModel } from "./models/InclusiveAdaptation_lesson_plan.model";
-import { Examples_topicsModel } from "./models/Examples_topics.model";
-import { Activities_topicsModel } from "./models/Activities_topics.model";
-import { Connections_topicsModel } from "./models/Connections_topics.model";
-import { References_lesson_planModel } from "./models/References_lesson_plan.model";
-import { Closure_lesson_planModel } from "./models/Closure_lesson_plan.model";
 
 export class LessonPlanService {
   private lessonPlanRepository: LessonPlanRepository;
@@ -26,7 +42,7 @@ export class LessonPlanService {
   public createLessonPlan = async (
     request: LessonPlanRequest,
     id_user: string
-  ) => {
+  ): Promise<LessonPlanResponse> => {
     try {
       const lessonPlan = await this.lessonPlanRepository.createLessonPlan(
         request,
@@ -101,8 +117,8 @@ export class LessonPlanService {
   public updateLessonPlan = async (
     id_lesson_plan: string,
     id_user: string,
-    patch: Partial<Lesson_planModel>
-  ) => {
+    patch: patchLessonPlan
+  ): Promise<patchLessonPlanResponse> => {
     try {
       const lessonPlan = await this.lessonPlanRepository.updateLessonPlan(
         id_lesson_plan,
@@ -118,8 +134,8 @@ export class LessonPlanService {
   public updateObjetivesLessonPlan = async (
     id_objetives_lesson_plan: string,
     id_user: string,
-    patch: Partial<Objetives_lesson_planModel>
-  ) => {
+    patch: patchObjective
+  ): Promise<patchObjectiveResponse> => {
     try {
       const objetivesLessonPlan =
         await this.lessonPlanRepository.updateObjetivesLessonPlan(
@@ -136,8 +152,8 @@ export class LessonPlanService {
   public updateCompetenciesLessonPlan = async (
     id_competencies_lesson_plan: string,
     id_user: string,
-    patch: Partial<Competencies_lesson_planModel>
-  ) => {
+    patch: patchCompetencies
+  ): Promise<patchCompetenciesResponse> => {
     try {
       const competenciesLessonPlan =
         await this.lessonPlanRepository.updateCompetenciesLessonPlan(
@@ -154,8 +170,8 @@ export class LessonPlanService {
   public updateThemesLessonPlan = async (
     id_themes_lesson_plan: string,
     id_user: string,
-    patch: Partial<Themes_lesson_planModel>
-  ) => {
+    patch: patchTheme
+  ): Promise<patchThemeResponse> => {
     try {
       const themesLessonPlan =
         await this.lessonPlanRepository.updateThemesLessonPlan(
@@ -172,8 +188,8 @@ export class LessonPlanService {
   public updateMethodologyLessonPlan = async (
     id_methodology_lesson_plan: string,
     id_user: string,
-    patch: Partial<Methodology_lesson_planModel>
-  ) => {
+    patch: patchTeachingMethodology
+  ): Promise<patchTeachingMethodologyResponse> => {
     try {
       const methodologyLessonPlan =
         await this.lessonPlanRepository.updateMethodologyLessonPlan(
@@ -190,8 +206,8 @@ export class LessonPlanService {
   public updateTopicsLessonPlan = async (
     id_topics_lesson_plan: string,
     id_user: string,
-    patch: Partial<Topics_lesson_planModel>
-  ) => {
+    patch: patchTopic
+  ): Promise<patchTopicResponse> => {
     try {
       const topicsLessonPlan =
         await this.lessonPlanRepository.updateTopicsLessonPlan(
@@ -208,8 +224,8 @@ export class LessonPlanService {
   public updateExamplesTopics = async (
     id_examples_topics: string,
     id_user: string,
-    patch: Partial<Examples_topicsModel>
-  ) => {
+    patch: patchExamplesTopics
+  ): Promise<patchExamplesTopicsResponse> => {
     try {
       const examplesTopics =
         await this.lessonPlanRepository.updateExamplesTopics(
@@ -226,8 +242,8 @@ export class LessonPlanService {
   public updateActivitiesTopics = async (
     id_activities_topics: string,
     id_user: string,
-    patch: Partial<Activities_topicsModel>
-  ) => {
+    patch: patchActivitiesTopics
+  ): Promise<patchActivitiesTopicsResponse> => {
     try {
       const activitiesTopics =
         await this.lessonPlanRepository.updateActivitiesTopics(
@@ -244,8 +260,8 @@ export class LessonPlanService {
   public updateConnectionsTopics = async (
     id_connections_topics: string,
     id_user: string,
-    patch: Partial<Connections_topicsModel>
-  ) => {
+    patch: patchConnectionsTopics
+  ): Promise<patchConnectionsTopicsResponse> => {
     try {
       const connectionsTopics =
         await this.lessonPlanRepository.updateConnectionsTopics(
@@ -262,8 +278,8 @@ export class LessonPlanService {
   public updateHomeworkLessonPlan = async (
     id_homework_lesson_plan: string,
     id_user: string,
-    patch: Partial<Homework_lesson_planModel>
-  ) => {
+    patch: patchHomework
+  ): Promise<patchHomeworkResponse> => {
     try {
       const homeworkLessonPlan =
         await this.lessonPlanRepository.updateHomeworkLessonPlan(
@@ -280,8 +296,8 @@ export class LessonPlanService {
   public updateInclusiveAdaptationLessonPlan = async (
     id_inclusive_adaptation_lesson_plan: string,
     id_user: string,
-    patch: Partial<InclusiveAdaptation_lesson_planModel>
-  ) => {
+    patch: patchInclusiveAdaptation
+  ): Promise<patchInclusiveAdaptationResponse> => {
     try {
       const inclusiveAdaptationLessonPlan =
         await this.lessonPlanRepository.updateInclusiveAdaptationLessonPlan(
@@ -298,8 +314,8 @@ export class LessonPlanService {
   public updateReferencesLessonPlan = async (
     id_references_lesson_plan: string,
     id_user: string,
-    patch: Partial<References_lesson_planModel>
-  ) => {
+    patch: patchReferences
+  ): Promise<patchReferencesResponse> => {
     try {
       const referencesLessonPlan =
         await this.lessonPlanRepository.updateReferencesLessonPlan(
@@ -316,8 +332,8 @@ export class LessonPlanService {
   public updateClosureLessonPlan = async (
     id_closure_lesson_plan: string,
     id_user: string,
-    patch: Partial<Closure_lesson_planModel>
-  ) => {
+    patch: patchClosure
+  ): Promise<patchClosureResponse> => {
     try {
       const closureLessonPlan =
         await this.lessonPlanRepository.updateClosureLessonPlan(

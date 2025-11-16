@@ -1,21 +1,22 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { LessonPlanService } from "./lesson_plan.service";
-import { LessonPlanRequest } from "./lesson_plan.interface";
+import {
+  LessonPlanRequest,
+  patchLessonPlan,
+  patchObjective,
+  patchCompetencies,
+  patchTheme,
+  patchTeachingMethodology,
+  patchTopic,
+  patchHomework,
+  patchInclusiveAdaptation,
+  patchReferences,
+  patchClosure,
+  patchExamplesTopics,
+  patchActivitiesTopics,
+  patchConnectionsTopics,
+} from "./lesson_plan.interface";
 import { sendError } from "../../utils/sendError";
-
-import { Lesson_planModel } from "./models/Lesson_plan.model";
-import { Objetives_lesson_planModel } from "./models/Objetives_lesson_plan.model";
-import { Competencies_lesson_planModel } from "./models/Competencies_lesson_plan.model";
-import { Themes_lesson_planModel } from "./models/Themes_lesson_plan.model";
-import { Methodology_lesson_planModel } from "./models/Methodology_lesson_plan.model";
-import { Topics_lesson_planModel } from "./models/Topics_lesson_plan.model";
-import { Homework_lesson_planModel } from "./models/Homework_lesson_plan.model";
-import { InclusiveAdaptation_lesson_planModel } from "./models/InclusiveAdaptation_lesson_plan.model";
-import { Examples_topicsModel } from "./models/Examples_topics.model";
-import { Activities_topicsModel } from "./models/Activities_topics.model";
-import { Connections_topicsModel } from "./models/Connections_topics.model";
-import { References_lesson_planModel } from "./models/References_lesson_plan.model";
-import { Closure_lesson_planModel } from "./models/Closure_lesson_plan.model";
 
 export class LessonPlanController {
   private lessonPlanService: LessonPlanService;
@@ -116,7 +117,7 @@ export class LessonPlanController {
 
   public updateLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Lesson_planModel>;
+      Body: patchLessonPlan;
       Params: { id_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -127,7 +128,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Lesson_planModel;
+      const lessonPlan = request.body as patchLessonPlan;
 
       const updatedLessonPlan = await this.lessonPlanService.updateLessonPlan(
         id_lesson_plan,
@@ -146,7 +147,7 @@ export class LessonPlanController {
 
   public updateObjetivesLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Objetives_lesson_planModel>;
+      Body: patchObjective;
       Params: { id_objetives_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -157,7 +158,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Objetives_lesson_planModel;
+      const lessonPlan = request.body as patchObjective;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateObjetivesLessonPlan(
@@ -177,7 +178,7 @@ export class LessonPlanController {
 
   public updateCompetenciesLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Competencies_lesson_planModel>;
+      Body: patchCompetencies;
       Params: { id_competencies_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -189,7 +190,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Competencies_lesson_planModel;
+      const lessonPlan = request.body as patchCompetencies;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateCompetenciesLessonPlan(
@@ -209,7 +210,7 @@ export class LessonPlanController {
 
   public updateThemesLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Themes_lesson_planModel>;
+      Body: patchTheme;
       Params: { id_themes_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -220,7 +221,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Themes_lesson_planModel;
+      const lessonPlan = request.body as patchTheme;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateThemesLessonPlan(
@@ -240,7 +241,7 @@ export class LessonPlanController {
 
   public updateMethodologyLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Methodology_lesson_planModel>;
+      Body: patchTeachingMethodology;
       Params: { id_methodology_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -252,7 +253,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Methodology_lesson_planModel;
+      const lessonPlan = request.body as patchTeachingMethodology;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateMethodologyLessonPlan(
@@ -272,7 +273,7 @@ export class LessonPlanController {
 
   public updateTopicsLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Topics_lesson_planModel>;
+      Body: patchTopic;
       Params: { id_topics_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -283,7 +284,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Topics_lesson_planModel;
+      const lessonPlan = request.body as patchTopic;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateTopicsLessonPlan(
@@ -303,7 +304,7 @@ export class LessonPlanController {
 
   public updateExamplesTopics = async (
     request: FastifyRequest<{
-      Body: Partial<Examples_topicsModel>;
+      Body: patchExamplesTopics;
       Params: { id_examples_topics: string };
     }>,
     reply: FastifyReply
@@ -314,7 +315,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Examples_topicsModel;
+      const lessonPlan = request.body as patchExamplesTopics;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateExamplesTopics(
@@ -334,7 +335,7 @@ export class LessonPlanController {
 
   public updateActivitiesTopics = async (
     request: FastifyRequest<{
-      Body: Partial<Activities_topicsModel>;
+      Body: patchActivitiesTopics;
       Params: { id_activities_topics: string };
     }>,
     reply: FastifyReply
@@ -345,7 +346,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Activities_topicsModel;
+      const lessonPlan = request.body as patchActivitiesTopics;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateActivitiesTopics(
@@ -365,7 +366,7 @@ export class LessonPlanController {
 
   public updateConnectionsTopics = async (
     request: FastifyRequest<{
-      Body: Partial<Connections_topicsModel>;
+      Body: patchConnectionsTopics;
       Params: { id_connections_topics: string };
     }>,
     reply: FastifyReply
@@ -376,7 +377,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Connections_topicsModel;
+      const lessonPlan = request.body as patchConnectionsTopics;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateConnectionsTopics(
@@ -396,7 +397,7 @@ export class LessonPlanController {
 
   public updateHomeworkLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Homework_lesson_planModel>;
+      Body: patchHomework;
       Params: { id_homework_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -407,7 +408,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Homework_lesson_planModel;
+      const lessonPlan = request.body as patchHomework;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateHomeworkLessonPlan(
@@ -427,7 +428,7 @@ export class LessonPlanController {
 
   public updateInclusiveAdaptationLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<InclusiveAdaptation_lesson_planModel>;
+      Body: patchInclusiveAdaptation;
       Params: { id_inclusive_adaptation_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -439,7 +440,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as InclusiveAdaptation_lesson_planModel;
+      const lessonPlan = request.body as patchInclusiveAdaptation;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateInclusiveAdaptationLessonPlan(
@@ -459,7 +460,7 @@ export class LessonPlanController {
 
   public updateReferencesLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<References_lesson_planModel>;
+      Body: patchReferences;
       Params: { id_references_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -471,7 +472,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as References_lesson_planModel;
+      const lessonPlan = request.body as patchReferences;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateReferencesLessonPlan(
@@ -491,7 +492,7 @@ export class LessonPlanController {
 
   public updateClosureLessonPlan = async (
     request: FastifyRequest<{
-      Body: Partial<Closure_lesson_planModel>;
+      Body: patchClosure;
       Params: { id_closure_lesson_plan: string };
     }>,
     reply: FastifyReply
@@ -502,7 +503,7 @@ export class LessonPlanController {
       const user = request.authUser as any;
       const id_user = user.id_user;
 
-      const lessonPlan = request.body as Closure_lesson_planModel;
+      const lessonPlan = request.body as patchClosure;
 
       const updatedLessonPlan =
         await this.lessonPlanService.updateClosureLessonPlan(
