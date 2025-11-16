@@ -12,8 +12,8 @@ O Projeto Mentor é uma API de alta performance construída com Fastify e TypeSc
 | Linguagem | TypeScript | Linguagem tipada para maior <br> robustez do código. |
 | Banco de <br> Dados | PostgreSQL (pg, <br> pg-hstore) | Sistema de gerenciamento de <br> banco de dados relacional. |
 | ORM | Sequelize | Mapeamento Objeto-Relacional <br> para interagir com o PostgreSQL. |
-| Autenticação | JWT, bcrxpt | Autenticação baseada em tokens <br> e hash de senhas. |
-| Testes | Jest, supertest | Testes unitários e de integração. |
+| Autenticação | JWT, bcrypt | Autenticação baseada em tokens <br> e hash de senhas. |
+| Testes | Jest | Testes unitários. |
 
 ## 2. Instalação e Configuração
 
