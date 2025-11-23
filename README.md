@@ -44,7 +44,9 @@ Na raiz do projeto, execute o comando para baixar as bibliotecas:
 
 ```bash
 npm install
+```
 # ou
+```bash
 yarn install
 ```
 
