@@ -342,4 +342,10 @@ export default async function sequelizeFK(fastify: FastifyInstance) {
     foreignKey: "id_topics_lesson_plan",
     as: "topics_lesson_plan",
   });
+
+  if (process.env.NODE_ENV === "test") {
+    await sequelize.sync({ force: true });
+  } else {
+    await sequelize.sync();
+  }
 }

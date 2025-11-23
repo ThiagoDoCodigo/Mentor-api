@@ -1,4 +1,4 @@
-# Guia de Início Rápido - Projeto Mentor API 
+# Guia de Início Rápido - Projeto Mentor API
 
 Este documento serve como um guia essencial para configurar, rodar e testar o Projeto Mentor, uma API de gerenciamento de conteúdo educacional desenvolvida em Node.js com Fastify, TypeScript e integração com Google Gemini.
 
@@ -6,18 +6,18 @@ Este documento serve como um guia essencial para configurar, rodar e testar o Pr
 
 O Projeto Mentor é uma API de alta performance construída com Fastify e TypeScript, focada em gerenciar usuários, planos de aula e exercícios. Sua funcionalidade central é a integração com a API do Google Gemini para a geração automática de conteúdo educacional.
 
-| Categoria | Tecnologia/Biblioteca | Finalidade Principal |
-| :-- | :-- | :-- |
-| Framework | Node.js, Fastify | Ambiente de execução e <br> framework web de alta <br> performance. |
-| Linguagem | TypeScript | Linguagem tipada para maior <br> robustez do código. |
-| Banco de <br> Dados | PostgreSQL (pg, <br> pg-hstore) | Sistema de gerenciamento de <br> banco de dados relacional. |
-| ORM | Sequelize | Mapeamento Objeto-Relacional <br> para interagir com o PostgreSQL. |
-| Autenticação | JWT, bcrypt | Autenticação baseada em tokens <br> e hash de senhas. |
-| Testes | Jest | Testes unitários. |
+| Categoria           | Tecnologia/Biblioteca           | Finalidade Principal                                                |
+| :------------------ | :------------------------------ | :------------------------------------------------------------------ |
+| Framework           | Node.js, Fastify                | Ambiente de execução e <br> framework web de alta <br> performance. |
+| Linguagem           | TypeScript                      | Linguagem tipada para maior <br> robustez do código.                |
+| Banco de <br> Dados | PostgreSQL (pg, <br> pg-hstore) | Sistema de gerenciamento de <br> banco de dados relacional.         |
+| ORM                 | Sequelize                       | Mapeamento Objeto-Relacional <br> para interagir com o PostgreSQL.  |
+| Autenticação        | JWT, bcrypt                     | Autenticação baseada em tokens <br> e hash de senhas.               |
+| Testes              | Jest                            | Testes unitários e de intregração.                                  |
 
 ## 2. Instalação e Configuração
 
-# Passo 2.1: Pré-requisitos 
+# Passo 2.1: Pré-requisitos
 
 Certifique-se de ter instalado:
 
@@ -27,17 +27,20 @@ Certifique-se de ter instalado:
 ## Passo 2.2: Instalação de Dependências
 
 Navegue até o diretório raiz do projeto e instale todas as dependências necessárias (produção e desenvolvimento):
+
 ```
 npm install
 ```
+
 \# ou
+
 ```
 yarn install
 ```
 
 ## Passo 2.3: Configuração das Variáveis de Ambiente
 
-O projeto utiliza o pacote dotenv para gerenciar configurações. Você deve criar um arquivo .env na raiz do projeto, preenchendo as variáveis, especialmente as de conexão com o banco de dados e a chave de API do Google Gemini.
+O projeto utiliza o pacote dotenv para gerenciar configurações. Você deve criar um arquivo .env e um env.test na raiz do projeto, preenchendo as variáveis, especialmente as de conexão com o banco de dados e a chave de API do Google Gemini.
 
 ## Variáveis Mínimas (Exemplo):
 
@@ -55,17 +58,35 @@ JWT_PASSWORD=123456
 GEMINI_API_KEY=
 ```
 
+## Variáveis Mínimas - test (Exemplo):
+
+```
+DB_USERNAME=postgres
+DB_PASSWORD=sua_senha
+DB_TABLE=MENTOR-API-TEST
+DB_HOST=localhost
+DB_PORT=5432
+PORT=3000
+HOST=0.0.0.0
+JWT_LIMIT_ACCESS=2h
+JWT_LIMIT_REFRESH=2d
+JWT_PASSWORD=123456
+GEMINI_API_KEY=
+NODE_ENV=test
+```
 
 ## Passo 2.4: Criação e Sincronização do Banco de Dados
 
 Após configurar as variáveis de ambiente, execute o script de sincronização para criar o schema e todas as tabelas no PostgreSQL via Sequelize:
+
 ```
 npm run sync
 ```
 
 Comando: Este script executa src/data/sync.ts e é crucial para preparar o ambiente de dados.
+Obs.: Crie em sua maquina 2 bancos, um chamado MENTOR-API e outro chamado MENTOR-API-TEST.
 
-# 3. Execução do Servidor 
+# 3. Execução do Servidor
 
 O Projeto Mentor oferece diferentes scripts para ambientes de desenvolvimento e produção.
 
@@ -79,7 +100,7 @@ npm run dev
 
 ### 3.2. Modo Desenvolvimento (Memória Aumentada)
 
-Inicia o servidor alocando um limite maior de memória (--max-old-space-size=8192). Utilize este modo se estiver realizando operações intensivas, como testes ou 
+Inicia o servidor alocando um limite maior de memória (--max-old-space-size=8192). Utilize este modo se estiver realizando operações intensivas, como testes ou
 geração de conteúdo massivo via Gemini API:
 
 ```
@@ -91,26 +112,33 @@ npm run dev:mem
 Para rodar a aplicação em ambiente de produção (usando a versão compilada em JavaScript):
 
 1. Compilação do TypeScript para JavaScript:
+
 ```
 npm run build
-``` 
+```
+
 2. Execução do Servidor Compilado:
+
 ```
 npm start
 ```
-
 
 ## 4. Rodando os Testes
 
 O projeto utiliza o Jest como framework de testes, incluindo a verificação de cobertura de código.
 
-Execute o comando a seguir para rodar todos os testes unitários e de integração:
+Execute o comando a seguir para rodar todos os testes unitários:
+
 ```
-npm test
+npm run test:unit
 ```
+
+Execute o comando a seguir para rodar todos os testes de integração:
+
+```
+npm run test:integration
+```
+
 Comando: O script é configurado para rodar jest --verbose --coverage, fornecendo um relatório detalhado da execução e cobertura dos testes.
 
 .
-
-
-

@@ -11,5 +11,11 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"]
   },
-  "exclude": ["node_modules", "dist", "jest.config.ts", "**/*.test.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "jest.unit.config.ts",
+    "jest.integration.config.ts",
+    "**/*.test.ts"
+  ]
 }

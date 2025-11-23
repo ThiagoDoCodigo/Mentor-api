@@ -1,7 +1,7 @@
 import {
   LessonPlanRequest,
   LessonPlanResponse,
-} from "../../modules/lesson_plans/lesson_plan.interface";
+} from "../../../modules/lesson_plans/lesson_plan.interface";
 
 export const inputCreate: LessonPlanRequest = {
   subjectLessonPlan: "Estrutura de Dados em Java",

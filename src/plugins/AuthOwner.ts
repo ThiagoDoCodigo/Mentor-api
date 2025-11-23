@@ -17,7 +17,7 @@ export function AuthOwner(app: FastifyInstance) {
         const user = request.authUser;
 
         if (!user) {
-          return reply.code(401).send({ error: "Usuário não autenticado" });
+          return reply.code(401).send({ message: "Usuário não autenticado" });
         }
 
         // pega o id do lugar definido
@@ -31,12 +31,12 @@ export function AuthOwner(app: FastifyInstance) {
         if (!idToCheck) {
           return reply
             .code(400)
-            .send({ error: `Parâmetro '${key}' não fornecido` });
+            .send({ message: `Parâmetro '${key}' não fornecido` });
         }
 
         if (user.id_user !== idToCheck) {
           return reply.code(403).send({
-            error:
+            message:
               "Acesso negado: você só pode visualizar e alterar seu próprio recurso",
           });
         }

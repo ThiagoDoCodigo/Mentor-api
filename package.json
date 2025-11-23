@@ -8,7 +8,9 @@
     "dev:mem": "npx --node-arg=\"--max-old-space-size=8192\" ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest --verbose --coverage",
+    "test": "jest --verbose",
+    "test:unit": "jest -c jest.unit.config.ts --runInBand --verbose",
+    "test:integration": "cross-env NODE_ENV=test jest -c jest.integration.config.ts --runInBand --verbose",
     "sync": "ts-node -r dotenv/config src/data/sync.ts"
   },
   "keywords": [],
@@ -36,6 +38,7 @@
     "@types/node": "^24.8.1",
     "@types/socket.io": "^3.0.1",
     "@types/supertest": "^6.0.3",
+    "cross-env": "^10.1.0",
     "jest": "^30.2.0",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.5",
