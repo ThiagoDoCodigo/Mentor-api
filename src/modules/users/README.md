@@ -124,9 +124,13 @@ Atualiza os dados de um usuário específico.
 
 Envie apenas os campos que deseja alterar.
 
-| Campo       | Tipo   | Descrição             |
-| :---------- | :----- | :-------------------- |
-| `name_user` | String | Novo nome do usuário. |
+| Campo           | Tipo   | Obrigatório | Descrição                                   |
+| :-------------- | :----- | :---------: | :------------------------------------------ |
+| `name_user`     | String |     Sim     | Nome completo do usuário.                   |
+| `email_user`    | String |     Sim     | Endereço de e-mail válido.                  |
+| `cpf_user`      | String |     Sim     | CPF (apenas números ou formatado).          |
+| `password_user` | String |     Sim     | Senha de acesso.                            |
+| `role_user`     | String |     Sim     | Perfil do usuário (ex: "student", "admin"). |
 
 **Exemplo de Request:**
 
@@ -175,6 +179,16 @@ Endpoint administrativo para atualização forçada ou privilegiada de dados do 
 | `Authorization` | `Bearer {{token}}` |
 
 #### 📥 Body (JSON)
+
+Envie apenas os campos que deseja alterar.
+
+| Campo           | Tipo   | Obrigatório | Descrição                                   |
+| :-------------- | :----- | :---------: | :------------------------------------------ |
+| `name_user`     | String |     Sim     | Nome completo do usuário.                   |
+| `email_user`    | String |     Sim     | Endereço de e-mail válido.                  |
+| `cpf_user`      | String |     Sim     | CPF (apenas números ou formatado).          |
+| `password_user` | String |     Sim     | Senha de acesso.                            |
+| `role_user`     | String |     Sim     | Perfil do usuário (ex: "student", "admin"). |
 
 **Exemplo de Request:**
 
