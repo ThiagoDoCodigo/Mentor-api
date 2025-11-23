@@ -1,144 +1,174 @@
-# Guia de Início Rápido - Projeto Mentor API
+# 🎓 Guia de Início Rápido - Projeto Mentor API
 
-Este documento serve como um guia essencial para configurar, rodar e testar o Projeto Mentor, uma API de gerenciamento de conteúdo educacional desenvolvida em Node.js com Fastify, TypeScript e integração com Google Gemini.
+Este documento serve como o manual definitivo para configuração, execução e testes do **Projeto Mentor**, uma API RESTful de alta performance voltada para o gerenciamento de conteúdo educacional. O sistema integra tecnologias modernas e Inteligência Artificial (Google Gemini) para automatizar a criação de planos de aula e exercícios.
 
-## 1. Visão Geral do Projeto
+---
 
-O Projeto Mentor é uma API de alta performance construída com Fastify e TypeScript, focada em gerenciar usuários, planos de aula e exercícios. Sua funcionalidade central é a integração com a API do Google Gemini para a geração automática de conteúdo educacional.
+## 1\. 📋 Visão Geral do Projeto
 
-| Categoria           | Tecnologia/Biblioteca           | Finalidade Principal                                                |
-| :------------------ | :------------------------------ | :------------------------------------------------------------------ |
-| Framework           | Node.js, Fastify                | Ambiente de execução e <br> framework web de alta <br> performance. |
-| Linguagem           | TypeScript                      | Linguagem tipada para maior <br> robustez do código.                |
-| Banco de <br> Dados | PostgreSQL (pg, <br> pg-hstore) | Sistema de gerenciamento de <br> banco de dados relacional.         |
-| ORM                 | Sequelize                       | Mapeamento Objeto-Relacional <br> para interagir com o PostgreSQL.  |
-| Autenticação        | JWT, bcrypt                     | Autenticação baseada em tokens <br> e hash de senhas.               |
-| Testes              | Jest                            | Testes unitários e de intregração.                                  |
+O **Projeto Mentor** é construído sobre uma arquitetura robusta utilizando **Fastify** e **TypeScript**, garantindo tipagem estática e alta velocidade de processamento. O núcleo da aplicação gerencia:
 
-## 2. Instalação e Configuração
+- **Usuários:** Controle de acesso e perfis (Student/Admin).
+- **Conteúdo:** Criação e versionamento de Planos de Aula e Exercícios.
+- **IA Generativa:** Integração nativa com Google Gemini para geração de material didático complexo.
 
-# Passo 2.1: Pré-requisitos
+### 🛠️ Stack Tecnológico
 
-Certifique-se de ter instalado:
+| Categoria          | Tecnologia / Lib  | Finalidade Principal                                                     |
+| :----------------- | :---------------- | :----------------------------------------------------------------------- |
+| **Core**           | Node.js & Fastify | Runtime e Framework web de baixa sobrecarga e alta performance.          |
+| **Linguagem**      | TypeScript        | Superconjunto de JS que adiciona tipagem estática e segurança ao código. |
+| **Banco de Dados** | PostgreSQL        | SGBD Relacional robusto para persistência de dados.                      |
+| **ORM**            | Sequelize         | Abstração e manipulação do banco de dados via objetos (Models).          |
+| **Segurança**      | JWT & Bcrypt      | Autenticação via Tokens (Access/Refresh) e hash seguro de senhas.        |
+| **Testes**         | Jest              | Framework completo para testes unitários e de integração.                |
+| **AI**             | Google Gemini API | Motor de geração de conteúdo educacional.                                |
 
-1. Node.js (versão recomendada: LTS)
-2. PostgreSQL (servidor de banco de dados rodando)
+---
 
-## Passo 2.2: Instalação de Dependências
+## 2\. ⚙️ Instalação e Configuração
 
-Navegue até o diretório raiz do projeto e instale todas as dependências necessárias (produção e desenvolvimento):
+Siga os passos abaixo para configurar o ambiente de desenvolvimento.
 
-```
+### 2.1. Pré-requisitos
+
+Certifique-se de ter instalado em sua máquina:
+
+- **Node.js** (Versão LTS recomendada v18+).
+- **PostgreSQL** (Servidor rodando e acessível).
+- **Gerenciador de Pacotes** (`npm` ou `yarn`).
+
+### 2.2. Instalação de Dependências
+
+Na raiz do projeto, execute o comando para baixar as bibliotecas:
+
+```bash
 npm install
 ```
-
-\# ou
-
-```
+# ou
+```bash
 yarn install
 ```
 
-## Passo 2.3: Configuração das Variáveis de Ambiente
+### 2.3. Configuração de Variáveis de Ambiente (`.env`)
 
-O projeto utiliza o pacote dotenv para gerenciar configurações. Você deve criar um arquivo .env e um env.test na raiz do projeto, preenchendo as variáveis, especialmente as de conexão com o banco de dados e a chave de API do Google Gemini.
+O projeto requer a configuração de variáveis sensíveis. Crie dois arquivos na raiz: `.env` (desenvolvimento/produção) e `.env.test` (testes automatizados).
 
-## Variáveis Mínimas (Exemplo):
+#### 📄 Arquivo `.env` (Exemplo)
 
-```
+```ini
+# --- Banco de Dados (Aplicação) ---
 DB_USERNAME=postgres
-DB_PASSWORD=sua_senha
+DB_PASSWORD=sua_senha_aqui
 DB_TABLE=MENTOR-API
 DB_HOST=localhost
 DB_PORT=5432
+
+# --- Servidor ---
 PORT=3000
 HOST=0.0.0.0
+
+# --- Segurança (JWT) ---
 JWT_LIMIT_ACCESS=2h
 JWT_LIMIT_REFRESH=2d
-JWT_PASSWORD=123456
-GEMINI_API_KEY=
+JWT_PASSWORD=secret_super_seguro_123
+
+# --- Integrações Externas ---
+GEMINI_API_KEY=sua_chave_api_google_gemini
 ```
 
-## Variáveis Mínimas - test (Exemplo):
+#### 📄 Arquivo `.env.test` (Exemplo)
 
-```
+```ini
+# --- Banco de Dados (Testes) ---
+# ATENÇÃO: Use um banco separado para não limpar seus dados de dev
 DB_USERNAME=postgres
-DB_PASSWORD=sua_senha
+DB_PASSWORD=sua_senha_aqui
 DB_TABLE=MENTOR-API-TEST
 DB_HOST=localhost
 DB_PORT=5432
-PORT=3000
-HOST=0.0.0.0
-JWT_LIMIT_ACCESS=2h
-JWT_LIMIT_REFRESH=2d
-JWT_PASSWORD=123456
-GEMINI_API_KEY=
+
+# --- Configurações de Teste ---
 NODE_ENV=test
+PORT=3001
+JWT_LIMIT_ACCESS=1h
+JWT_LIMIT_REFRESH=1d
+JWT_PASSWORD=test_secret
+GEMINI_API_KEY=sua_chave_api_google_gemini
 ```
 
-## Passo 2.4: Criação e Sincronização do Banco de Dados
+### 2.4. Configuração do Banco de Dados
 
-Após configurar as variáveis de ambiente, execute o script de sincronização para criar o schema e todas as tabelas no PostgreSQL via Sequelize:
+O Sequelize sincronizará os modelos com o banco, mas ele **não cria o banco de dados em si**.
 
-```
+1.  **Manual:** Abra seu terminal SQL ou pgAdmin e crie dois bancos vazios:
+    - `MENTOR-API`
+    - `MENTOR-API-TEST`
+2.  **Sincronização:** Execute o script para criar as tabelas e relacionamentos:
+
+<!-- end list -->
+
+```bash
 npm run sync
 ```
 
-Comando: Este script executa src/data/sync.ts e é crucial para preparar o ambiente de dados.
-Obs.: Crie em sua maquina 2 bancos, um chamado MENTOR-API e outro chamado MENTOR-API-TEST.
+> _Este comando executa `src/data/sync.ts`, garantindo que o schema esteja atualizado._
 
-# 3. Execução do Servidor
+---
 
-O Projeto Mentor oferece diferentes scripts para ambientes de desenvolvimento e produção.
+## 3\. 🚀 Execução do Servidor
 
-### 3.1. Modo Desenvolvimento Padrão
+Escolha o modo de execução adequado para sua necessidade:
 
-Inicia o servidor em modo de observação (ts-node-dev), com hot-reload. Ideal para o desenvolvimento diário:
+### 🧑‍💻 Modo Desenvolvimento (Padrão)
 
-```
+Utiliza `ts-node-dev` com _hot-reload_. Qualquer alteração no código reinicia o servidor automaticamente.
+
+```bash
 npm run dev
 ```
 
-### 3.2. Modo Desenvolvimento (Memória Aumentada)
+### 🧠 Modo Desenvolvimento (Memória Estendida)
 
-Inicia o servidor alocando um limite maior de memória (--max-old-space-size=8192). Utilize este modo se estiver realizando operações intensivas, como testes ou
-geração de conteúdo massivo via Gemini API:
+Ideal para operações pesadas (ex: processamento em lote com IA). Aloca `8GB` de memória para o Node.js.
 
-```
+```bash
 npm run dev:mem
 ```
 
-### 3.3. Modo Produção
+### 🏭 Modo Produção
 
-Para rodar a aplicação em ambiente de produção (usando a versão compilada em JavaScript):
+Para deploy ou performance máxima. Compila o TypeScript para JavaScript otimizado.
 
-1. Compilação do TypeScript para JavaScript:
+1.  **Build:** Transpila o código para a pasta `dist/`.
+    ```bash
+    npm run build
+    ```
+2.  **Start:** Roda o servidor compilado.
+    ```bash
+    npm start
+    ```
 
-```
-npm run build
-```
+---
 
-2. Execução do Servidor Compilado:
+## 4\. 🧪 Testes Automatizados (Quality Assurance)
 
-```
-npm start
-```
+O projeto utiliza **Jest** para garantir a qualidade do código.
 
-## 4. Rodando os Testes
+### 🧩 Testes Unitários
 
-O projeto utiliza o Jest como framework de testes, incluindo a verificação de cobertura de código.
+Testam funções isoladas e regras de negócio (Services/Utils) sem tocar no banco de dados ou APIs externas.
 
-Execute o comando a seguir para rodar todos os testes unitários:
-
-```
+```bash
 npm run test:unit
 ```
 
-Execute o comando a seguir para rodar todos os testes de integração:
+### 🔌 Testes de Integração
 
-```
+Testam os Endpoints (Rotas) reais, verificando o fluxo completo (Request -\> Controller -\> DB -\> Response).
+
+```bash
 npm run test:integration
 ```
 
-Comando: O script é configurado para rodar jest --verbose --coverage, fornecendo um relatório detalhado da execução e cobertura dos testes.
-
-.
+> **Nota:** Os testes de integração utilizam o banco `MENTOR-API-TEST` e o limpam a cada execução.
