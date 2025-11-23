@@ -1,11 +1,11 @@
-import { UserService } from "../../modules/users/user.service";
+import { UserService } from "../../../modules/users/user.service";
 import {
   UserPatch,
   UserRequest,
   UserResponse,
-} from "../../modules/users/user.interface";
+} from "../../../modules/users/user.interface";
 import bcrypt from "bcrypt";
-import { CustomError } from "../../erros/CustomError";
+import { CustomError } from "../../../erros/CustomError";
 
 describe("UserService - createUser", () => {
   const mockCreateUser = jest.fn<Promise<UserResponse | null>, [UserRequest]>();

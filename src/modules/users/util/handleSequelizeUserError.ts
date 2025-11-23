@@ -39,6 +39,14 @@ export function handleSequelizeUserError(err: any): never {
     );
   }
 
-  const msg = err instanceof Error ? err.message : "Erro interno";
-  throw new CustomError(msg, 500, "GenericError");
+  if (err instanceof CustomError) {
+    throw err;
+  }
+
+  const msg = err instanceof Error ? err.message : "Erro interno inesperado.";
+  throw new CustomError(
+    `Ocorreu um erro ao processar a requisição: ${msg}`,
+    500,
+    "GenericError"
+  );
 }

@@ -27,9 +27,9 @@ import {
   patchActivitiesTopicsResponse,
   patchConnectionsTopics,
   patchConnectionsTopicsResponse,
-} from "../../modules/lesson_plans/lesson_plan.interface";
-import { CustomError } from "../../erros/CustomError";
-import { LessonPlanService } from "../../modules/lesson_plans/lesson_plan.service";
+} from "../../../modules/lesson_plans/lesson_plan.interface";
+import { CustomError } from "../../../erros/CustomError";
+import { LessonPlanService } from "../../../modules/lesson_plans/lesson_plan.service";
 import { inputCreate } from "./lesson_plan.mock";
 import { responseCreate } from "./lesson_plan.mock";
 

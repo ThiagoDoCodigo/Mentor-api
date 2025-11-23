@@ -1,5 +1,5 @@
-import { ExerciseService } from "../../modules/exercises/exercise.service";
-import { CustomError } from "../../erros/CustomError";
+import { ExerciseService } from "../../../modules/exercises/exercise.service";
+import { CustomError } from "../../../erros/CustomError";
 import {
   ExercisesRequest,
   ExercisesResponse,
@@ -15,7 +15,7 @@ import {
   patchMultipleOptionsResponse,
   patchTrueOrFalseOptions,
   patchTrueOrFalseOptionsResponse,
-} from "../../modules/exercises/exercise.interface";
+} from "../../../modules/exercises/exercise.interface";
 
 describe("ExerciseService - createExercise", () => {
   const mockCreateExercise = jest.fn<

@@ -15,13 +15,13 @@ export function AuthRole(app: FastifyInstance) {
       const user = request.authUser;
 
       if (!user) {
-        return reply.code(401).send({ error: "Usuário não autenticado" });
+        return reply.code(401).send({ message: "Usuário não autenticado" });
       }
 
       if (user.role !== requiredRole) {
         return reply
           .code(403)
-          .send({ error: "Acesso negado: permissão insuficiente" });
+          .send({ message: "Acesso negado: permissão insuficiente" });
       }
     };
   });
