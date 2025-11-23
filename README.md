@@ -1,7 +1,3 @@
-Com certeza\! Aqui está uma versão aprimorada, visualmente organizada e profissional do seu **README**, incorporando as melhores práticas de documentação, formatação clara e emojis para facilitar a leitura.
-
----
-
 # 🎓 Guia de Início Rápido - Projeto Mentor API
 
 Este documento serve como o manual definitivo para configuração, execução e testes do **Projeto Mentor**, uma API RESTful de alta performance voltada para o gerenciamento de conteúdo educacional. O sistema integra tecnologias modernas e Inteligência Artificial (Google Gemini) para automatizar a criação de planos de aula e exercícios.
