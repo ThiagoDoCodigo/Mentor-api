@@ -84,6 +84,7 @@ npm run sync
 ```
 
 Comando: Este script executa src/data/sync.ts e é crucial para preparar o ambiente de dados.
+
 Obs.: Crie em sua maquina 2 bancos, um chamado MENTOR-API e outro chamado MENTOR-API-TEST.
 
 # 3. Execução do Servidor
@@ -138,7 +139,3 @@ Execute o comando a seguir para rodar todos os testes de integração:
 ```
 npm run test:integration
 ```
-
-Comando: O script é configurado para rodar jest --verbose --coverage, fornecendo um relatório detalhado da execução e cobertura dos testes.
-
-.
