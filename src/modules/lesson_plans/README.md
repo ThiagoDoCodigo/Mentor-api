@@ -184,7 +184,7 @@ Cria um plano de aula com toda a sua árvore de dependências (objetivos, temas,
 Retorna a estrutura completa e aninhada de um plano específico.
 
 - **Método:** `GET`
-- **Rota:** `/lesson-plans/get-lesson-plans/id/:id`
+- **Rota:** `/lesson-plans/get-lesson-plans/id/:id_lesson_plan`
 
 #### 📤 Response
 
@@ -213,7 +213,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 ### 5\. Atualizar Dados Gerais (`Patch Lesson`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/lesson-plan/:id`
+- **Rota:** `/lesson-plans/update/lesson-plan/:id_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -225,7 +225,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 ### 6\. Atualizar Objetivo Específico (`Patch Objetives`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/objetives/:id_objective`
+- **Rota:** `/lesson-plans/update/objetives/:id_objetives_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -239,7 +239,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 ### 7\. Atualizar Competência (`Patch Competencies`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/competencies/:id_competency`
+- **Rota:** `/lesson-plans/update/competencies/:id_competencies_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -251,7 +251,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 ### 8\. Atualizar Tema (`Patch Themes`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/themes/:id_theme`
+- **Rota:** `/lesson-plans/update/themes/:id_themes_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -263,7 +263,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 ### 9\. Atualizar Metodologia (`Patch Methodology`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/methodology/:id_methodology`
+- **Rota:** `/lesson-plans/update/methodology/:id_methodology_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -277,7 +277,7 @@ Estas rotas permitem alterar partes específicas do plano sem reenviar todo o co
 Atualiza título ou conteúdo do tópico (não os sub-itens).
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/topics/:id_topic`
+- **Rota:** `/lesson-plans/update/topics/:id_topics_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -289,7 +289,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 11\. Atualizar Exemplo do Tópico (`Patch Topics Examples`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/examples-topics/:id_example`
+- **Rota:** `/lesson-plans/update/examples-topics/:id_examples_topics`
 - **Body:**
 
 <!-- end list -->
@@ -301,7 +301,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 12\. Atualizar Atividade do Tópico (`Patch Topics Activities`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/Activities-topics/:id_activity`
+- **Rota:** `/lesson-plans/update/Activities-topics/:id_activities_topics`
 - **Body:**
 
 <!-- end list -->
@@ -313,7 +313,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 13\. Atualizar Conexão do Tópico (`Patch Topics Connections`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/connections-topics/:id_connection`
+- **Rota:** `/lesson-plans/update/connections-topics/:id_connections_topics`
 - **Body:**
 
 <!-- end list -->
@@ -325,7 +325,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 14\. Atualizar Adaptação Inclusiva (`Patch Inclusive Adaptation`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/inclusive-adaptation/:id_adaptation`
+- **Rota:** `/lesson-plans/update/inclusive-adaptation/:id_inclusive_adaptation_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -339,7 +339,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 15\. Atualizar Referências (`Patch References`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/references/:id_reference`
+- **Rota:** `/lesson-plans/update/references/:id_references_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -351,7 +351,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 16\. Atualizar Fechamento (`Patch Closure`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/closure/:id_closure`
+- **Rota:** `/lesson-plans/update/closure/:id_closure_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -363,7 +363,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 ### 17\. Atualizar Tarefa de Casa (`Patch Homework`)
 
 - **Método:** `PATCH`
-- **Rota:** `/lesson-plans/update/homeworks/:id_homework`
+- **Rota:** `/lesson-plans/update/homeworks/:id_homework_lesson_plan`
 - **Body:**
 
 <!-- end list -->
@@ -381,7 +381,7 @@ Atualiza título ou conteúdo do tópico (não os sub-itens).
 Remove um plano de aula pertencente ao usuário.
 
 - **Método:** `DELETE`
-- **Rota:** `/lesson-plans/delete-lesson-plan/:id`
+- **Rota:** `/lesson-plans/delete-lesson-plan/:id_lesson_plan`
 - **Autenticação:** Bearer Token
 
 ### 19\. Deletar Plano de Aula - Admin (`Delete Lesson Adm`)
@@ -389,7 +389,7 @@ Remove um plano de aula pertencente ao usuário.
 Rota administrativa para remoção de qualquer plano.
 
 - **Método:** `DELETE`
-- **Rota:** `/lesson-plans/delete-lesson-plan-admin/:id`
+- **Rota:** `/lesson-plans/delete-lesson-plan-admin/:id_lesson_plan`
 - **Autenticação:** Bearer Token (Admin)
 
 #### 📤 Response (Ambos)
