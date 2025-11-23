@@ -1,321 +1,338 @@
 # 📝 Módulo de Planos de Aula (Lesson Plans API)
 
-Este módulo é responsável pelo gerenciamento completo do ciclo de vida dos Planos de Aula. Devido à complexidade pedagógica, este recurso possui uma estrutura profundamente aninhada (Aula -\> Tópicos -\> Atividades/Exemplos/Conexões).
-
-A API permite criar o plano completo em uma única requisição, mas oferece endpoints específicos (`PATCH`) para atualizar cada fragmento do plano individualmente (granularidade fina).
+Este módulo gerencia o ciclo de vida completo dos planos de aula. Devido à natureza pedagógica, a estrutura de dados é **profundamente aninhada** (Aula possui Tópicos, que possuem Atividades/Exemplos, etc.). A API oferece rotas para criação em lote e rotas específicas (`PATCH`) para atualizar cada fragmento individualmente.
 
 ## 📋 Visão Geral
 
 - **Base URL:** `{{api-url}}`
 - **Formato de Dados:** JSON
-- **Autenticação:** Token Bearer (Obrigatório)
+- **Autenticação:** Token Bearer (Obrigatório em todas as rotas)
 
 ### ℹ️ Padrão de Resposta
 
-- **Sucesso (`200/201`):** Retorna `sucess: true` e o objeto manipulado.
-- **Paginação:** Endpoints de listagem retornam `total`, `totalPages`, `currentPage` e `data`.
-- **Erro:** Retorna `sucess: false` e a descrição no campo `message`.
+- **Sucesso (`200/201`):** Retorna `sucess: true` e o objeto criado/atualizado.
+- **Listagem:** Retorna metadados de paginação (`total`, `totalPages`, `currentPage`) e o array `data`.
+- **Erro:** Retorna `sucess: false` e a mensagem de erro.
 
 ---
 
-## 🚀 Endpoints de Criação e Leitura
+## 🚀 Endpoints Principais
 
 ### 1\. Criar Plano de Aula Completo (`Add Lesson Plan`)
 
-Cria um plano de aula com toda a sua árvore de dependências: objetivos, competências, temas, metodologias, tópicos detalhados (com exemplos, atividades e conexões), dever de casa, adaptações e referências.
+Cria um plano de aula com toda a sua árvore de dependências (objetivos, temas, tópicos, atividades, etc.) em uma única requisição.
 
 - **Método:** `POST`
 - **Rota:** `/lesson-plans/create-lesson-plan`
 - **Autenticação:** Bearer Token
 
-#### 📥 Body (JSON) - Estrutura Principal
+#### 📥 Body (JSON)
 
-| Campo                       | Tipo   | Obrigatório | Descrição                                |
-| :-------------------------- | :----- | :---------: | :--------------------------------------- |
-| `subjectLessonPlan`         | String |     Sim     | Disciplina ou Matéria.                   |
-| `descriptionLessonPlan`     | String |     Sim     | Resumo do conteúdo da aula.              |
-| `gradeLevelLessonPlan`      | String |     Sim     | Nível de ensino (ex: "Ensino Superior"). |
-| `complexityLevelLessonPlan` | String |     Sim     | Nível de dificuldade.                    |
-| `durationMinutesLessonPlan` | Number |     Sim     | Duração total em minutos.                |
-| `generalObjective`          | String |     Sim     | Objetivo geral da aula.                  |
-| `objectives`                | Array  |     Sim     | Lista de objetivos específicos.          |
-| `competencies`              | Array  |     Sim     | Lista de competências a desenvolver.     |
-| `themes`                    | Array  |     Sim     | Temas abordados.                         |
-| `teachingMethodologies`     | Array  |     Sim     | Metodologias de ensino aplicadas.        |
-| `topics`                    | Array  |     Sim     | Lista complexa de tópicos (ver abaixo).  |
-| `homework`                  | Object |     Sim     | Objeto descrevendo a tarefa de casa.     |
-| `inclusiveAdaptation`       | Object |     Sim     | Adaptações para inclusão.                |
-| `references`                | Array  |     Sim     | Referências bibliográficas.              |
-| `closure`                   | Object |     Sim     | Fechamento e reflexão da aula.           |
+| Campo                       | Tipo   | Obrigatório | Descrição                                     |
+| :-------------------------- | :----- | :---------: | :-------------------------------------------- |
+| `subjectLessonPlan`         | String |     Sim     | Disciplina da aula.                           |
+| `descriptionLessonPlan`     | String |     Sim     | Descrição/Resumo da aula.                     |
+| `gradeLevelLessonPlan`      | String |     Sim     | Nível de ensino (ex: "Ensino Superior").      |
+| `complexityLevelLessonPlan` | String |     Sim     | Nível de dificuldade (ex: "Avançado").        |
+| `durationMinutesLessonPlan` | Number |     Sim     | Duração em minutos.                           |
+| `generalObjective`          | String |     Sim     | Objetivo geral da aula.                       |
+| `specificObjectives`        | Array  |     Sim     | Lista de objetivos específicos.               |
+| `competencies`              | Array  |     Sim     | Lista de competências.                        |
+| `themes`                    | Array  |     Sim     | Temas abordados.                              |
+| `teachingMethodologies`     | Array  |     Sim     | Metodologias de ensino.                       |
+| `topics`                    | Array  |     Sim     | Lista de tópicos com sub-itens (ver exemplo). |
+| `homework`                  | Object |     Sim     | Dados da tarefa de casa.                      |
+| `inclusiveAdaptation`       | Object |     Sim     | Adaptações inclusivas.                        |
+| `references`                | Array  |     Sim     | Referências bibliográficas.                   |
+| `closure`                   | Object |     Sim     | Fechamento da aula.                           |
 
-#### 🏗️ Estruturas Aninhadas (Arrays e Objetos)
-
-**Objetivos, Competências, Temas e Metodologias:**
-
-```json
-"objectives": [{ "titleObjetivesLessonPlan": "...", "contentObjetivesLessonPlan": "..." }],
-"competencies": [{ "contentCompetenciesLessonPlan": "..." }],
-"themes": [{ "titleThemesLessonPlan": "...", "contentThemesLessonPlan": "..." }],
-"teachingMethodologies": [{ "titleMethodologyLessonPlan": "...", "contentMethodologyLessonPlan": "..." }]
-```
-
-**Tópicos (`topics`) - Estrutura Complexa:**
-Cada tópico contém seus próprios sub-arrays de Exemplos, Atividades e Conexões.
-
-```json
-{
-  "titleTopicsLessonPlan": "Título do Tópico",
-  "contentTopicsLessonPlan": "Conteúdo resumido",
-  "detailed_explanation_topic_lesson_plan": "Explicação detalhada",
-  "examplesTopicLessonPlan": [
-    {
-      "titleExamplesTopicLessonPlan": "...",
-      "contentExamplesTopicLessonPlan": "..."
-    }
-  ],
-  "activitiesTopicLessonPlan": [
-    {
-      "titleActivitiesTopicLessonPlan": "...",
-      "contentActivitiesTopicLessonPlan": "...",
-      "explicationActivitiesTopicLessonPlan": "..."
-    }
-  ],
-  "connectionsTopicLessonPlan": [
-    { "titleConnectionsTopics": "...", "contentConnectionsTopics": "..." }
-  ]
-}
-```
-
-**Exemplo de Request completo:**
+**Exemplo de Request:**
 
 ```json
 {
   "subjectLessonPlan": "Estrutura de Dados em Java",
-  "descriptionLessonPlan": "Aula sobre listas duplamente encadeadas...",
+  "descriptionLessonPlan": "Aula sobre listas duplamente encadeadas.",
   "gradeLevelLessonPlan": "Ensino Superior",
   "complexityLevelLessonPlan": "Avançado",
   "durationMinutesLessonPlan": 120,
-  "generalObjective": "Capacitar os alunos...",
-  "objectives": [
+  "generalObjective": "Capacitar os alunos a compreender e implementar listas...",
+  "specificObjectives": [
     {
-      "titleObjetivesLessonPlan": "Compreender conceitos",
-      "contentObjetivesLessonPlan": "..."
+      "titleObjetivesLessonPlan": "Compreender o conceito",
+      "contentObjetivesLessonPlan": "Entender a estrutura e nós."
+    }
+  ],
+  "competencies": [
+    { "contentCompetenciesLessonPlan": "Desenvolver raciocínio lógico." }
+  ],
+  "themes": [
+    {
+      "titleThemesLessonPlan": "Introdução",
+      "contentThemesLessonPlan": "Diferenças entre listas."
+    }
+  ],
+  "teachingMethodologies": [
+    {
+      "titleMethodologyLessonPlan": "Metodologia ativa",
+      "contentMethodologyLessonPlan": "Prática de código."
     }
   ],
   "topics": [
     {
-      "titleTopicsLessonPlan": "Introdução",
-      "contentTopicsLessonPlan": "Conceitos básicos",
+      "titleTopicsLessonPlan": "Introdução às Listas",
+      "contentTopicsLessonPlan": "Conceitos básicos...",
+      "detailed_explanation_topic_lesson_plan": "Explicação detalhada...",
       "examplesTopicLessonPlan": [
         {
-          "titleExamplesTopicLessonPlan": "Exemplo 1",
-          "contentExamplesTopicLessonPlan": "..."
+          "titleExamplesTopicLessonPlan": "Navegador Web",
+          "contentExamplesTopicLessonPlan": "Histórico..."
+        }
+      ],
+      "activitiesTopicLessonPlan": [
+        {
+          "titleActivitiesTopicLessonPlan": "Comparação",
+          "contentActivitiesTopicLessonPlan": "Comparar listas...",
+          "explicationActivitiesTopicLessonPlan": "Promove análise."
+        }
+      ],
+      "connectionsTopicLessonPlan": [
+        {
+          "titleConnectionsTopics": "Sistemas Operacionais",
+          "contentConnectionsTopics": "Gerenciamento de processos."
         }
       ]
     }
   ],
   "homework": {
-    "description": "Implementar lista...",
-    "objective": "Consolidar prática."
+    "description": "Implementar lista genérica...",
+    "objective": "Consolidar conhecimento."
   },
   "inclusiveAdaptation": {
     "visualImpairment": "Materiais acessíveis...",
     "learningDifficulties": "Etapas menores...",
     "highAbilities": "Desafios extras..."
   },
+  "references": [
+    { "contentReferencesLessonPlan": "Goodrich, M. T. (2014)..." }
+  ],
   "closure": {
-    "summary": "Revisão...",
-    "reflection": "Discussão...",
-    "nextSteps": "Próximos passos..."
+    "summary": "Revisão dos conceitos...",
+    "reflection": "Discussão sobre importância...",
+    "nextSteps": "Introdução a árvores..."
   }
 }
 ```
 
 #### 📤 Response (Sucesso)
 
-Retorna o objeto criado com todos os IDs (UUIDs) gerados para cada sub-item.
+```json
+{
+    "message": "Plano de aula criado com sucesso.",
+    "sucess": true,
+    "createdLessonPlan": {
+        "id_lesson_plan": "ccd71d66-e8ca-4c99-b302-69a40b655638",
+        "subjectLessonPlan": "Estrutura de Dados em Java",
+        "objetives_lesson_plan": [ ... ],
+        "topics_lesson_plan": [ ... ]
+        // ...restante da estrutura com IDs gerados
+    }
+}
+```
 
 ---
 
 ### 2\. Listar Planos - Admin (`Get by Admin`)
 
-Retorna todos os planos de aula cadastrados no sistema.
-
 - **Método:** `GET`
 - **Rota:** `/lesson-plans/get-lesson-plans/admin`
-- **Autenticação:** Bearer Token
+- **Query Params:** `page=1`, `limit=10`
 
-#### ⚙️ Query Params
+#### 📤 Response
 
-| Parâmetro | Tipo | Padrão | Descrição         |
-| :-------- | :--- | :----- | :---------------- |
-| `page`    | Int  | 1      | Número da página. |
-| `limit`   | Int  | 10     | Itens por página. |
+```json
+{
+    "total": 8,
+    "totalPages": 8,
+    "currentPage": 2,
+    "data": [ { ... } ] // Array de planos de aula
+}
+```
 
 ---
 
 ### 3\. Listar Planos - Usuário (`Get by User`)
 
-Retorna apenas os planos de aula pertencentes ao usuário autenticado.
-
 - **Método:** `GET`
 - **Rota:** `/lesson-plans/get-lesson-plans/user`
-- **Autenticação:** Bearer Token
+- **Query Params:** `page=1`, `limit=10`
 
-#### ⚙️ Query Params
+#### 📤 Response
 
-| Parâmetro | Tipo | Padrão | Descrição         |
-| :-------- | :--- | :----- | :---------------- |
-| `page`    | Int  | 1      | Número da página. |
-| `limit`   | Int  | 10     | Itens por página. |
+```json
+{
+    "total": 8,
+    "totalPages": 8,
+    "currentPage": 1,
+    "data": [ { ... } ] // Array de planos do usuário logado
+}
+```
 
 ---
 
 ### 4\. Obter Plano por ID (`Get by ID`)
 
-Retorna a árvore completa de dados de um plano específico.
+Retorna a estrutura completa e aninhada de um plano específico.
 
 - **Método:** `GET`
 - **Rota:** `/lesson-plans/get-lesson-plans/id/:id`
-- **Parâmetro:** `:id` (UUID do plano de aula)
+
+#### 📤 Response
+
+```json
+{
+    "id_lesson_plan": "ccd71d66-e8ca-4c99-b302-69a40b655638",
+    "subjectLessonPlan": "Estrutura de Dados em Java",
+    "topics_lesson_plan": [
+        {
+            "id_topics_lesson_plan": "...",
+            "titleTopicsLessonPlan": "...",
+            "examples_topics": [ ... ],
+            "activities_topics": [ ... ]
+        }
+    ]
+    // ... Objeto completo
+}
+```
 
 ---
 
-## ✏️ Endpoints de Atualização (Granular)
+## 🛠️ Endpoints de Atualização (Granular)
 
-O sistema permite atualizar partes específicas do plano de aula sem reenviar o objeto inteiro. Cada componente tem sua própria rota.
+Estas rotas permitem alterar partes específicas do plano sem reenviar todo o conteúdo.
 
 ### 5\. Atualizar Dados Gerais (`Patch Lesson`)
 
-Atualiza metadados principais do plano.
-
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/lesson-plan/:id`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "subjectLessonPlan": "Estrutura de Dados em Java novo"
-}
+{ "subjectLessonPlan": "Estrutura de Dados em Java novo" }
 ```
 
-### 6\. Atualizar Objetivos (`Patch Objetives`)
+### 6\. Atualizar Objetivo Específico (`Patch Objetives`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/objetives/:id_objective`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
 {
-  "titleObjetivesLessonPlan": "Compreender o conceito de lista..."
+  "titleObjetivesLessonPlan": "Compreender o conceito de lista duplamente encadeada"
 }
 ```
 
-### 7\. Atualizar Competências (`Patch Competencies`)
+### 7\. Atualizar Competência (`Patch Competencies`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/competencies/:id_competency`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "contentCompetenciesLessonPlan": "Desenvolver a capacidade de abstração..."
-}
+{ "contentCompetenciesLessonPlan": "Desenvolver a capacidade de abstração..." }
 ```
 
-### 8\. Atualizar Temas (`Patch Themes`)
+### 8\. Atualizar Tema (`Patch Themes`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/themes/:id_theme`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleThemesLessonPlan": "Introdução às listas atualizada"
-}
+{ "titleThemesLessonPlan": "Introdução às listas duplamente encadeadas2" }
 ```
 
 ### 9\. Atualizar Metodologia (`Patch Methodology`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/methodology/:id_methodology`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleMethodologyLessonPlan": "Metodologia Ativa Revisada"
-}
+{ "titleMethodologyLessonPlan": "Introdução às listas duplamente encadeadas" }
 ```
 
-### 10\. Atualizar Tópicos (`Patch Topics`)
+### 10\. Atualizar Tópico Principal (`Patch Topics`)
 
-Atualiza o título ou conteúdo principal de um tópico (não seus sub-itens).
+Atualiza título ou conteúdo do tópico (não os sub-itens).
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/topics/:id_topic`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleTopicsLessonPlan": "Introdução às Listas Encadeadas e suas Variações"
-}
+{ "titleTopicsLessonPlan": "Introdução às Listas Encadeadas e suas Variações" }
 ```
 
-### 11\. Atualizar Exemplos de Tópicos (`Patch Topics Examples`)
+### 11\. Atualizar Exemplo do Tópico (`Patch Topics Examples`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/examples-topics/:id_example`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleExamplesTopicLessonPlan": "Editor de texto (Exemplo Prático)"
-}
+{ "titleExamplesTopicLessonPlan": "Editor de texto" }
 ```
 
-### 12\. Atualizar Atividades de Tópicos (`Patch Topics Activities`)
+### 12\. Atualizar Atividade do Tópico (`Patch Topics Activities`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/Activities-topics/:id_activity`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleActivitiesTopicLessonPlan": "Discussão em Grupo (Revisada)"
-}
+{ "titleActivitiesTopicLessonPlan": "Discussão em Grupo" }
 ```
 
-### 13\. Atualizar Conexões de Tópicos (`Patch Topics Connections`)
+### 13\. Atualizar Conexão do Tópico (`Patch Topics Connections`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/connections-topics/:id_connection`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "titleConnectionsTopics": "Editores de Texto Modernos"
-}
+{ "titleConnectionsTopics": "Editores de Texto" }
 ```
 
 ### 14\. Atualizar Adaptação Inclusiva (`Patch Inclusive Adaptation`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/inclusive-adaptation/:id_adaptation`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
 {
-  "visualImpairment": "Disponibilizar o material didático em formato acessível (HTML, PDF)..."
+  "visualImpairment": "Disponibilizar o material didático em formato acessível..."
 }
 ```
 
@@ -323,39 +340,36 @@ Atualiza o título ou conteúdo principal de um tópico (não seus sub-itens).
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/references/:id_reference`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "contentReferencesLessonPlan": "Goodrich, M. T. (2014). Data Structures... (Edição Revisada)"
-}
+{ "contentReferencesLessonPlan": "Goodrich, M. T. (2014). Data Structures..." }
 ```
 
 ### 16\. Atualizar Fechamento (`Patch Closure`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/closure/:id_closure`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "reflection": "Incentivar os alunos a refletir sobre a importância..."
-}
+{ "reflection": "Incentivar os alunos a refletir..." }
 ```
 
-### 17\. Atualizar Dever de Casa (`Patch Homework`)
+### 17\. Atualizar Tarefa de Casa (`Patch Homework`)
 
 - **Método:** `PATCH`
 - **Rota:** `/lesson-plans/update/homeworks/:id_homework`
+- **Body:**
 
-#### 📥 Body (JSON)
+<!-- end list -->
 
 ```json
-{
-  "description": "Implementar uma lista genérica com testes unitários."
-}
+{ "description": "Implementar uma lista duplamente encadeada genérica..." }
 ```
 
 ---
@@ -364,7 +378,7 @@ Atualiza o título ou conteúdo principal de um tópico (não seus sub-itens).
 
 ### 18\. Deletar Plano de Aula (`Delete Lesson`)
 
-Remove um plano de aula criado pelo usuário.
+Remove um plano de aula pertencente ao usuário.
 
 - **Método:** `DELETE`
 - **Rota:** `/lesson-plans/delete-lesson-plan/:id`
@@ -372,13 +386,13 @@ Remove um plano de aula criado pelo usuário.
 
 ### 19\. Deletar Plano de Aula - Admin (`Delete Lesson Adm`)
 
-Rota administrativa para remoção forçada de planos de aula.
+Rota administrativa para remoção de qualquer plano.
 
 - **Método:** `DELETE`
 - **Rota:** `/lesson-plans/delete-lesson-plan-admin/:id`
 - **Autenticação:** Bearer Token (Admin)
 
-#### 📤 Response (Padrão)
+#### 📤 Response (Ambos)
 
 ```json
 {

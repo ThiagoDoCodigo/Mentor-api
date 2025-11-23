@@ -201,7 +201,7 @@ A API permite atualizar partes específicas da estrutura sem a necessidade de re
 Atualiza metadados da lista (título, descrição, tempo, etc).
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/exercise/:id`
+- **Rota:** `/exercises/update/exercise/:id_exercise`
 
 #### 📥 Body (JSON)
 
@@ -218,7 +218,7 @@ Atualiza metadados da lista (título, descrição, tempo, etc).
 Atualiza o enunciado, explicação ou gabarito de uma questão específica.
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/exercise-item/:id_item`
+- **Rota:** `/exercises/update/exercise-item/:id_exercise_item`
 
 #### 📥 Body (JSON)
 
@@ -234,7 +234,7 @@ Atualiza o enunciado, explicação ou gabarito de uma questão específica.
 Atualiza um objetivo de aprendizagem específico.
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/objective/:id_objective`
+- **Rota:** `/exercises/update/objective/:id_objective_exercises`
 
 #### 📥 Body (JSON)
 
@@ -249,7 +249,7 @@ Atualiza um objetivo de aprendizagem específico.
 Atualiza um tema específico.
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/theme/:id_theme`
+- **Rota:** `/exercises/update/theme/:id_theme_exercises`
 
 #### 📥 Body (JSON)
 
@@ -264,7 +264,7 @@ Atualiza um tema específico.
 Atualiza o texto de uma alternativa de múltipla escolha.
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/option-multiple/:id_option`
+- **Rota:** `/exercises/update/option-multiple/:id_optionsMultiple`
 
 #### 📥 Body (JSON)
 
@@ -279,7 +279,7 @@ Atualiza o texto de uma alternativa de múltipla escolha.
 Atualiza o texto de uma alternativa de verdadeiro ou falso.
 
 - **Método:** `PATCH`
-- **Rota:** `/exercises/update/option-true-or-false/:id_option`
+- **Rota:** `/exercises/update/option-true-or-false/:id_optionsTrueOrFalse`
 
 #### 📥 Body (JSON)
 
@@ -298,7 +298,7 @@ Atualiza o texto de uma alternativa de verdadeiro ou falso.
 Remove uma lista de exercícios (deve pertencer ao usuário).
 
 - **Método:** `DELETE`
-- **Rota:** `/exercises/delete-exercise/:id`
+- **Rota:** `/exercises/delete-exercise/:id_exercise`
 - **Autenticação:** Bearer Token
 
 ### 12\. Deletar Exercício - Admin (`Delete Exercise Adm`)
@@ -306,7 +306,7 @@ Remove uma lista de exercícios (deve pertencer ao usuário).
 Remove qualquer lista de exercícios (rota administrativa).
 
 - **Método:** `DELETE`
-- **Rota:** `/exercises/delete-exercise-admin/:id`
+- **Rota:** `/exercises/delete-exercise-admin/:id_exercise`
 - **Autenticação:** Bearer Token (Admin)
 
 #### 📤 Response (Padrão para Deleção)
