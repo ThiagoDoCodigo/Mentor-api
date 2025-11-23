@@ -1,7 +1,3 @@
-Aqui está a documentação técnica completa para o módulo **Auth**, seguindo o mesmo padrão rigoroso de formatação e detalhamento do módulo anterior.
-
----
-
 # 🔐 Módulo de Autenticação (Auth API)
 
 Este documento detalha os endpoints responsáveis pelo controle de acesso e gerenciamento de sessões da aplicação. O módulo gerencia o login (emissão de tokens) e a renovação de credenciais (refresh token).
