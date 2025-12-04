@@ -21,7 +21,7 @@ O **Projeto Mentor** é construído sobre uma arquitetura robusta utilizando **F
 | **Banco de Dados** | PostgreSQL        | SGBD Relacional robusto para persistência de dados.                      |
 | **ORM**            | Sequelize         | Abstração e manipulação do banco de dados via objetos (Models).          |
 | **Segurança**      | JWT & Bcrypt      | Autenticação via Tokens (Access/Refresh) e hash seguro de senhas.        |
-| **Testes**         | Jest              | Framework completo para testes unitários e de integração.                |
+| **Testes**         | Jest              | Framework completo para testes unitários, integração e E2E.              |
 | **AI**             | Google Gemini API | Motor de geração de conteúdo educacional.                                |
 
 ---
@@ -45,7 +45,9 @@ Na raiz do projeto, execute o comando para baixar as bibliotecas:
 ```bash
 npm install
 ```
+
 # ou
+
 ```bash
 yarn install
 ```
@@ -172,3 +174,25 @@ npm run test:integration
 ```
 
 > **Nota:** Os testes de integração utilizam o banco `MENTOR-API-TEST` e o limpam a cada execução.
+
+### 🧪 Testes End-to-End (E2E)
+
+Os testes **E2E simulam o uso real da aplicação**, iniciando o servidor de verdade e enviando requisições HTTP como se fossem um cliente externo (ex.: front-end, app mobile ou Postman).
+
+Eles validam **todo o fluxo completo**, incluindo:
+
+- Rotas reais
+- Middlewares
+- Controllers
+- Serviços
+- Banco de dados
+- Regras de autenticação
+- Erros
+- Respostas completas
+
+```bash
+npm run test:e2e
+```
+
+> **Nota:** Os testes E2E utilizam o banco `MENTOR-API-TEST` e também o limpam a cada execução.
+> O servidor é iniciado automaticamente no início do teste e finalizado ao término.

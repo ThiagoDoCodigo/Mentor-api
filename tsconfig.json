@@ -16,6 +16,7 @@
     "dist",
     "jest.unit.config.ts",
     "jest.integration.config.ts",
+    "jest.e2e.config.ts",
     "**/*.test.ts"
   ]
 }
